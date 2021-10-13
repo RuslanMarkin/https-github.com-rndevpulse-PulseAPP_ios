@@ -9,21 +9,29 @@
 /* Begin PBXBuildFile section */
 		4B4210E127157C4700D5E809 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210E027157C4700D5E809 /* AppDelegate.swift */; };
 		4B4210E327157C4700D5E809 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210E227157C4700D5E809 /* SceneDelegate.swift */; };
-		4B4210E527157C4700D5E809 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210E427157C4700D5E809 /* ViewController.swift */; };
+		4B4210E527157C4700D5E809 /* AuthFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210E427157C4700D5E809 /* AuthFormViewController.swift */; };
 		4B4210E827157C4700D5E809 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B4210E627157C4700D5E809 /* Main.storyboard */; };
 		4B4210EA27157C4900D5E809 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B4210E927157C4900D5E809 /* Assets.xcassets */; };
 		4B4210ED27157C4900D5E809 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B4210EB27157C4900D5E809 /* LaunchScreen.storyboard */; };
+		4B4210F52715953B00D5E809 /* RegistrationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */; };
+		4B4210F72715A9D500D5E809 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F62715A9D500D5E809 /* APIController.swift */; };
+		4B4210F92715C59F00D5E809 /* VerificationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */; };
+		4B9113F32716B24800841927 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9113F22716B24700841927 /* UserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4B4210DD27157C4700D5E809 /* PulseAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PulseAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B4210E027157C4700D5E809 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B4210E227157C4700D5E809 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4B4210E427157C4700D5E809 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4B4210E427157C4700D5E809 /* AuthFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFormViewController.swift; sourceTree = "<group>"; };
 		4B4210E727157C4700D5E809 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4B4210E927157C4900D5E809 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B4210EC27157C4900D5E809 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B4210EE27157C4900D5E809 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFormViewController.swift; sourceTree = "<group>"; };
+		4B4210F62715A9D500D5E809 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
+		4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationFormViewController.swift; sourceTree = "<group>"; };
+		4B9113F22716B24700841927 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,27 @@
 		4B4210DF27157C4700D5E809 /* PulseAPP */ = {
 			isa = PBXGroup;
 			children = (
+				4B9113F12716B05400841927 /* UserAPIControllers */,
 				4B4210E027157C4700D5E809 /* AppDelegate.swift */,
 				4B4210E227157C4700D5E809 /* SceneDelegate.swift */,
-				4B4210E427157C4700D5E809 /* ViewController.swift */,
+				4B4210E427157C4700D5E809 /* AuthFormViewController.swift */,
 				4B4210E627157C4700D5E809 /* Main.storyboard */,
 				4B4210E927157C4900D5E809 /* Assets.xcassets */,
 				4B4210EB27157C4900D5E809 /* LaunchScreen.storyboard */,
 				4B4210EE27157C4900D5E809 /* Info.plist */,
+				4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */,
+				4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */,
 			);
 			path = PulseAPP;
+			sourceTree = "<group>";
+		};
+		4B9113F12716B05400841927 /* UserAPIControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4B4210F62715A9D500D5E809 /* APIController.swift */,
+				4B9113F22716B24700841927 /* UserData.swift */,
+			);
+			path = UserAPIControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +158,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B4210E527157C4700D5E809 /* ViewController.swift in Sources */,
+				4B4210E527157C4700D5E809 /* AuthFormViewController.swift in Sources */,
+				4B4210F52715953B00D5E809 /* RegistrationFormViewController.swift in Sources */,
+				4B9113F32716B24800841927 /* UserData.swift in Sources */,
 				4B4210E127157C4700D5E809 /* AppDelegate.swift in Sources */,
+				4B4210F92715C59F00D5E809 /* VerificationFormViewController.swift in Sources */,
 				4B4210E327157C4700D5E809 /* SceneDelegate.swift in Sources */,
+				4B4210F72715A9D500D5E809 /* APIController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

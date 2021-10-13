@@ -1,24 +1,251 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g3z-xH-mLk">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Auth Form View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController id="BYZ-38-t0r" customClass="AuthFormViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="AuthForm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="mSl-9r-uHc">
+                                <rect key="frame" x="57" y="258.5" width="300" height="379.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authorization" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTe-kf-wDi">
+                                        <rect key="frame" x="69.5" y="0.0" width="161" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <color key="textColor" name="AccentColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="tel. number/e-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hBA-Tt-djh">
+                                        <rect key="frame" x="75" y="70.5" width="150" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="Fne-hy-5rC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jGa-U9-Ksn">
+                                        <rect key="frame" x="75" y="141.5" width="150" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="CaV-wQ-dZ1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVB-zt-o5i">
+                                        <rect key="frame" x="128" y="212.5" width="44" height="31"/>
+                                        <color key="backgroundColor" name="AccentColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="OK"/>
+                                        <connections>
+                                            <action selector="OKButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W2M-kB-OZn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3o-ul-qjX">
+                                        <rect key="frame" x="99" y="280.5" width="102" height="31"/>
+                                        <color key="backgroundColor" name="AccentColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Registration"/>
+                                        <connections>
+                                            <segue destination="yPY-vt-e21" kind="show" id="34m-SN-Sl7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vmX-9n-ha3">
+                                        <rect key="frame" x="50" y="348.5" width="200" height="31"/>
+                                        <color key="backgroundColor" name="AccentColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Login without authorization"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="LY3-Qr-Ugv"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                        <constraints>
+                            <constraint firstItem="mSl-9r-uHc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="C7x-aD-VyR"/>
+                            <constraint firstItem="mSl-9r-uHc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="k5Q-B4-8rA"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="e6a-yJ-HHC"/>
+                    <connections>
+                        <outlet property="loginTextField" destination="hBA-Tt-djh" id="frU-Su-xv7"/>
+                        <outlet property="passwordTextField" destination="jGa-U9-Ksn" id="t2n-Jw-U8h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="928.98550724637687" y="68.973214285714278"/>
+        </scene>
+        <!--Registration Form View Controller-->
+        <scene sceneID="idN-kq-aOP">
+            <objects>
+                <viewController id="yPY-vt-e21" customClass="RegistrationFormViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aTv-Au-Ded">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="NgG-QL-SYY">
+                                <rect key="frame" x="57" y="255.5" width="300" height="385.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG5-Tx-e7O">
+                                        <rect key="frame" x="77.5" y="0.0" width="145" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <color key="textColor" name="AccentColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="your name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NJD-GQ-dA4">
+                                        <rect key="frame" x="75" y="70.5" width="150" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="036-pf-xD2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Due-iA-Vyb">
+                                        <rect key="frame" x="75" y="141.5" width="150" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="tel.number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mwi-QK-hyA">
+                                        <rect key="frame" x="75" y="212.5" width="150" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="e-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vmR-AE-oO8">
+                                        <rect key="frame" x="75" y="283.5" width="150" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ytx-yU-EXC">
+                                        <rect key="frame" x="112" y="354.5" width="76" height="31"/>
+                                        <color key="backgroundColor" name="AccentColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Confirm"/>
+                                        <connections>
+                                            <action selector="confirmButtonTapped:" destination="yPY-vt-e21" eventType="touchUpInside" id="pi5-zL-Th3"/>
+                                            <segue destination="CUl-pu-VAJ" kind="presentation" id="7I2-fm-auk"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="N7O-6O-nVO"/>
+                                    <constraint firstItem="Mwi-QK-hyA" firstAttribute="width" secondItem="NJD-GQ-dA4" secondAttribute="width" id="WQe-9b-QJY"/>
+                                    <constraint firstItem="Due-iA-Vyb" firstAttribute="width" secondItem="NJD-GQ-dA4" secondAttribute="width" id="eLC-95-3c9"/>
+                                    <constraint firstItem="vmR-AE-oO8" firstAttribute="width" secondItem="NJD-GQ-dA4" secondAttribute="width" id="qP4-gj-UZx"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mJl-Yv-Mad"/>
+                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                        <constraints>
+                            <constraint firstItem="NgG-QL-SYY" firstAttribute="centerX" secondItem="aTv-Au-Ded" secondAttribute="centerX" id="ntW-UI-eaB"/>
+                            <constraint firstItem="NgG-QL-SYY" firstAttribute="centerY" secondItem="aTv-Au-Ded" secondAttribute="centerY" id="pho-m6-M2h"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="8m4-Eg-TiG"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="vmR-AE-oO8" id="ydw-5h-MLp"/>
+                        <outlet property="passwordTextField" destination="Due-iA-Vyb" id="dCT-5O-oLu"/>
+                        <outlet property="telNumberTextField" destination="Mwi-QK-hyA" id="4he-Le-CbP"/>
+                        <outlet property="userNameTextField" destination="NJD-GQ-dA4" id="d7u-1Y-rQK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j71-Sg-AHg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1792.753623188406" y="68.973214285714278"/>
+        </scene>
+        <!--Verification Form View Controller-->
+        <scene sceneID="5q7-9d-j9c">
+            <objects>
+                <viewController id="CUl-pu-VAJ" customClass="VerificationFormViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5QI-PD-KEE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8TQ-pR-ZKS">
+                                <rect key="frame" x="107" y="757" width="200" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Login without authorization"/>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="Iop-ZL-XFe">
+                                <rect key="frame" x="58.5" y="366.5" width="297.5" height="109"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6-digit verifaction code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sk-7o-IId">
+                                        <rect key="frame" x="0.0" y="0.0" width="297.5" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <color key="textColor" name="AccentColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9oI-Ml-RCn">
+                                        <rect key="frame" x="98.5" y="73" width="100" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="i7I-jf-zdG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="RF4-7Y-4rn"/>
+                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                        <constraints>
+                            <constraint firstItem="Iop-ZL-XFe" firstAttribute="centerX" secondItem="5QI-PD-KEE" secondAttribute="centerX" id="6de-UI-tqx"/>
+                            <constraint firstItem="8TQ-pR-ZKS" firstAttribute="centerX" secondItem="5QI-PD-KEE" secondAttribute="centerX" id="Dud-Nd-SwX"/>
+                            <constraint firstItem="Iop-ZL-XFe" firstAttribute="centerY" secondItem="5QI-PD-KEE" secondAttribute="centerY" id="FTf-Kc-ZBZ"/>
+                            <constraint firstItem="RF4-7Y-4rn" firstAttribute="bottom" secondItem="8TQ-pR-ZKS" secondAttribute="bottom" constant="20" id="PDe-Zg-3F1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="verificationTextField" destination="9oI-Ml-RCn" id="4Qx-zM-QgO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T6A-eB-v2M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2676.811594202899" y="68.973214285714278"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="TkC-DD-Uq3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="g3z-xH-mLk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="u5W-Qd-ig4">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="1z4-CW-h8M"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UIK-dn-9ua" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="68.973214285714278"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
