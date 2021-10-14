@@ -25,11 +25,19 @@ class AuthFormViewController: UIViewController {
                 DispatchQueue.main.async {
                     if let userData = userData {
                         print(userData)
+                        self.performSegue(withIdentifier: "UserAuthSegue", sender: nil)
 // Что делать с токеном и userId после авторизации?
                     }
                 }
             }
         }
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "UserAuthSegue" {
+//            let mainGlobeTabBarController = segue.destination as! MainGlobeTabBarController
+//            
+//        }
+//    }
 }
 

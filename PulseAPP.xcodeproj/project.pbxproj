@@ -17,6 +17,13 @@
 		4B4210F72715A9D500D5E809 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F62715A9D500D5E809 /* APIController.swift */; };
 		4B4210F92715C59F00D5E809 /* VerificationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */; };
 		4B9113F32716B24800841927 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9113F22716B24700841927 /* UserData.swift */; };
+		4B9113F52717086F00841927 /* MainGlobeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9113F42717086F00841927 /* MainGlobeTabBarController.swift */; };
+		4B9113F72717153B00841927 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9113F62717153B00841927 /* MapViewController.swift */; };
+		4B9113F92717157500841927 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9113F82717157500841927 /* UserProfileViewController.swift */; };
+		4B9113FB271719AF00841927 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9113FA271719AF00841927 /* CalendarViewController.swift */; };
+		4B9113FD27171A7500841927 /* SubscriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9113FC27171A7500841927 /* SubscriptionsViewController.swift */; };
+		4B9113FF27171BD900841927 /* ToolMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9113FE27171BD900841927 /* ToolMenuViewController.swift */; };
+		4B91140227171E3B00841927 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B91140127171E3B00841927 /* ErrorHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +39,13 @@
 		4B4210F62715A9D500D5E809 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationFormViewController.swift; sourceTree = "<group>"; };
 		4B9113F22716B24700841927 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		4B9113F42717086F00841927 /* MainGlobeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGlobeTabBarController.swift; sourceTree = "<group>"; };
+		4B9113F62717153B00841927 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		4B9113F82717157500841927 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		4B9113FA271719AF00841927 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		4B9113FC27171A7500841927 /* SubscriptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewController.swift; sourceTree = "<group>"; };
+		4B9113FE27171BD900841927 /* ToolMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolMenuViewController.swift; sourceTree = "<group>"; };
+		4B91140127171E3B00841927 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,11 +78,18 @@
 		4B4210DF27157C4700D5E809 /* PulseAPP */ = {
 			isa = PBXGroup;
 			children = (
+				4B91140127171E3B00841927 /* ErrorHandler.swift */,
 				4B9113F12716B05400841927 /* UserAPIControllers */,
 				4B4210E027157C4700D5E809 /* AppDelegate.swift */,
 				4B4210E227157C4700D5E809 /* SceneDelegate.swift */,
 				4B4210E427157C4700D5E809 /* AuthFormViewController.swift */,
 				4B4210E627157C4700D5E809 /* Main.storyboard */,
+				4B9113FE27171BD900841927 /* ToolMenuViewController.swift */,
+				4B9113FC27171A7500841927 /* SubscriptionsViewController.swift */,
+				4B9113FA271719AF00841927 /* CalendarViewController.swift */,
+				4B9113F82717157500841927 /* UserProfileViewController.swift */,
+				4B9113F62717153B00841927 /* MapViewController.swift */,
+				4B9113F42717086F00841927 /* MainGlobeTabBarController.swift */,
 				4B4210E927157C4900D5E809 /* Assets.xcassets */,
 				4B4210EB27157C4900D5E809 /* LaunchScreen.storyboard */,
 				4B4210EE27157C4900D5E809 /* Info.plist */,
@@ -158,9 +179,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B9113F52717086F00841927 /* MainGlobeTabBarController.swift in Sources */,
+				4B91140227171E3B00841927 /* ErrorHandler.swift in Sources */,
+				4B9113F92717157500841927 /* UserProfileViewController.swift in Sources */,
 				4B4210E527157C4700D5E809 /* AuthFormViewController.swift in Sources */,
+				4B9113FF27171BD900841927 /* ToolMenuViewController.swift in Sources */,
+				4B9113FB271719AF00841927 /* CalendarViewController.swift in Sources */,
 				4B4210F52715953B00D5E809 /* RegistrationFormViewController.swift in Sources */,
+				4B9113FD27171A7500841927 /* SubscriptionsViewController.swift in Sources */,
 				4B9113F32716B24800841927 /* UserData.swift in Sources */,
+				4B9113F72717153B00841927 /* MapViewController.swift in Sources */,
 				4B4210E127157C4700D5E809 /* AppDelegate.swift in Sources */,
 				4B4210F92715C59F00D5E809 /* VerificationFormViewController.swift in Sources */,
 				4B4210E327157C4700D5E809 /* SceneDelegate.swift in Sources */,

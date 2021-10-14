@@ -32,6 +32,8 @@ class APIController {
                 completion(userData)
             } else {
                 completion(nil)
+                //print(error)
+                //throw ErrorHandler.badRequest(<#T##Int#>, <#T##String#>)
             }
         }
         task.resume()
