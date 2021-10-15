@@ -11,9 +11,11 @@ class AuthFormViewController: UIViewController {
 
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var invalidLoginLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        invalidLoginLabel.isHidden = true
         // Do any additional setup after loading the view.
     }
 
@@ -21,11 +23,20 @@ class AuthFormViewController: UIViewController {
     @IBAction func OKButtonTapped(_ sender: Any) {
         if let login = loginTextField.text, let password = passwordTextField.text {
             APIController.shared.authentication(withlogin: login, password: password) {
-                (userData) in
+                (result) in
                 DispatchQueue.main.async {
-                    if let userData = userData {
+                    switch result {
+                    case .success(let userData):
                         print(userData)
                         self.performSegue(withIdentifier: "UserAuthSegue", sender: nil)
+                    case .failure(let error):
+                        self.invalidLoginLabel.alpha = 1
+                        self.invalidLoginLabel.isHidden = false
+                        self.invalidLoginLabel.text = "Wrong login"
+                        UIView.animate(withDuration: 1.0, animations: { () -> Void in
+                            self.invalidLoginLabel.alpha = 0
+                        })
+                        print(error)
 // Что делать с токеном и userId после авторизации?
                     }
                 }

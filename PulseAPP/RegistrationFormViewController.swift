@@ -15,6 +15,7 @@ class RegistrationFormViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var telNumberTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var invalidInputLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +26,20 @@ class RegistrationFormViewController: UIViewController {
     @IBAction func confirmButtonTapped(_ sender: UIButton) {
         if let userName = userNameTextField.text, let password = passwordTextField.text, let telNumber = telNumberTextField.text, let email = emailTextField.text {
             APIController.shared.registration(withlogin: userName, password: password, telNumber: telNumber, email: email) {
-                (regisUserData) in
+                (result) in
                 DispatchQueue.main.async {
-                    if let regisUserData = regisUserData {
-                        print(regisUserData)
+                    switch result {
+                    case .success(let regisData):
+                        print(regisData)
+                        self.performSegue(withIdentifier: "VerificationSegue", sender: nil)
+                    case .failure(let error):
+                        self.invalidInputLabel.alpha = 1
+                        self.invalidInputLabel.isHidden = false
+                        self.invalidInputLabel.text = "Wrong login"
+                        UIView.animate(withDuration: 1.0, animations: { () -> Void in
+                            self.invalidInputLabel.alpha = 0
+                        })
+                        print(error)
                     }
                 }
             }

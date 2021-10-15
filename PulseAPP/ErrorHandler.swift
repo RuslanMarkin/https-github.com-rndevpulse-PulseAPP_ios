@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ErrorHandler {
+public enum ErrorHandler: Error {
     
     case badRequest(Int, String)
     case responseOk

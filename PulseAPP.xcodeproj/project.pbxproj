@@ -83,6 +83,7 @@
 				4B4210E027157C4700D5E809 /* AppDelegate.swift */,
 				4B4210E227157C4700D5E809 /* SceneDelegate.swift */,
 				4B4210E427157C4700D5E809 /* AuthFormViewController.swift */,
+				4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */,
 				4B4210E627157C4700D5E809 /* Main.storyboard */,
 				4B9113FE27171BD900841927 /* ToolMenuViewController.swift */,
 				4B9113FC27171A7500841927 /* SubscriptionsViewController.swift */,
@@ -93,7 +94,6 @@
 				4B4210E927157C4900D5E809 /* Assets.xcassets */,
 				4B4210EB27157C4900D5E809 /* LaunchScreen.storyboard */,
 				4B4210EE27157C4900D5E809 /* Info.plist */,
-				4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */,
 				4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */,
 			);
 			path = PulseAPP;
