@@ -11,10 +11,10 @@ class CollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var photoImageView: UIImageView!
     
-    static let identifier = "PhotoCollectionViewCell"
+    static let identifier = "CollectionViewCell"
     
     static func nib() -> UINib {
-        return UINib(nibName: "PhotoCollectionViewCell", bundle: nil)
+        return UINib(nibName: "CollectionViewCell", bundle: nil)
     }
 
     override func awakeFromNib() {

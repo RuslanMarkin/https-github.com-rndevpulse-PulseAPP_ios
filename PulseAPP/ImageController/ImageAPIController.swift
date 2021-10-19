@@ -16,7 +16,7 @@ class ImageAPIController {
     
     func getUserAvatarImage(withUrl: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
         let avatarPhotoURL = baseURL.appendingPathComponent("files/\(withUrl)")
-        print(avatarPhotoURL)
+        
         var request = URLRequest(url: avatarPhotoURL)
         request.httpMethod = "GET"
         

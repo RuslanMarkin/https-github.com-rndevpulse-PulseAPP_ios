@@ -17,6 +17,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        table.register(PublicationTableViewCell.nib(), forCellReuseIdentifier: PublicationTableViewCell.identifier)
         table.delegate = self
         table.dataSource = self	
         // Do any additional setup after loading the view.
@@ -25,12 +26,12 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     //func
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return publications.count
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PublicationInUserProfileCell", for: indexPath) as! PublicationTableViewCell
-        
+        let cell = table.dequeueReusableCell(withIdentifier: PublicationTableViewCell.identifier, for: indexPath) as! PublicationTableViewCell
+        PublicationAPIController.shared.getUserSubscriptionsPublications(withUserId: authUserData.userId, withCoef: 0)
         return cell
     }
     
@@ -48,8 +49,10 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 case .success(let userPreviewData):
                     view.publicNameLabel.text = userPreviewData.publicName
                     view.userNameLabel.text = userPreviewData.name
-                    view.countPublicationsLabel.text = String(userPreviewData.countPublications)
-                    view.countSubscriptionsLabel.text = String(userPreviewData.countUsersSubscription)
+                    view.countPublicationsLabel.text = String("Publications:  \(userPreviewData.countPublications)")
+                    view.countPublicationsLabel.adjustsFontSizeToFitWidth = true
+                    view.countSubscriptionsLabel.text = String("Subscriptions: \(userPreviewData.countUsersSubscription)")
+                    view.countSubscriptionsLabel.adjustsFontSizeToFitWidth = true
                 case .failure(let error):
                     print(error)
                 }
@@ -59,7 +62,6 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             (result) in DispatchQueue.main.async {
                 switch result {
                 case .success(let userPhoto):
-                    print(userPhoto)
                     ImageAPIController.shared.getUserAvatarImage(withUrl: userPhoto.url) {
                         (result) in DispatchQueue.main.async {
                             switch result {
@@ -75,16 +77,6 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             }
         }
-//        APIController.shared.getUserAvatarURL(withToken: userToken) {
-//            (result) in DispatchQueue.main.async {
-//                switch result {
-//                case .success(let userAvatarUrl):
-//                    print(userAvatarUrl)
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-//        }
         return view
     }
     
