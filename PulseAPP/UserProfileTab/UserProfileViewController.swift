@@ -58,8 +58,18 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         APIController.shared.getUserAvatarURL(withToken: userToken) {
             (result) in DispatchQueue.main.async {
                 switch result {
-                case .success(let userPhotoURL):
-                    print(userPhotoURL)
+                case .success(let userPhoto):
+                    print(userPhoto)
+                    ImageAPIController.shared.getUserAvatarImage(withUrl: userPhoto.url) {
+                        (result) in DispatchQueue.main.async {
+                            switch result {
+                            case .success(let image):
+                                view.avatarImage.image = image
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }
+                }
                 case .failure(let error):
                     print(error)
                 }

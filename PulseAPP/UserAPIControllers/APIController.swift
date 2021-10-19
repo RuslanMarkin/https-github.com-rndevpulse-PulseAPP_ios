@@ -112,6 +112,9 @@ class APIController {
         let session = URLSession.init(configuration: config)
         
         let task = session.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+            }
             let jsonDecoder = JSONDecoder()
             if let data = data, let userAvatar = try? jsonDecoder.decode(UserAvatar.self, from: data) {
                 completion(.success(userAvatar))
@@ -121,21 +124,4 @@ class APIController {
         }
         task.resume()
     }
-    
-    
-
-//    var request = URLRequest.init(url: NSURL(string:
-//        "http://127.0.0.1:7000/api/channels?filter=contributed")! as URL)
-//
-//
-//
-//    let dataTask = session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
-//        if (error != nil) {
-//            print(error ?? "")
-//        } else {
-//            let httpResponse = response as? HTTPURLResponse
-//            print(httpResponse ?? "")
-//        }
-//    })
-    
 }
