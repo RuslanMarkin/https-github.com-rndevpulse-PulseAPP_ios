@@ -30,3 +30,12 @@ struct RegistrationUserData: Codable {
         case active = "active"
     }
 }
+
+struct UserPreviewData: Codable {
+    let id: String
+    let publicName: String
+    var name: String
+    var data: String
+    var countPublications: Int
+    var countUsersSubscription: Int
+}

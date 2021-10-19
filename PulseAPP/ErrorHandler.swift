@@ -10,6 +10,7 @@ import Foundation
 public enum ErrorHandler: Error {
     
     case badRequest(Int, String)
+    case imageNotFound(Int)
     case responseOk
     
     func handleCode(errorCode: ErrorHandler) {
@@ -17,6 +18,8 @@ public enum ErrorHandler: Error {
         case .badRequest(let code, let message):
             print("code: \(code)")
             print("message: \(message)")
+        case .imageNotFound(let code):
+            print("code: \(code)")
         case .responseOk:
             break
         }

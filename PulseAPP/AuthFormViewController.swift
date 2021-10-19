@@ -8,6 +8,8 @@
 import UIKit
 
 class AuthFormViewController: UIViewController {
+    
+    var userData: AuthUserData?
 
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -27,7 +29,7 @@ class AuthFormViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let userData):
-                        print(userData)
+                        self.userData = userData
                         self.performSegue(withIdentifier: "UserAuthSegue", sender: nil)
                     case .failure(let error):
                         self.invalidLoginLabel.alpha = 1
@@ -44,11 +46,13 @@ class AuthFormViewController: UIViewController {
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "UserAuthSegue" {
-//            let mainGlobeTabBarController = segue.destination as! MainGlobeTabBarController
-//            
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "UserAuthSegue" {
+            let tabBarController = segue.destination as! MainGlobeTabBarController
+            let navController = tabBarController.viewControllers![0] as! UINavigationController
+            let vc = navController.topViewController as! UserProfileViewController
+            vc.authUserData = userData
+        }
+    }
 }
 
