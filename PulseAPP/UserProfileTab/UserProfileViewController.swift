@@ -9,9 +9,6 @@ import UIKit
 
 class UserProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var authUserData: AuthUserData!
-    var publications = [Publication]()
-    
     @IBOutlet weak var table: UITableView!
     
     override func viewDidLoad() {
@@ -19,19 +16,30 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         
         table.register(PublicationTableViewCell.nib(), forCellReuseIdentifier: PublicationTableViewCell.identifier)
         table.delegate = self
-        table.dataSource = self	
+        table.dataSource = self
+        
+        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0)
+//        {
+//            (result) in
+//            switch result {
+//            case .success(let userPublications):
+//                self.publications = userPublications
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
         // Do any additional setup after loading the view.
     }
     
     //func
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2//publications.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: PublicationTableViewCell.identifier, for: indexPath) as! PublicationTableViewCell
-        PublicationAPIController.shared.getUserSubscriptionsPublications(withUserId: authUserData.userId, withCoef: 0)
+    //    cell.configureTableCell(with: publications[indexPath.row])
         return cell
     }
     
@@ -41,12 +49,15 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = HeaderView.instantiate()
-        let userId = authUserData.userId
-        let userToken = authUserData.accessToken
+    
+        let userId = AuthUserData.shared.userId
+        let userToken = AuthUserData.shared.accessToken
+        print(userId)
         APIController.shared.getUserPreview(withid: userId) {
             (result) in DispatchQueue.main.async {
                 switch result {
                 case .success(let userPreviewData):
+                    print(userPreviewData)
                     view.publicNameLabel.text = userPreviewData.publicName
                     view.userNameLabel.text = userPreviewData.name
                     view.countPublicationsLabel.text = String("Publications:  \(userPreviewData.countPublications)")
@@ -71,7 +82,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                                 print(error)
                             }
                         }
-                }
+                    }
                 case .failure(let error):
                     print(error)
                 }

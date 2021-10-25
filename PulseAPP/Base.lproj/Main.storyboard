@@ -140,6 +140,21 @@
             </objects>
             <point key="canvasLocation" x="3618.840579710145" y="68.973214285714278"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="7TX-mR-CWf">
+            <objects>
+                <viewController id="WnI-ph-VFf" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mwx-ci-IIW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="iWq-kB-qgK"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HTb-nH-SAW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4516" y="69"/>
+        </scene>
         <!--Registration Form View Controller-->
         <scene sceneID="idN-kq-aOP">
             <objects>
@@ -186,6 +201,9 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Confirm"/>
+                                        <connections>
+                                            <action selector="confirmButtonTapped:" destination="yPY-vt-e21" eventType="touchUpInside" id="s4i-OI-TMF"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -218,7 +236,7 @@
                         <outlet property="passwordTextField" destination="Due-iA-Vyb" id="dCT-5O-oLu"/>
                         <outlet property="telNumberTextField" destination="Mwi-QK-hyA" id="4he-Le-CbP"/>
                         <outlet property="userNameTextField" destination="NJD-GQ-dA4" id="d7u-1Y-rQK"/>
-                        <segue destination="CUl-pu-VAJ" kind="presentation" identifier="VerificationSegue" id="XPR-KJ-paE"/>
+                        <segue destination="CUl-pu-VAJ" kind="show" identifier="VerificationSegue" id="XPR-KJ-paE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j71-Sg-AHg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -230,16 +248,16 @@
             <objects>
                 <viewController id="CUl-pu-VAJ" customClass="VerificationFormViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5QI-PD-KEE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8TQ-pR-ZKS">
-                                <rect key="frame" x="107" y="757" width="200" height="31"/>
+                                <rect key="frame" x="107" y="811" width="200" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Login without authorization"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="Iop-ZL-XFe">
-                                <rect key="frame" x="58.5" y="366.5" width="297.5" height="109"/>
+                                <rect key="frame" x="58.5" y="393.5" width="297.5" height="109"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6-digit verifaction code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sk-7o-IId">
                                         <rect key="frame" x="0.0" y="0.0" width="297.5" height="35"/>
@@ -257,18 +275,29 @@
                                     </textField>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXl-3Q-loq">
+                                <rect key="frame" x="186.5" y="760.5" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RF4-7Y-4rn"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
                             <constraint firstItem="Iop-ZL-XFe" firstAttribute="centerX" secondItem="5QI-PD-KEE" secondAttribute="centerX" id="6de-UI-tqx"/>
+                            <constraint firstItem="8TQ-pR-ZKS" firstAttribute="top" secondItem="WXl-3Q-loq" secondAttribute="bottom" constant="30" id="Cio-v0-UKT"/>
                             <constraint firstItem="8TQ-pR-ZKS" firstAttribute="centerX" secondItem="5QI-PD-KEE" secondAttribute="centerX" id="Dud-Nd-SwX"/>
                             <constraint firstItem="Iop-ZL-XFe" firstAttribute="centerY" secondItem="5QI-PD-KEE" secondAttribute="centerY" id="FTf-Kc-ZBZ"/>
                             <constraint firstItem="RF4-7Y-4rn" firstAttribute="bottom" secondItem="8TQ-pR-ZKS" secondAttribute="bottom" constant="20" id="PDe-Zg-3F1"/>
+                            <constraint firstItem="WXl-3Q-loq" firstAttribute="centerX" secondItem="5QI-PD-KEE" secondAttribute="centerX" id="ev2-mV-lKy"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="wVt-Tg-fIj"/>
                     <connections>
+                        <outlet property="invalidInputLabel" destination="WXl-3Q-loq" id="xhl-1C-MZD"/>
                         <outlet property="verificationTextField" destination="9oI-Ml-RCn" id="4Qx-zM-QgO"/>
+                        <segue destination="LiH-ag-2nh" kind="show" identifier="UserRegisterSegue" id="dzp-yt-vIs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T6A-eB-v2M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -400,6 +429,9 @@
             <point key="canvasLocation" x="1816" y="69"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="dzp-yt-vIs"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

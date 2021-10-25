@@ -34,6 +34,11 @@
 		4B91140D2719742300841927 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B91140C2719742300841927 /* HeaderView.swift */; };
 		4B9114102719B51600841927 /* UserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B91140F2719B51600841927 /* UserAvatar.swift */; };
 		4B9114122719B65F00841927 /* ImageAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9114112719B65F00841927 /* ImageAPIController.swift */; };
+		4BFD34CB2722E40600BE5370 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD34C62722E40600BE5370 /* User.swift */; };
+		4BFD34CC2722E40600BE5370 /* Publication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD34C72722E40600BE5370 /* Publication.swift */; };
+		4BFD34CD2722E40600BE5370 /* PublicationCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD34C82722E40600BE5370 /* PublicationCategories.swift */; };
+		4BFD34CE2722E40600BE5370 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD34C92722E40600BE5370 /* Json4Swift_Base.swift */; };
+		4BFD34CF2722E40600BE5370 /* PublicationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD34CA2722E40600BE5370 /* PublicationType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +71,11 @@
 		4B91140C2719742300841927 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		4B91140F2719B51600841927 /* UserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatar.swift; sourceTree = "<group>"; };
 		4B9114112719B65F00841927 /* ImageAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIController.swift; sourceTree = "<group>"; };
+		4BFD34C62722E40600BE5370 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4BFD34C72722E40600BE5370 /* Publication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Publication.swift; sourceTree = "<group>"; };
+		4BFD34C82722E40600BE5370 /* PublicationCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationCategories.swift; sourceTree = "<group>"; };
+		4BFD34C92722E40600BE5370 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
+		4BFD34CA2722E40600BE5370 /* PublicationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +89,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B034916271FF0AE0004BD0B /* ErrorHandler */ = {
+			isa = PBXGroup;
+			children = (
+				4B91140127171E3B00841927 /* ErrorHandler.swift */,
+			);
+			path = ErrorHandler;
+			sourceTree = "<group>";
+		};
 		4B36CDBD271DABDE0091D229 /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,8 +134,8 @@
 		4B4210DF27157C4700D5E809 /* PulseAPP */ = {
 			isa = PBXGroup;
 			children = (
+				4B034916271FF0AE0004BD0B /* ErrorHandler */,
 				4B91140E2719B4B400841927 /* ImageController */,
-				4B91140127171E3B00841927 /* ErrorHandler.swift */,
 				4B9113F12716B05400841927 /* UserAPIControllers */,
 				4B91140327196A1500841927 /* PublicationAPIControllers */,
 				4B4210E027157C4700D5E809 /* AppDelegate.swift */,
@@ -131,10 +149,10 @@
 				4B9113FA271719AF00841927 /* CalendarViewController.swift */,
 				4B9113F62717153B00841927 /* MapViewController.swift */,
 				4B9113F42717086F00841927 /* MainGlobeTabBarController.swift */,
+				4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */,
 				4B4210E927157C4900D5E809 /* Assets.xcassets */,
 				4B4210EB27157C4900D5E809 /* LaunchScreen.storyboard */,
 				4B4210EE27157C4900D5E809 /* Info.plist */,
-				4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */,
 			);
 			path = PulseAPP;
 			sourceTree = "<group>";
@@ -151,6 +169,11 @@
 		4B91140327196A1500841927 /* PublicationAPIControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4BFD34C92722E40600BE5370 /* Json4Swift_Base.swift */,
+				4BFD34C72722E40600BE5370 /* Publication.swift */,
+				4BFD34C82722E40600BE5370 /* PublicationCategories.swift */,
+				4BFD34CA2722E40600BE5370 /* PublicationType.swift */,
+				4BFD34C62722E40600BE5370 /* User.swift */,
 				4B91140427196A5E00841927 /* PublicationData.swift */,
 				4B36CDC2271EC3D10091D229 /* PublicationAPIController.swift */,
 			);
@@ -266,10 +289,14 @@
 				4B9113F92717157500841927 /* UserProfileViewController.swift in Sources */,
 				4B36CDC3271EC3D10091D229 /* PublicationAPIController.swift in Sources */,
 				4B9114122719B65F00841927 /* ImageAPIController.swift in Sources */,
+				4BFD34CF2722E40600BE5370 /* PublicationType.swift in Sources */,
+				4BFD34CC2722E40600BE5370 /* Publication.swift in Sources */,
 				4B4210E527157C4700D5E809 /* AuthFormViewController.swift in Sources */,
+				4BFD34CE2722E40600BE5370 /* Json4Swift_Base.swift in Sources */,
 				4B9113FF27171BD900841927 /* ToolMenuViewController.swift in Sources */,
 				4B9113FB271719AF00841927 /* CalendarViewController.swift in Sources */,
 				4B91140D2719742300841927 /* HeaderView.swift in Sources */,
+				4BFD34CB2722E40600BE5370 /* User.swift in Sources */,
 				4B4210F52715953B00D5E809 /* RegistrationFormViewController.swift in Sources */,
 				4B36CDC0271DAC1C0091D229 /* CollectionViewCell.swift in Sources */,
 				4B9113FD27171A7500841927 /* SubscriptionsViewController.swift in Sources */,
@@ -280,6 +307,7 @@
 				4B91140527196A5E00841927 /* PublicationData.swift in Sources */,
 				4B4210E327157C4700D5E809 /* SceneDelegate.swift in Sources */,
 				4B4210F72715A9D500D5E809 /* APIController.swift in Sources */,
+				4BFD34CD2722E40600BE5370 /* PublicationCategories.swift in Sources */,
 				4B9114102719B51600841927 /* UserAvatar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

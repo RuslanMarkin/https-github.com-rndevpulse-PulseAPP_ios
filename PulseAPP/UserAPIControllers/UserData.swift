@@ -9,8 +9,15 @@ import Foundation
 
 //Data retrieved from authentication process
 struct AuthUserData: Codable {
+    static var shared = AuthUserData()
+    
     var accessToken: String
     let userId: String
+    
+    init(accessToken: String = "", userId: String = "") {
+        self.userId = userId
+        self.accessToken = accessToken
+    }
     
     enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
@@ -22,7 +29,7 @@ struct AuthUserData: Codable {
 struct RegistrationUserData: Codable {
     let id: String
     let publicName: String
-    let active: Bool
+    let active: Int
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -35,7 +42,25 @@ struct UserPreviewData: Codable {
     let id: String
     let publicName: String
     var name: String
-    var data: String
+    var data: String?
     var countPublications: Int
     var countUsersSubscription: Int
+}
+
+struct LoginPassword {
+    static var shared = LoginPassword()
+    
+    var login: String
+    var password: String
+    
+    init(login: String = "", password: String = "") {
+        self.login = login
+        self.password = password
+    }
+}
+
+struct VerificationUserData: Codable {
+    var publicname: String
+    var userId: String
+    var active: Int
 }

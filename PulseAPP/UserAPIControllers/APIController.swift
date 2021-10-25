@@ -59,11 +59,11 @@ class APIController {
             if let error = error {
                 completion(.failure(error))
             } else {
-                let jsonDecoder = JSONDecoder()
-                if let data = data, let regisData = try? jsonDecoder.decode(RegistrationUserData.self, from: data) {
+            let jsonDecoder = JSONDecoder()
+            if let data = data, let regisData = try? jsonDecoder.decode(RegistrationUserData.self, from: data) {
                     completion(.success(regisData))
                     } else {
-                        completion(.failure(ErrorHandler.badRequest(403, "Error request")))
+                    completion(.failure(ErrorHandler.badRequest(403, "Error request")))
                     }
             }
         }
@@ -123,5 +123,43 @@ class APIController {
             }
         }
         task.resume()
+    }
+    
+    //User's activation via 6-digit verification code genererated on server-side
+    func userVerification(withCode: String, completion: @escaping (Result<String, Error>) -> Void) {
+        let initialURL = baseURL.appendingPathComponent("auth/activated")
+        
+        let query: [String: String] = ["code": "\(withCode)"]
+        let verificationURL = initialURL.withQueries(query)!
+        
+        var request = URLRequest(url: verificationURL)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+            }
+            //let jsonDecoder = JSONDecoder()
+            if let data = data , let jsonData = String(data: data, encoding: .utf8)
+                //try? jsonDecoder.decode(VerificationUserData.self, from: data)
+            {
+                print(jsonData)
+                completion(.success(jsonData))
+            } else {
+                completion(.failure(ErrorHandler.badRequest(400, "Bad Request")))
+            }
+        }
+        task.resume()
+    }
+}
+
+extension URL {
+    func withQueries(_ queries: [String: String]) -> URL? {
+        var components = URLComponents(url: self,
+        resolvingAgainstBaseURL: true)
+        components?.queryItems = queries.map
+{ URLQueryItem(name: $0.0, value: $0.1) }
+        return components?.url
     }
 }

@@ -16,15 +16,20 @@ class RegistrationFormViewController: UIViewController {
     @IBOutlet weak var telNumberTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var invalidInputLabel: UILabel!
+    var loginPassword = LoginPassword(login: "", password: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        invalidInputLabel.isHidden = true
         // Do any additional setup after loading the view.
     }
     
     @IBAction func confirmButtonTapped(_ sender: UIButton) {
         if let userName = userNameTextField.text, let password = passwordTextField.text, let telNumber = telNumberTextField.text, let email = emailTextField.text {
+            LoginPassword.shared.login = telNumber
+            LoginPassword.shared.password = password
+            print(loginPassword.login)
+            print(loginPassword.password)
             APIController.shared.registration(withlogin: userName, password: password, telNumber: telNumber, email: email) {
                 (result) in
                 DispatchQueue.main.async {
@@ -33,16 +38,14 @@ class RegistrationFormViewController: UIViewController {
                         print(regisData)
                         self.performSegue(withIdentifier: "VerificationSegue", sender: nil)
                     case .failure(let error):
-                        self.invalidInputLabel.alpha = 1
-                        self.invalidInputLabel.isHidden = false
-                        self.invalidInputLabel.text = "Wrong login"
-                        UIView.animate(withDuration: 1.0, animations: { () -> Void in
-                            self.invalidInputLabel.alpha = 0
-                        })
+                        showMessage(in: self.invalidInputLabel, with: "Wrong login")
                         print(error)
                     }
                 }
             }
+        } else {
+            showMessage(in: self.invalidInputLabel, with: "Some field is empty")
+   //Add some logic if textfields of registration form are empty
         }
     }
     /*

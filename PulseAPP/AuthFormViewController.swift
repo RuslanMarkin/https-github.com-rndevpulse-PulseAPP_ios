@@ -8,8 +8,6 @@
 import UIKit
 
 class AuthFormViewController: UIViewController {
-    
-    var userData: AuthUserData?
 
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -29,15 +27,10 @@ class AuthFormViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let userData):
-                        self.userData = userData
+                        AuthUserData.shared = userData
                         self.performSegue(withIdentifier: "UserAuthSegue", sender: nil)
                     case .failure(let error):
-                        self.invalidLoginLabel.alpha = 1
-                        self.invalidLoginLabel.isHidden = false
-                        self.invalidLoginLabel.text = "Wrong login"
-                        UIView.animate(withDuration: 1.0, animations: { () -> Void in
-                            self.invalidLoginLabel.alpha = 0
-                        })
+                        showMessage(in: self.invalidLoginLabel, with: "Wrong login")
                         print(error)
 // Что делать с токеном и userId после авторизации?
                     }
@@ -46,13 +39,13 @@ class AuthFormViewController: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "UserAuthSegue" {
-            let tabBarController = segue.destination as! MainGlobeTabBarController
-            let navController = tabBarController.viewControllers![0] as! UINavigationController
-            let vc = navController.topViewController as! UserProfileViewController
-            vc.authUserData = userData
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "UserAuthSegue" {
+//            let tabBarController = segue.destination as! MainGlobeTabBarController
+//            let navController = tabBarController.viewControllers![0] as! UINavigationController
+//            let vc = navController.topViewController as! UserProfileViewController
+//            vc.authUserData = self.userData
+//        }
+//    }
 }
 

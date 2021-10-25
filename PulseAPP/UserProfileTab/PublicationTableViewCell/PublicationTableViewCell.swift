@@ -18,8 +18,6 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     @IBOutlet weak var publicationDescriptionLabel: UILabel!
     @IBOutlet var collectionView: UICollectionView!
     
-    
-    
     static func nib() -> UINib {
         return UINib(nibName: "PublicationTableViewCell", bundle: nil)
     }
@@ -52,4 +50,10 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 250, height: 250)
     }
+    
+//    func configureTableCell(with publicationForCell: FetchedPublication) {
+//        self.orgOrUserPublicName.text = publicationForCell.user.publicName
+//        self.publicationTime.text = publicationForCell.publication.datePublication
+//        self.publicationDescriptionLabel.text = publicationForCell.publication.description
+//    }
 }
