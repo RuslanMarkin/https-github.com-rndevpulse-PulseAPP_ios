@@ -18,6 +18,8 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         table.delegate = self
         table.dataSource = self
         
+        print(AuthUserData.shared.userId)
+        print(AuthUserData.shared.accessToken)
         PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0)
 //        {
 //            (result) in
@@ -57,7 +59,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             (result) in DispatchQueue.main.async {
                 switch result {
                 case .success(let userPreviewData):
-                    print(userPreviewData)
+                    //print(userPreviewData)
                     view.publicNameLabel.text = userPreviewData.publicName
                     view.userNameLabel.text = userPreviewData.name
                     view.countPublicationsLabel.text = String("Publications:  \(userPreviewData.countPublications)")

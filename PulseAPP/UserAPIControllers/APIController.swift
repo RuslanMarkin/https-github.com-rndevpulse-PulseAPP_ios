@@ -14,7 +14,7 @@ class APIController {
     
     let baseURL = URL(string: "http://192.168.1.100/api/v1/")!
     
-    func authentication(withlogin: String, password: String, completion: @escaping (Result<AuthUserData, Error>) -> Void){
+    func authentication(withlogin: String, password: String, completion: @escaping (Result<AuthUserData, ErrorData>) -> Void){
         let authURL = baseURL.appendingPathComponent("auth")
         
         var request = URLRequest(url: authURL)
@@ -28,16 +28,20 @@ class APIController {
         
         let task = URLSession.shared.dataTask(with: request) {
             (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-            } else {
+//            if let error = error {
+//                completion(.failure(error))
+//            } else {
                 let jsonDecoder = JSONDecoder()
-                if let data = data, let userData = try? jsonDecoder.decode(AuthUserData.self, from: data) {
-                    completion(.success(userData))
-                } else {
-                    completion(.failure(ErrorHandler.badRequest(400, "Invalid login")))
+                if let data = data {
+                    if let userData = try? jsonDecoder.decode(AuthUserData.self, from: data) {
+                        completion(.success(userData))
+                    } else {
+                        if let errorData = try? jsonDecoder.decode(ErrorData.self, from: data) {
+                            completion(.failure(errorData))
+                        }
+                        //completion(.failure(ErrorHandler.badRequest(400, "Invalid login")))
+                    }
                 }
-            }
         }
         task.resume()
     }

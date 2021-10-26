@@ -50,11 +50,11 @@ struct UserPreviewData: Codable {
 struct LoginPassword {
     static var shared = LoginPassword()
     
-    var login: String
+    var telNumber: String
     var password: String
     
-    init(login: String = "", password: String = "") {
-        self.login = login
+    init(telNumber: String = "", password: String = "") {
+        self.telNumber = telNumber
         self.password = password
     }
 }
@@ -63,4 +63,8 @@ struct VerificationUserData: Codable {
     var publicname: String
     var userId: String
     var active: Int
+}
+
+struct UserAvatar: Codable {
+    let url: String
 }

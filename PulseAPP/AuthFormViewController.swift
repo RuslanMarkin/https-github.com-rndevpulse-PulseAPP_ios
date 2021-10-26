@@ -30,7 +30,7 @@ class AuthFormViewController: UIViewController {
                         AuthUserData.shared = userData
                         self.performSegue(withIdentifier: "UserAuthSegue", sender: nil)
                     case .failure(let error):
-                        showMessage(in: self.invalidLoginLabel, with: "Wrong login")
+                        showMessage(in: self.invalidLoginLabel, with: NSLocalizedString(error.detail, comment: ""))
                         print(error)
 // Что делать с токеном и userId после авторизации?
                     }

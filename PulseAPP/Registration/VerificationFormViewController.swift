@@ -16,7 +16,7 @@ class VerificationFormViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(LoginPassword.shared.login)
+        print(LoginPassword.shared.telNumber)
         print(LoginPassword.shared.password)
         self.invalidInputLabel.isHidden = true
         verificationTextField.addTarget(self, action: #selector(VerificationFormViewController.checkTextField(_:)), for: .editingChanged)
@@ -31,11 +31,12 @@ class VerificationFormViewController: UIViewController {
                         DispatchQueue.main.async {
                             switch result {
                                 case .success(_ ):
-                                if LoginPassword.shared.login.count > 0 {
-                                    APIController.shared.authentication(withlogin: LoginPassword.shared.login, password: LoginPassword.shared.password) { (result) in
+                                if LoginPassword.shared.telNumber.count > 0 {
+                                    APIController.shared.authentication(withlogin: LoginPassword.shared.telNumber, password: LoginPassword.shared.password) { (result) in
                                             DispatchQueue.main.async {
                                                 switch result {
                                                     case .success(let userData):
+                                                        textfield.textColor = UIColor.green
                                                         AuthUserData.shared = userData
                                                         self.performSegue(withIdentifier: "UserRegisterSegue", sender: self)
                                                     case .failure(_ ):
