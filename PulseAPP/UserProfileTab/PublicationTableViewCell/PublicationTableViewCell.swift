@@ -11,9 +11,8 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     
     static let identifier = "PublicationTableViewCell"
     
-    let urlconst = URL(string: "http://192.168.1.100/api/v1/files/images/c39bdee2-6db7-4c62-8c51-284d4500d629.jpg?size=small")!
-    
-    var imagesOfPublication = [UIImage]()
+    //var imagesOfPublication = [UIImage]()
+    var imagesOfPublication: [UIImage] = [UIImage(named: "0.png"), UIImage(named: "1.png"), UIImage(named: "2.png")].compactMap({ $0 })
     
     @IBOutlet weak var publicationTime: UILabel!
     @IBOutlet weak var orgOrUserPublicName: UILabel!
@@ -41,12 +40,12 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imagesOfPublication.count
+        return imagesOfPublication.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as! CollectionViewCell
-        cell.configure(with: urlconst)
+        cell.configure(with: imagesOfPublication[indexPath.row])
         return cell
     }
     
@@ -55,14 +54,29 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     }
     
     func configureTableCell(with publicationForCell: UserPublication?) {
+        
+        
         if let publication = publicationForCell {
             self.orgOrUserPublicName.text = publication.user!.publicName
             self.publicationTime.text = publication.publication!.datePublication
             self.publicationDescriptionLabel.text = publication.publication!.description
-//            if let imagesUrls = getImagesURLs(for: publication) {
-//                
-//                updateTableCell(with: imagesUrls)
-//            }
+            if let imagesURLs = getImagesURLs(for: publication) {
+                print(imagesURLs)
+                for i in imagesURLs.indices {
+                    ImageAPIController.shared.getImage(withURL: imagesURLs[i]) { result in
+                        DispatchQueue.main.async {
+                        switch result {
+                                    case .success(let image):
+                                        self.imagesOfPublication.append(image)
+                                    case .failure(let error):
+                                        print(error)
+                                    }
+                        }
+                    }
+                }
+            }
+            collectionView.reloadData()
+                
         }
     }
     
@@ -75,19 +89,33 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     }
 }
 
-//func updateTableCell(with urls: [String]) {
-//
-//    urls.map { (url) -> UIImage? in
-//        ImageAPIController.shared.getImage(withURL: url) { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let image):
-//                    return image
-//                case .failure(let error):
-//                    print(error)
-//                    return nil
-//                }
-//            }
-//        }
-//    }
-//}
+    func createLayout() -> UICollectionViewCompositionalLayout{
+        //item
+        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(2/3), heightDimension: .fractionalHeight(1)))
+        
+        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+        
+        let verticalStackItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+        
+        verticalStackItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+        
+        let verticalStackGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1)), subitem: verticalStackItem, count: 2)
+        
+        let tripleItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+        
+        let tripleHorizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)), subitem: tripleItem, count: 3)
+        
+        //group
+        let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(2/3)), subitems: [item, verticalStackGroup])
+        
+        let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1)), subitems: [horizontalGroup, tripleHorizontalGroup])
+        
+    //        let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(3/5)), subitems: [item, verticalStackGroup])
+        
+        //section
+        let section = NSCollectionLayoutSection(group: verticalGroup)
+        
+        //return
+        return UICollectionViewCompositionalLayout(section: section)
+    }
+

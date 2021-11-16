@@ -22,22 +22,11 @@ class CollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func configure(with url: URL) {
-        photoImageView.load(url: url)
+    public func configure(with image: UIImage) {
+//        let images: [UIImage] = [UIImage(named: "0.png"), UIImage(named: "1.png"), UIImage(named: "2.png")].compactMap({ $0 })
+        photoImageView.image = image
+        contentView.clipsToBounds = true
     }
 
 }
 
-extension UIImageView {
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
-            }
-        }
-    }
-}
