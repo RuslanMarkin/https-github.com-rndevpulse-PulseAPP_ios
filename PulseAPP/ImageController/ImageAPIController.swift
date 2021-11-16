@@ -33,4 +33,25 @@ class ImageAPIController {
         }
         task.resume()
     }
+    //Actually method above should be united with this one
+    func getImage(withURL: String, completion: @escaping (Result<UIImage, ErrorData>) -> Void) {
+        let imageURL = baseURL.appendingPathComponent("files/images/\(withURL)?size=small")
+        
+        var request = URLRequest(url: imageURL)
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data {
+                if let image = UIImage(data: data) {
+                    completion(.success(image))
+                } else {
+                    if let errorData = try? jsonDecoder.decode(ErrorData.self, from: data) {
+                        completion(.failure(errorData))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
 }

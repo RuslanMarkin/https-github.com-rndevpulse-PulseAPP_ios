@@ -11,6 +11,8 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var table: UITableView!
     
+    var publications = [UserPublication]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,30 +20,34 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         table.delegate = self
         table.dataSource = self
         
-        print(AuthUserData.shared.userId)
-        print(AuthUserData.shared.accessToken)
-        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0)
-//        {
-//            (result) in
-//            switch result {
-//            case .success(let userPublications):
-//                self.publications = userPublications
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-        // Do any additional setup after loading the view.
+        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0) { result in
+            DispatchQueue.main.async {
+            switch result {
+                        case .success(let userPublications):
+                            self.updateUI(with: userPublications!)
+                        case .failure(let error):
+                            print(error)
+                        }
+            }
+        }
     }
     
-    //func
+    func updateUI(with userPublications: [UserPublication]) {
+        DispatchQueue.main.async {
+            self.publications = userPublications
+            self.table.reloadData()
+        }
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2//publications.count
+        return self.publications.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: PublicationTableViewCell.identifier, for: indexPath) as! PublicationTableViewCell
-    //    cell.configureTableCell(with: publications[indexPath.row])
+        cell.configureTableCell(with: self.publications[indexPath.row])
         return cell
     }
     
@@ -54,7 +60,6 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     
         let userId = AuthUserData.shared.userId
         let userToken = AuthUserData.shared.accessToken
-        print(userId)
         APIController.shared.getUserPreview(withid: userId) {
             (result) in DispatchQueue.main.async {
                 switch result {

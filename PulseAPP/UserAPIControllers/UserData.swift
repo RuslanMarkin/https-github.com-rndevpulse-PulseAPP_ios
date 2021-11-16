@@ -9,7 +9,13 @@ import Foundation
 
 //Data retrieved from authentication process
 struct AuthUserData: Codable {
-    static var shared = AuthUserData()
+    static let tokenUpdatedNotification = Notification.Name("AuthUserData.tokenUpdated")
+    
+    static var shared = AuthUserData() {
+        didSet {
+            NotificationCenter.default.post(name: AuthUserData.tokenUpdatedNotification, object: nil)
+            }
+    }
     
     var accessToken: String
     let userId: String

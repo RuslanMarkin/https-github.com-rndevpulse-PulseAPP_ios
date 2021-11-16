@@ -10,7 +10,10 @@ import UIKit
 class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     static let identifier = "PublicationTableViewCell"
-    var publications = [Publication]()
+    
+    let urlconst = URL(string: "http://192.168.1.100/api/v1/files/images/c39bdee2-6db7-4c62-8c51-284d4500d629.jpg?size=small")!
+    
+    var imagesOfPublication = [UIImage]()
     
     @IBOutlet weak var publicationTime: UILabel!
     @IBOutlet weak var orgOrUserPublicName: UILabel!
@@ -38,12 +41,12 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return self.imagesOfPublication.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as! CollectionViewCell
-        cell.configure(with: UIImage(named: "\(indexPath.row).png")!)
+        cell.configure(with: urlconst)
         return cell
     }
     
@@ -51,9 +54,40 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
         return CGSize(width: 250, height: 250)
     }
     
-//    func configureTableCell(with publicationForCell: FetchedPublication) {
-//        self.orgOrUserPublicName.text = publicationForCell.user.publicName
-//        self.publicationTime.text = publicationForCell.publication.datePublication
-//        self.publicationDescriptionLabel.text = publicationForCell.publication.description
-//    }
+    func configureTableCell(with publicationForCell: UserPublication?) {
+        if let publication = publicationForCell {
+            self.orgOrUserPublicName.text = publication.user!.publicName
+            self.publicationTime.text = publication.publication!.datePublication
+            self.publicationDescriptionLabel.text = publication.publication!.description
+//            if let imagesUrls = getImagesURLs(for: publication) {
+//                
+//                updateTableCell(with: imagesUrls)
+//            }
+        }
+    }
+    
+    func getImagesURLs(for publication: UserPublication?) -> [String]? {
+        if let publication = publication, let imagesURLs = publication.files {
+                return imagesURLs
+        } else {
+                return nil
+        }
+    }
 }
+
+//func updateTableCell(with urls: [String]) {
+//
+//    urls.map { (url) -> UIImage? in
+//        ImageAPIController.shared.getImage(withURL: url) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .success(let image):
+//                    return image
+//                case .failure(let error):
+//                    print(error)
+//                    return nil
+//                }
+//            }
+//        }
+//    }
+//}

@@ -12,9 +12,11 @@
 
 import Foundation
 
-struct UserPublications: Codable {
-    let publications: [Json4Swift_Base]
+struct UsersPublications: Codable {
+    let items: [UserPublication]
 }
+
+
 
 
 

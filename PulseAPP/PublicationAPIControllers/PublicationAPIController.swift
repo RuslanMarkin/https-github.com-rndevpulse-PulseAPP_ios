@@ -32,9 +32,9 @@ class PublicationAPIController {
 //                completion(.failure(error))
 //            }
             let jsonDecoder = JSONDecoder()
-            if let data = data, let publicationsData = try? jsonDecoder.decode(UserPublications.self, from: data) {
+            if let data = data, let publicationsData = try? jsonDecoder.decode(UsersPublications.self, from: data) {
             //    completion(.success(publicationsData))
-                print(publicationsData.publications)
+                print(publicationsData.items)
             } else {
                 print("error")
             //    completion(.failure(ErrorHandler.couldntFetchPublications(500, "No publications found")))
@@ -43,8 +43,8 @@ class PublicationAPIController {
         task.resume()
     }
      
-    func getMyPublications(withUserId: String, withToken: String, withCoef: Int) {
-        let publicationsURL = baseURL.appendingPathComponent("publications/posts/\(withCoef)")
+    func getMyPublications(withUserId: String, withToken: String, withCoef: Int, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
+        let publicationsURL = baseURL.appendingPathComponent("publications/posts/user/\(withCoef)")
         
         var request = URLRequest(url: publicationsURL)
         let headers = ["authorization": "Bearer \(withToken)"]
@@ -65,11 +65,14 @@ class PublicationAPIController {
 //                completion(.failure(error))
 //            }
             let jsonDecoder = JSONDecoder()
-            if let data = data, let myPublications = try? jsonDecoder.decode(UserPublications.self, from: data) {
-                print(myPublications.publications)
-            } else {
-                print("error")
-                //completion(.failure(ErrorHandler.imageNotFound(400)))
+            if let data = data {
+                if let myPublications = try? jsonDecoder.decode([UserPublication].self, from: data) {
+                    completion(.success(myPublications))
+                } else {
+                    if let errorData = try? jsonDecoder.decode(ErrorData.self, from: data) {
+                        completion(.failure(errorData))
+                    }
+                }
             }
         }
         task.resume()
