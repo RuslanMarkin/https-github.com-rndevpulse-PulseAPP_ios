@@ -23,7 +23,6 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(with image: UIImage) {
-//        let images: [UIImage] = [UIImage(named: "0.png"), UIImage(named: "1.png"), UIImage(named: "2.png")].compactMap({ $0 })
         photoImageView.image = image
         contentView.clipsToBounds = true
     }

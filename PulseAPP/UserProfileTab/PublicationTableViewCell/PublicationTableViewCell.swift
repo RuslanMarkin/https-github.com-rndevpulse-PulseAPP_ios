@@ -11,8 +11,8 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     
     static let identifier = "PublicationTableViewCell"
     
-    //var imagesOfPublication = [UIImage]()
-    var imagesOfPublication: [UIImage] = [UIImage(named: "0.png"), UIImage(named: "1.png"), UIImage(named: "2.png")].compactMap({ $0 })
+    var imagesOfPublication = [UIImage]()
+//    var imagesOfPublication: [UIImage] = [UIImage(named: "0.png"), UIImage(named: "1.png"), UIImage(named: "2.png")].compactMap({ $0 })
     
     @IBOutlet weak var publicationTime: UILabel!
     @IBOutlet weak var orgOrUserPublicName: UILabel!
@@ -30,6 +30,7 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
         collectionView.register(CollectionViewCell.nib(), forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        
         // Initialization code
     }
 
@@ -57,9 +58,20 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
         
         
         if let publication = publicationForCell {
+            
+            let isoDate = publication.publication!.datePublication!
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SS"
+            
+            if let date = dateFormatter.date(from: isoDate) {
+                let localdate = date.toLocalTime()
+                dateFormatter.locale = Locale(identifier: "en_US")
+                dateFormatter.setLocalizedDateFormatFromTemplate("dd-MM-yyyy : hh:mm")
+                self.publicationTime.text = dateFormatter.string(from: localdate)
+            }
             self.orgOrUserPublicName.text = publication.user!.publicName
-            self.publicationTime.text = publication.publication!.datePublication
             self.publicationDescriptionLabel.text = publication.publication!.description
+            
             if let imagesURLs = getImagesURLs(for: publication) {
                 print(imagesURLs)
                 for i in imagesURLs.indices {
@@ -76,7 +88,6 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
                 }
             }
             collectionView.reloadData()
-                
         }
     }
     
@@ -88,34 +99,4 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
         }
     }
 }
-
-    func createLayout() -> UICollectionViewCompositionalLayout{
-        //item
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(2/3), heightDimension: .fractionalHeight(1)))
-        
-        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-        
-        let verticalStackItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-        
-        verticalStackItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-        
-        let verticalStackGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1)), subitem: verticalStackItem, count: 2)
-        
-        let tripleItem = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-        
-        let tripleHorizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)), subitem: tripleItem, count: 3)
-        
-        //group
-        let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(2/3)), subitems: [item, verticalStackGroup])
-        
-        let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1)), subitems: [horizontalGroup, tripleHorizontalGroup])
-        
-    //        let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(3/5)), subitems: [item, verticalStackGroup])
-        
-        //section
-        let section = NSCollectionLayoutSection(group: verticalGroup)
-        
-        //return
-        return UICollectionViewCompositionalLayout(section: section)
-    }
 

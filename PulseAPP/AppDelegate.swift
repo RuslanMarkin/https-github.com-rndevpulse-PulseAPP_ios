@@ -11,6 +11,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        Timer.scheduledTimer(timeInterval: (60.0 * 4.0), target: self, selector: #selector(self.doThisEvery5sec), userInfo: nil, repeats: true)
         // Override point for customization after application launch.
         return true
     }
@@ -28,7 +29,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
+    
+    @objc func doThisEvery5sec () {
+        //print("Ok")
+        let db = Database()
+        let (login, password) = db.queryLoginPassword()
+        APIController.shared.authentication(withlogin: login, password: password) {
+            (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userData):
+                    AuthUserData.shared = userData
+                    print("Got token success")
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
 
 }
 

@@ -13,30 +13,25 @@ class AuthFormViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var invalidLoginLabel: UILabel!
     
-//    var timerTest : Timer?
-//
-//    func startTimer () {
-//      guard timerTest == nil else { return }
-//
-//      timerTest =  Timer.scheduledTimer(
-//          timeInterval: TimeInterval(600.0),
-//          target      : self,
-//          selector    : #selector(UIViewController.sendRequest),
-//          userInfo    : nil,
-//          repeats     : true)
-//    }
-//
-//    func stopTimerTest() {
-//      timerTest?.invalidate()
-//      timerTest = nil
-//    }
+    var db = Database()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         invalidLoginLabel.isHidden = true
-        
-//        NotificationCenter.default.addObserver(AuthFormViewController.self, selector: #selector(UITableView.reloadData), name: AuthUserData.tokenUpdatedNotification, object: nil)
-        // Do any additional setup after loading the view.
+        let (login, password) = self.db.queryLoginPassword()
+            APIController.shared.authentication(withlogin: login, password: password) {
+                (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let userData):
+                        AuthUserData.shared = userData
+                        self.performSegue(withIdentifier: "UserAuthSegue", sender: nil)
+                    case .failure(let error):
+                        showMessage(in: self.invalidLoginLabel, with: NSLocalizedString(error.detail, comment: ""))
+                        print(error)
+                    }
+                }
+            }
     }
 
 //User authorization
@@ -49,12 +44,13 @@ class AuthFormViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let userData):
-                        AuthUserData.shared = userData
+                        
+                        self.db.insertUserData(userId: userData.userId, login: login, password: password, token: userData.accessToken)
+                        AuthUserData.shared = userData //This row with high posibility will be replaced by //database user_data table refresh
                         self.performSegue(withIdentifier: "UserAuthSegue", sender: nil)
                     case .failure(let error):
                         showMessage(in: self.invalidLoginLabel, with: NSLocalizedString(error.detail, comment: ""))
                         print(error)
-// Что делать с токеном и userId после авторизации?
                     }
                 }
             }
@@ -62,26 +58,6 @@ class AuthFormViewController: UIViewController {
             showMessage(in: invalidLoginLabel, with: "Empty fields")
         }
     }
-//    @objc func sendRequest() {
-//        APIController.shared.authentication(withlogin: LoginPassword.shared.telNumber, password: LoginPassword.shared.password) {
-//            (result) in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let userData):
-//                    AuthUserData.shared = userData
-//                case .failure(let error):
-////                    self.stopTimerTest()
-////                    //call function that logs out
-////                    let story = UIStoryboard(name: "Main", bundle: nil)
-////                    guard let controller = story.instantiateViewController(withIdentifier: "AuthViewController") as? AuthFormViewController else {
-////                        return
-////                    }
-////                    self.navigationController?.pushViewController(controller, animated: true)
-//                    showMessage(in: self.invalidLoginLabel, with: NSLocalizedString(error.detail, comment: ""))
-//                }
-//            }
-//        }
-//    }
 }
 
 

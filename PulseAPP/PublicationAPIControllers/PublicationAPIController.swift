@@ -44,7 +44,7 @@ class PublicationAPIController {
     }
      
     func getMyPublications(withUserId: String, withToken: String, withCoef: Int, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
-        let publicationsURL = baseURL.appendingPathComponent("publications/posts/user/\(withCoef)")
+        let publicationsURL = baseURL.appendingPathComponent("publications/user/\(withCoef)")
         
         var request = URLRequest(url: publicationsURL)
         let headers = ["authorization": "Bearer \(withToken)"]
