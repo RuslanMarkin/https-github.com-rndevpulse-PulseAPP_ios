@@ -10,6 +10,8 @@ import SQLite3
 
 class Database {
     
+    static let shared = Database()
+    
     var db : OpaquePointer?
     var path : String = "Pulse_db.sqlite"
     init() {
@@ -56,7 +58,7 @@ class Database {
         var insertStatement: OpaquePointer?
         //Checking if prepared statement is ok or not
         if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
-            let id: Int32 = 2
+            let id: Int32 = 1
             let userId = NSString(string: userId)
             let login = NSString(string: login)
             let password = NSString(string: password)
@@ -108,7 +110,7 @@ class Database {
       } else {
           print("\nQuery returned no results.")
           sqlite3_finalize(queryStatement)
-          return ("", "")
+          return ("p", "q")
       }
       } else {
           // 6
@@ -119,8 +121,22 @@ class Database {
       }
       // 7
     }
-    
-//    func isUserDataMoreThanOneRow() -> Bool {
-//        let queryStatementString = "SELECT * FROM user_data;"
-//    }
+
+    func delete() {
+      let deleteStatementString = "DELETE FROM user_data WHERE id = 1;"
+      var deleteStatement: OpaquePointer?
+      if sqlite3_prepare_v2(db, deleteStatementString, -1, &deleteStatement, nil) ==
+          SQLITE_OK {
+        if sqlite3_step(deleteStatement) == SQLITE_DONE {
+          print("\nSuccessfully deleted row.")
+        } else {
+          print("\nCould not delete row.")
+        }
+      } else {
+        print("\nDELETE statement could not be prepared")
+      }
+      
+      sqlite3_finalize(deleteStatement)
+    }
+
 }

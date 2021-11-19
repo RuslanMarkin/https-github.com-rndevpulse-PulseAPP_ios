@@ -15,7 +15,8 @@ class ProfileSettingsViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        Database.shared.delete()
+        table.reloadData()
         // Do any additional setup after loading the view.
     }
     

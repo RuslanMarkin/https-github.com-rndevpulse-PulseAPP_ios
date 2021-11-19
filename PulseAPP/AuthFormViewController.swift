@@ -8,26 +8,27 @@
 import UIKit
 
 class AuthFormViewController: UIViewController {
+    
+    static var isShown: Bool = true
 
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var invalidLoginLabel: UILabel!
     
-    var db = Database()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         invalidLoginLabel.isHidden = true
-        let (login, password) = self.db.queryLoginPassword()
+        let (login, password) = Database.shared.queryLoginPassword()
             APIController.shared.authentication(withlogin: login, password: password) {
                 (result) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let userData):
+                        AuthFormViewController.isShown = false
                         AuthUserData.shared = userData
                         self.performSegue(withIdentifier: "UserAuthSegue", sender: nil)
                     case .failure(let error):
-                        showMessage(in: self.invalidLoginLabel, with: NSLocalizedString(error.detail, comment: ""))
+                        showMessage(in: self.invalidLoginLabel, with: NSLocalizedString(error.title, comment: ""))
                         print(error)
                     }
                 }
@@ -44,12 +45,12 @@ class AuthFormViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let userData):
-                        
-                        self.db.insertUserData(userId: userData.userId, login: login, password: password, token: userData.accessToken)
+                        AuthFormViewController.isShown = false
+                        Database.shared.insertUserData(userId: userData.userId, login: login, password: password, token: userData.accessToken)
                         AuthUserData.shared = userData //This row with high posibility will be replaced by //database user_data table refresh
                         self.performSegue(withIdentifier: "UserAuthSegue", sender: nil)
                     case .failure(let error):
-                        showMessage(in: self.invalidLoginLabel, with: NSLocalizedString(error.detail, comment: ""))
+                        showMessage(in: self.invalidLoginLabel, with: NSLocalizedString(error.title, comment: ""))
                         print(error)
                     }
                 }

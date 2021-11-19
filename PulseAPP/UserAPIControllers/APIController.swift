@@ -39,7 +39,7 @@ class APIController {
                         if let errorData = try? jsonDecoder.decode(ErrorData.self, from: data) {
                             completion(.failure(errorData))
                         }
-                        //completion(.failure(ErrorHandler.badRequest(400, "Invalid login")))
+                        //Here should be else statement in case ErrorData wasn't parsed right
                     }
                 }
         }

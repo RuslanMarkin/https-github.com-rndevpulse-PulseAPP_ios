@@ -14,7 +14,9 @@ import Foundation
 //}
 
 struct ErrorData: Codable, Error {
+    var type: String
     var title: String
-    var code: Int
-    var detail: String
+    var status: Int
+    var traceId: String
+    var errors: [String: [String]]
 }

@@ -11,11 +11,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
+        //Repeating activity for token refresh
+        Timer.scheduledTimer(timeInterval: (60.0), target: self, selector: #selector(self.refreshToken), userInfo: nil, repeats: true)
+        
         guard let _ = (scene as? UIWindowScene) else { return }
     }
 
@@ -47,6 +50,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    //Function resfreshing token
+    @objc func refreshToken () {
+        
+        let (login, password) = Database.shared.queryLoginPassword()
+        print("\(login) | \(password)")
+        APIController.shared.authentication(withlogin: login, password: password) {
+            (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let userData):
+                    AuthUserData.shared = userData
+                    print("Got token success")
+                case .failure(_):
+                    print("Couldn't log in")
 
+                    if let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthViewController") as? AuthFormViewController {
+                        if let window = self.window, let rootViewController = window.rootViewController {
+                            var currentController = rootViewController
+                            while let presentedController = currentController.presentedViewController {
+                                currentController = presentedController
+                            }
+                            if !AuthFormViewController.isShown {
+                                currentController.show(controller, sender: self)
+                                controller.navigationItem.hidesBackButton = true
+                                AuthFormViewController.isShown = true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 

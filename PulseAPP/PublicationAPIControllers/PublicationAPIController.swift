@@ -77,4 +77,21 @@ class PublicationAPIController {
         }
         task.resume()
     }
+    
+    func getPublicationTypes(completion: @escaping (Result<[PublicationType], Error>) -> Void) {
+        let typesURL = baseURL.appendingPathComponent("publications/types")
+        
+        var request = URLRequest(url: typesURL)
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data, let publicationTypes = try? jsonDecoder.decode([PublicationType].self, from: data) {
+                completion(.success(publicationTypes))
+            } else {
+                completion(.failure(ErrorHandler.imageNotFound(400)))
+            }
+        }
+        task.resume()
+    }
 }

@@ -410,7 +410,7 @@
         <!--Navigation Controller-->
         <scene sceneID="TkC-DD-Uq3">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="g3z-xH-mLk" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InitialNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="g3z-xH-mLk" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="u5W-Qd-ig4">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -492,7 +492,7 @@
             </objects>
             <point key="canvasLocation" x="3935" y="828"/>
         </scene>
-        <!--Map-->
+        <!--Map View Controller-->
         <scene sceneID="hbW-DI-La1">
             <objects>
                 <viewController id="oh8-WZ-EWf" customClass="MapViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
@@ -502,11 +502,57 @@
                         <viewLayoutGuide key="safeArea" id="sOX-4E-7Hi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" id="m9k-8y-yEz"/>
+                    <navigationItem key="navigationItem" id="0W6-OS-n13">
+                        <barButtonItem key="rightBarButtonItem" title="Add" image="plus.square.on.square.fill" catalog="system" id="0zy-uw-WAs" userLabel="Add">
+                            <connections>
+                                <segue destination="5LI-i7-4pb" kind="presentation" id="rd3-Ux-0uo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gQ3-Hx-iWh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4768" y="828"/>
+            <point key="canvasLocation" x="5676.811594202899" y="827.67857142857144"/>
+        </scene>
+        <!--Add Publication View Controller-->
+        <scene sceneID="vPn-iy-XdV">
+            <objects>
+                <viewController id="5LI-i7-4pb" customClass="AddPublicationViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zAF-ON-QT9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="s2w-Vh-4H7">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PublicationTypeCell" id="Jpc-11-suC">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jpc-11-suC" id="fWf-2l-tqd">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cKR-NJ-ggE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cKR-NJ-ggE" firstAttribute="bottom" secondItem="s2w-Vh-4H7" secondAttribute="bottom" id="Wjc-kv-vYe"/>
+                            <constraint firstItem="cKR-NJ-ggE" firstAttribute="trailing" secondItem="s2w-Vh-4H7" secondAttribute="trailing" id="ZE5-cC-r1w"/>
+                            <constraint firstItem="s2w-Vh-4H7" firstAttribute="leading" secondItem="cKR-NJ-ggE" secondAttribute="leading" id="agC-Cl-4UP"/>
+                            <constraint firstItem="s2w-Vh-4H7" firstAttribute="top" secondItem="cKR-NJ-ggE" secondAttribute="top" id="yyA-hN-Q9J"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="s2w-Vh-4H7" id="QyL-dj-nLT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FW7-nf-iAr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6548" y="828"/>
         </scene>
         <!--Main Globe Tab Bar Controller-->
         <scene sceneID="myg-g0-ShB">
@@ -522,7 +568,7 @@
                     <connections>
                         <segue destination="ZUI-Pg-u6r" kind="relationship" relationship="viewControllers" id="evl-EY-Feo"/>
                         <segue destination="LXe-bg-FZs" kind="relationship" relationship="viewControllers" id="9YC-91-bWY"/>
-                        <segue destination="oh8-WZ-EWf" kind="relationship" relationship="viewControllers" id="yBZ-gn-V5k"/>
+                        <segue destination="P4u-KW-QHj" kind="relationship" relationship="viewControllers" id="yBZ-gn-V5k"/>
                         <segue destination="zfR-N3-8dv" kind="relationship" relationship="viewControllers" id="azF-G1-JKD"/>
                         <segue destination="HJS-Fo-Oh9" kind="relationship" relationship="viewControllers" id="xV5-3G-ljI"/>
                     </connections>
@@ -531,11 +577,31 @@
             </objects>
             <point key="canvasLocation" x="1816" y="69"/>
         </scene>
+        <!--Map-->
+        <scene sceneID="0Bu-R3-GNp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="P4u-KW-QHj" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" id="m9k-8y-yEz"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vqx-uP-ScF">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="oh8-WZ-EWf" kind="relationship" relationship="rootViewController" id="Bb9-iI-AOb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qH8-4Z-dyb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4766.666666666667" y="827.67857142857144"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="agX-EJ-Haa"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="plus.square.on.square.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
