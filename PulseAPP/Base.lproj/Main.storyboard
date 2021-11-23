@@ -193,6 +193,22 @@
             </objects>
             <point key="canvasLocation" x="4516" y="69"/>
         </scene>
+        <!--Create Publication View Controller-->
+        <scene sceneID="Ztd-dU-1nl">
+            <objects>
+                <viewController id="rx1-By-t55" customClass="CreatePublicationViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bci-ex-87q" customClass="CreatePublicationView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="RcU-f7-577"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Kb6-eT-stL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1v3-QD-E4A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7407" y="828"/>
+        </scene>
         <!--Country View Controller-->
         <scene sceneID="vNt-OX-FBb">
             <objects>
@@ -505,7 +521,7 @@
                     <navigationItem key="navigationItem" id="0W6-OS-n13">
                         <barButtonItem key="rightBarButtonItem" title="Add" image="plus.square.on.square.fill" catalog="system" id="0zy-uw-WAs" userLabel="Add">
                             <connections>
-                                <segue destination="5LI-i7-4pb" kind="presentation" id="rd3-Ux-0uo"/>
+                                <action selector="addPublicationTapped:" destination="oh8-WZ-EWf" id="bgR-QM-eVb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -517,13 +533,13 @@
         <!--Add Publication View Controller-->
         <scene sceneID="vPn-iy-XdV">
             <objects>
-                <viewController id="5LI-i7-4pb" customClass="AddPublicationViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddPublicationTypeController" id="5LI-i7-4pb" customClass="AddPublicationViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zAF-ON-QT9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="s2w-Vh-4H7">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PublicationTypeCell" id="Jpc-11-suC">
@@ -548,6 +564,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="s2w-Vh-4H7" id="QyL-dj-nLT"/>
+                        <segue destination="rx1-By-t55" kind="presentation" identifier="CreatePublicationSegue" id="Ebn-z6-bUa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FW7-nf-iAr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

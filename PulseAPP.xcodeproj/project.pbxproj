@@ -24,6 +24,10 @@
 		4B4210F52715953B00D5E809 /* RegistrationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */; };
 		4B4210F72715A9D500D5E809 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F62715A9D500D5E809 /* APIController.swift */; };
 		4B4210F92715C59F00D5E809 /* VerificationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */; };
+		4B5510D0274B9D3800DE47BF /* CreatePublicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */; };
+		4B55111E274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55111C274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift */; };
+		4B55111F274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B55111D274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib */; };
+		4B551121274CC3F400DE47BF /* ImageResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B551120274CC3F400DE47BF /* ImageResizer.swift */; };
 		4B55CE962743EE78007152B3 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55CE952743EE78007152B3 /* ProfileSettingsViewController.swift */; };
 		4B6F32312726CAC6008A8838 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4B6F32302726CAC6008A8838 /* Localizable.strings */; };
 		4B6F32332726CC09008A8838 /* ErrorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6F32322726CC09008A8838 /* ErrorData.swift */; };
@@ -68,6 +72,10 @@
 		4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFormViewController.swift; sourceTree = "<group>"; };
 		4B4210F62715A9D500D5E809 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationFormViewController.swift; sourceTree = "<group>"; };
+		4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePublicationViewController.swift; sourceTree = "<group>"; };
+		4B55111C274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		4B55111D274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageAndDescriptionTableViewCell.xib; sourceTree = "<group>"; };
+		4B551120274CC3F400DE47BF /* ImageResizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResizer.swift; sourceTree = "<group>"; };
 		4B55CE952743EE78007152B3 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		4B6F32302726CAC6008A8838 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		4B6F32322726CC09008A8838 /* ErrorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorData.swift; sourceTree = "<group>"; };
@@ -123,8 +131,8 @@
 		4B1B00652747CF3600D03BF2 /* MapTab */ = {
 			isa = PBXGroup;
 			children = (
+				4B5510A6274B6FA300DE47BF /* AddPublication */,
 				4B9113F62717153B00841927 /* MapViewController.swift */,
-				4B1B00662747CF6C00D03BF2 /* AddPublicationViewController.swift */,
 			);
 			path = MapTab;
 			sourceTree = "<group>";
@@ -189,6 +197,25 @@
 				4B1B00602744FB7600D03BF2 /* DateExtension.swift */,
 			);
 			path = PulseAPP;
+			sourceTree = "<group>";
+		};
+		4B5510A6274B6FA300DE47BF /* AddPublication */ = {
+			isa = PBXGroup;
+			children = (
+				4B1B00662747CF6C00D03BF2 /* AddPublicationViewController.swift */,
+				4B55111B274BCD9800DE47BF /* CreatePublication */,
+			);
+			path = AddPublication;
+			sourceTree = "<group>";
+		};
+		4B55111B274BCD9800DE47BF /* CreatePublication */ = {
+			isa = PBXGroup;
+			children = (
+				4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */,
+				4B55111C274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift */,
+				4B55111D274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib */,
+			);
+			path = CreatePublication;
 			sourceTree = "<group>";
 		};
 		4B6F32342727DE29008A8838 /* Registration */ = {
@@ -266,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				4B9114112719B65F00841927 /* ImageAPIController.swift */,
+				4B551120274CC3F400DE47BF /* ImageResizer.swift */,
 			);
 			path = ImageController;
 			sourceTree = "<group>";
@@ -330,6 +358,7 @@
 			files = (
 				4B36CDC9271EEB830091D229 /* PublicationTableViewCell.xib in Resources */,
 				4B4210ED27157C4900D5E809 /* LaunchScreen.storyboard in Resources */,
+				4B55111F274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib in Resources */,
 				4B4210EA27157C4900D5E809 /* Assets.xcassets in Resources */,
 				4B6F32312726CAC6008A8838 /* Localizable.strings in Resources */,
 				4B4210E827157C4700D5E809 /* Main.storyboard in Resources */,
@@ -347,6 +376,8 @@
 			files = (
 				4B36CDC8271EEB830091D229 /* PublicationTableViewCell.swift in Sources */,
 				4B1B00612744FB7600D03BF2 /* DateExtension.swift in Sources */,
+				4B551121274CC3F400DE47BF /* ImageResizer.swift in Sources */,
+				4B5510D0274B9D3800DE47BF /* CreatePublicationViewController.swift in Sources */,
 				4B9113F52717086F00841927 /* MainGlobeTabBarController.swift in Sources */,
 				4B91140227171E3B00841927 /* ErrorHandler.swift in Sources */,
 				4B9113F92717157500841927 /* UserProfileViewController.swift in Sources */,
@@ -376,6 +407,7 @@
 				4B91140527196A5E00841927 /* PublicationData.swift in Sources */,
 				4B6F32332726CC09008A8838 /* ErrorData.swift in Sources */,
 				4B4210E327157C4700D5E809 /* SceneDelegate.swift in Sources */,
+				4B55111E274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift in Sources */,
 				4B4210F72715A9D500D5E809 /* APIController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

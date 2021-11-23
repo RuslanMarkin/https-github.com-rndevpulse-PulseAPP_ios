@@ -13,7 +13,25 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    class HalfSizePresentationController : UIPresentationController {
+        override var frameOfPresentedViewInContainerView: CGRect {
+            get {
+                guard let theView = containerView else {
+                    return CGRect.zero
+                }
 
+                return CGRect(x: 0, y: theView.bounds.height/2, width: theView.bounds.width, height: theView.bounds.height/2)
+            }
+        }
+    }
+    
+    @IBAction func addPublicationTapped(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let addPublicationController = storyboard.instantiateViewController(withIdentifier: "AddPublicationTypeController") as! AddPublicationViewController
+        self.present(addPublicationController, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -24,4 +42,10 @@ class MapViewController: UIViewController {
     }
     */
 
+}
+
+extension MapViewController : UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
+    }
 }
