@@ -10,20 +10,24 @@ import CoreLocation
 
 class CreatePublicationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
-    //var locManager = CLLocationManager()
-    //locManager.requestWhenInUseAuthorization()
+    var locManager = CLLocationManager()
     
     private let tableView: UITableView = {
         let table = UITableView()
         
         table.register(ImageAndDescriptionTableViewCell.nib(), forCellReuseIdentifier: ImageAndDescriptionTableViewCell.identifier)
         
-//        table.register(CodedTableViewCell.self, forCellReuseIdentifier: CodedTableViewCell.identifier)
+//        table.register(GeoTableViewCell.self, forCellReuseIdentifier: GeoTableViewCell.identifier)
         
         return table
     }()
     
+    //Properties for sending request to server
     var selectedImage = UIImage()
+    var publicationDescription: String?
+    var geoposition: String?
+    var publicationCategories: [String]?
+    var publicationTypeId: String?
     //var publicationType: String!
 
     override func viewDidLoad() {
@@ -35,19 +39,61 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        locManager.desiredAccuracy = kCLLocationAccuracyBest //battery
+        locManager.delegate = self
+        locManager.requestWhenInUseAuthorization()
+        locManager.startUpdatingLocation()
+    }
+    
+    @IBAction func unwindToCreatePublication(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? GeoDataViewController {
+            geoposition = sourceViewController.geoposition!
+        }
+        self.tableView.reloadData()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            manager.stopUpdatingLocation()
+            geoposition = "\(location.coordinate.latitude), \(location.coordinate.longitude)"
+//            if let geoposition = geoposition {
+//                print(String(geoposition))
+//            }
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ImageAndDescriptionTableViewCell.identifier, for: indexPath) as! ImageAndDescriptionTableViewCell
-        cell.configure(with: selectedImage)
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ImageAndDescriptionTableViewCell.identifier, for: indexPath) as! ImageAndDescriptionTableViewCell
+            cell.configure(with: selectedImage)
+            return cell
+        case 1:
+            guard let geoposition = geoposition else {
+                let cell = UITableViewCell()
+                cell.accessoryType = .disclosureIndicator
+                cell.textLabel?.text = "Add geoposition"
+                return cell
+            }
+            let cell = UITableViewCell()
+            cell.accessoryType = .disclosureIndicator
+            cell.textLabel?.text = geoposition
+            return cell
+        default:
+            return UITableViewCell()
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -68,6 +114,21 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         label.addConstraints(constraint)
                 
         return label
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.row {
+        case 1:
+            geoposition = nil
+            performSegue(withIdentifier: "GeoSegue", sender: nil)
+        default:
+            return
+        }
     }
 
     /*

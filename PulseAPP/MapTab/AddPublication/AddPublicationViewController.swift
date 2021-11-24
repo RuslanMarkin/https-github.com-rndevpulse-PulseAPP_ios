@@ -10,6 +10,7 @@ import UIKit
 class AddPublicationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISheetPresentationControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var publicationTypes = [PublicationType]()
+    var indexOfSelectedRow: Int?
     
     var selectedImage = UIImage()
     
@@ -65,8 +66,7 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CreatePublicationSegue" {
             let destinationVC = segue.destination as! CreatePublicationViewController
-//            let index = tableView.indexPathForSelectedRow!.row
-//            destinationVC.publicationType = publicationTypes[index].name
+            destinationVC.publicationTypeId = publicationTypes[indexOfSelectedRow!].name
             destinationVC.selectedImage = selectedImage
         }
     }
@@ -83,7 +83,7 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("you tapped \(publicationTypes[indexPath.row])")
+        indexOfSelectedRow = indexPath.row
         tableView.deselectRow(at: indexPath, animated: true)
         
         let imagePickerController = UIImagePickerController()

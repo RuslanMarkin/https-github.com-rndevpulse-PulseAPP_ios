@@ -50,7 +50,6 @@ class ImageAPIController {
                 
                 if let image = UIImage(data: data) {
                     completion(.success(image))
-                    print("got image success")
                 } else {
                     if let errorData = try? jsonDecoder.decode(ErrorData.self, from: data) {
                         completion(.failure(errorData))

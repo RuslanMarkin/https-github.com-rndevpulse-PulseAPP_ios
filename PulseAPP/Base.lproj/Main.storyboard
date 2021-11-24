@@ -204,10 +204,58 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="Kb6-eT-stL"/>
+                    <connections>
+                        <segue destination="eqt-Av-Jt0" kind="show" identifier="GeoSegue" id="Xz5-ec-brF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1v3-QD-E4A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7407" y="828"/>
+        </scene>
+        <!--Geo Data View Controller-->
+        <scene sceneID="GSc-Nd-7Jl">
+            <objects>
+                <viewController id="eqt-Av-Jt0" customClass="GeoDataViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DTr-ol-7AG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iTa-SS-o24">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="Title" id="N3x-1v-CB4">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="dot.arrowtriangles.up.right.down.left.circle" catalog="system" id="r16-g4-oE2">
+                                            <connections>
+                                                <action selector="getGeopositionButtonTapped:" destination="eqt-Av-Jt0" id="QK9-OW-HNs"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Back" id="3SQ-hj-tgW">
+                                            <connections>
+                                                <segue destination="H8u-HD-rnI" kind="unwind" unwindAction="unwindToCreatePublicationWithSender:" id="UXv-L2-QYB"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4g5-Sf-Ruk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iTa-SS-o24" firstAttribute="leading" secondItem="4g5-Sf-Ruk" secondAttribute="leading" id="MHl-3b-Njn"/>
+                            <constraint firstItem="iTa-SS-o24" firstAttribute="top" secondItem="4g5-Sf-Ruk" secondAttribute="top" id="g2b-9f-mKy"/>
+                            <constraint firstItem="iTa-SS-o24" firstAttribute="trailing" secondItem="4g5-Sf-Ruk" secondAttribute="trailing" id="wy4-VW-gSa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="cpt-1h-PgS"/>
+                    <connections>
+                        <outlet property="NaviBar" destination="iTa-SS-o24" id="Ouc-yh-JDQ"/>
+                        <outlet property="getGeopositionButton" destination="r16-g4-oE2" id="CqB-1c-yjb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="svM-ub-rxz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="H8u-HD-rnI" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="8293" y="403"/>
         </scene>
         <!--Country View Controller-->
         <scene sceneID="vNt-OX-FBb">
@@ -515,8 +563,19 @@
                     <view key="view" contentMode="scaleToFill" id="gdd-5X-Sa5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AAD-qP-PZc">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                            </mapView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="sOX-4E-7Hi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sOX-4E-7Hi" firstAttribute="bottom" secondItem="AAD-qP-PZc" secondAttribute="bottom" id="0Qt-HC-VX4"/>
+                            <constraint firstItem="sOX-4E-7Hi" firstAttribute="trailing" secondItem="AAD-qP-PZc" secondAttribute="trailing" id="EHZ-cD-85b"/>
+                            <constraint firstItem="AAD-qP-PZc" firstAttribute="leading" secondItem="sOX-4E-7Hi" secondAttribute="leading" id="WsK-Kl-8FG"/>
+                            <constraint firstItem="AAD-qP-PZc" firstAttribute="top" secondItem="sOX-4E-7Hi" secondAttribute="top" id="cNh-Br-WeZ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0W6-OS-n13">
                         <barButtonItem key="rightBarButtonItem" title="Add" image="plus.square.on.square.fill" catalog="system" id="0zy-uw-WAs" userLabel="Add">
@@ -525,6 +584,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="AAD-qP-PZc" id="rz6-Xg-BC1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gQ3-Hx-iWh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -618,6 +680,7 @@
         <segue reference="agX-EJ-Haa"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="dot.arrowtriangles.up.right.down.left.circle" catalog="system" width="128" height="121"/>
         <image name="plus.square.on.square.fill" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
