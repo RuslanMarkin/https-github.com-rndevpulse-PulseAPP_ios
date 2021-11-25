@@ -200,8 +200,27 @@
                     <view key="view" contentMode="scaleToFill" id="Bci-ex-87q" customClass="CreatePublicationView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEB-kq-xTR">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem id="tpi-hf-0KQ">
+                                        <barButtonItem key="rightBarButtonItem" title="Share" id="vBa-pk-PfE">
+                                            <connections>
+                                                <action selector="sharePublicationButtonTapped:" destination="rx1-By-t55" id="by9-Pu-9Vr"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="RcU-f7-577"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DEB-kq-xTR" firstAttribute="trailing" secondItem="RcU-f7-577" secondAttribute="trailing" id="Ha9-fd-RyC"/>
+                            <constraint firstItem="DEB-kq-xTR" firstAttribute="leading" secondItem="RcU-f7-577" secondAttribute="leading" id="gDq-7K-nua"/>
+                            <constraint firstItem="DEB-kq-xTR" firstAttribute="top" secondItem="RcU-f7-577" secondAttribute="top" id="zNc-T4-Oui"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Kb6-eT-stL"/>
                     <connections>
@@ -223,7 +242,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iTa-SS-o24">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                 <items>
-                                    <navigationItem title="Title" id="N3x-1v-CB4">
+                                    <navigationItem title="Add location" id="N3x-1v-CB4">
                                         <barButtonItem key="leftBarButtonItem" title="Item" image="dot.arrowtriangles.up.right.down.left.circle" catalog="system" id="r16-g4-oE2">
                                             <connections>
                                                 <action selector="getGeopositionButtonTapped:" destination="eqt-Av-Jt0" id="QK9-OW-HNs"/>

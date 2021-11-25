@@ -121,6 +121,32 @@ class Database {
       }
       // 7
     }
+    
+    func queryUserId() -> String {
+        let queryStatementString = "SELECT * FROM user_data;"
+        var queryStatement: OpaquePointer?
+        
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            if sqlite3_step(queryStatement) == SQLITE_ROW {
+                guard let queryResultCol2 = sqlite3_column_text(queryStatement, 1) else {
+                    print("Query result is nil")
+                      sqlite3_finalize(queryStatement)
+                      return ("")
+                }
+                let userId = String(cString: queryResultCol2)
+                return userId
+            } else {
+                print("\nQuery returned no results.")
+                sqlite3_finalize(queryStatement)
+                return ("")
+            }
+        } else {
+            let errorMessage = String(cString: sqlite3_errmsg(db))
+            print("\nQuery is not prepared \(errorMessage)")
+            sqlite3_finalize(queryStatement)
+            return ("")
+        }
+    }
 
     func delete() {
       let deleteStatementString = "DELETE FROM user_data WHERE id = 1;"

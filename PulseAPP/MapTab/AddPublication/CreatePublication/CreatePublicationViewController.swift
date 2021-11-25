@@ -17,7 +17,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         
         table.register(ImageAndDescriptionTableViewCell.nib(), forCellReuseIdentifier: ImageAndDescriptionTableViewCell.identifier)
         
-//        table.register(GeoTableViewCell.self, forCellReuseIdentifier: GeoTableViewCell.identifier)
+        table.register(CategoryCollectionTableViewCell.nib(), forCellReuseIdentifier: CategoryCollectionTableViewCell.identifier)
         
         return table
     }()
@@ -47,6 +47,9 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         locManager.startUpdatingLocation()
     }
     
+    @IBAction func sharePublicationButtonTapped(_ sender: Any) {
+        
+    }
     @IBAction func unwindToCreatePublication(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? GeoDataViewController {
             geoposition = sourceViewController.geoposition!
@@ -58,9 +61,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         if let location = locations.first {
             manager.stopUpdatingLocation()
             geoposition = "\(location.coordinate.latitude), \(location.coordinate.longitude)"
-//            if let geoposition = geoposition {
-//                print(String(geoposition))
-//            }
+
         }
     }
     
@@ -70,7 +71,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,6 +90,9 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
             let cell = UITableViewCell()
             cell.accessoryType = .disclosureIndicator
             cell.textLabel?.text = geoposition
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCollectionTableViewCell.identifier, for: indexPath)
             return cell
         default:
             return UITableViewCell()

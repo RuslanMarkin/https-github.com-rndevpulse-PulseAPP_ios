@@ -51,6 +51,10 @@
 		4B91140D2719742300841927 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B91140C2719742300841927 /* HeaderView.swift */; };
 		4B9114122719B65F00841927 /* ImageAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9114112719B65F00841927 /* ImageAPIController.swift */; };
 		4BC356E2274E31550075896F /* GeoDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC356E1274E31550075896F /* GeoDataViewController.swift */; };
+		4BC35705274E59E80075896F /* CategoryCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC35703274E59E80075896F /* CategoryCollectionTableViewCell.swift */; };
+		4BC35706274E59E80075896F /* CategoryCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC35704274E59E80075896F /* CategoryCollectionTableViewCell.xib */; };
+		4BC3570B274E5A9F0075896F /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC35709274E5A9F0075896F /* CategoryCollectionViewCell.swift */; };
+		4BC3570C274E5A9F0075896F /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC3570A274E5A9F0075896F /* CategoryCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +104,10 @@
 		4B91140C2719742300841927 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		4B9114112719B65F00841927 /* ImageAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIController.swift; sourceTree = "<group>"; };
 		4BC356E1274E31550075896F /* GeoDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoDataViewController.swift; sourceTree = "<group>"; };
+		4BC35703274E59E80075896F /* CategoryCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionTableViewCell.swift; sourceTree = "<group>"; };
+		4BC35704274E59E80075896F /* CategoryCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionTableViewCell.xib; sourceTree = "<group>"; };
+		4BC35709274E5A9F0075896F /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		4BC3570A274E5A9F0075896F /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +221,8 @@
 		4B55111B274BCD9800DE47BF /* CreatePublication */ = {
 			isa = PBXGroup;
 			children = (
+				4BC35708274E5A4E0075896F /* CategoryCollectionCell */,
+				4BC35707274E59FB0075896F /* CategoryCollectionTableCell */,
 				4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */,
 				4B55111C274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift */,
 				4B55111D274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib */,
@@ -301,6 +311,24 @@
 			path = ImageController;
 			sourceTree = "<group>";
 		};
+		4BC35707274E59FB0075896F /* CategoryCollectionTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				4BC35704274E59E80075896F /* CategoryCollectionTableViewCell.xib */,
+				4BC35703274E59E80075896F /* CategoryCollectionTableViewCell.swift */,
+			);
+			path = CategoryCollectionTableCell;
+			sourceTree = "<group>";
+		};
+		4BC35708274E5A4E0075896F /* CategoryCollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				4BC35709274E5A9F0075896F /* CategoryCollectionViewCell.swift */,
+				4BC3570A274E5A9F0075896F /* CategoryCollectionViewCell.xib */,
+			);
+			path = CategoryCollectionCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -364,6 +392,8 @@
 				4B55111F274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib in Resources */,
 				4B4210EA27157C4900D5E809 /* Assets.xcassets in Resources */,
 				4B6F32312726CAC6008A8838 /* Localizable.strings in Resources */,
+				4BC35706274E59E80075896F /* CategoryCollectionTableViewCell.xib in Resources */,
+				4BC3570C274E5A9F0075896F /* CategoryCollectionViewCell.xib in Resources */,
 				4B4210E827157C4700D5E809 /* Main.storyboard in Resources */,
 				4B91140B271973FD00841927 /* HeaderView.xib in Resources */,
 				4B36CDC1271DAC1C0091D229 /* CollectionViewCell.xib in Resources */,
@@ -387,10 +417,12 @@
 				4B36CDC3271EC3D10091D229 /* PublicationAPIController.swift in Sources */,
 				4B6F3269272835A1008A8838 /* User.swift in Sources */,
 				4B55CE962743EE78007152B3 /* ProfileSettingsViewController.swift in Sources */,
+				4BC3570B274E5A9F0075896F /* CategoryCollectionViewCell.swift in Sources */,
 				4B6F3266272835A1008A8838 /* UserPublication.swift in Sources */,
 				4B6F3268272835A1008A8838 /* PublicationType.swift in Sources */,
 				4B9114122719B65F00841927 /* ImageAPIController.swift in Sources */,
 				4B4210E527157C4700D5E809 /* AuthFormViewController.swift in Sources */,
+				4BC35705274E59E80075896F /* CategoryCollectionTableViewCell.swift in Sources */,
 				4B9113FF27171BD900841927 /* ToolMenuViewController.swift in Sources */,
 				4B9113FB271719AF00841927 /* CalendarViewController.swift in Sources */,
 				4B91140D2719742300841927 /* HeaderView.swift in Sources */,

@@ -94,4 +94,21 @@ class PublicationAPIController {
         }
         task.resume()
     }
+    
+    func getPublicationCategories(completion: @escaping (Result<[PublicationCategories], Error>) -> Void) {
+        let categoriesURL = baseURL.appendingPathComponent("categories")
+        
+        var request = URLRequest(url: categoriesURL)
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data, let publicationCategories = try? jsonDecoder.decode([PublicationCategories].self, from: data) {
+                completion(.success(publicationCategories))
+            } else {
+                completion(.failure(ErrorHandler.badRequest(505, "Error")))
+            }
+        }
+        task.resume()
+    }
 }
