@@ -22,6 +22,11 @@ class CollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        self.photoImageView.image = nil
+//    }
+    
     public func configure(with image: UIImage) {
         photoImageView.image = image
         contentView.clipsToBounds = true

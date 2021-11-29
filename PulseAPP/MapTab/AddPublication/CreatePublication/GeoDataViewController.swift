@@ -10,15 +10,14 @@ import CoreLocation
 
 class GeoDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
-    @IBOutlet weak var NaviBar: UINavigationBar!
     @IBOutlet weak var getGeopositionButton: UIBarButtonItem!
+    
     var locManager = CLLocationManager()
     
     var geoposition: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.setNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -27,6 +26,12 @@ class GeoDataViewController: UIViewController, UITableViewDelegate, UITableViewD
         locManager.delegate = self
         locManager.requestWhenInUseAuthorization()
         locManager.startUpdatingLocation()
+    }
+    
+    override func didMove(toParent: UIViewController?) {
+        if (parent == nil) {
+            print("back is tapped")
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -43,24 +48,11 @@ class GeoDataViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
-
-//    func setNavigationBar() {
-//        let screenSize: CGRect = UIScreen.main.bounds
-//        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 44))
-//        let navItem = UINavigationItem(title: "")
-//        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: nil, action: #selector(done))
-//        navItem.rightBarButtonItem = doneItem
-//        navBar.setItems([navItem], animated: false)
-//        self.view.addSubview(navBar)
-//    }
-//
-//    @objc func done() { // remove @objc for Swift 3
-//        locManager.startUpdatingLocation()
-//    }
     
     @IBAction func getGeopositionButtonTapped(_ sender: Any) {
         locManager.startUpdatingLocation()
         if let _ = geoposition {
+            getGeopositionButton.image = .none
             getGeopositionButton.title = "Done"
         }
     }

@@ -24,6 +24,8 @@
 		4B4210F52715953B00D5E809 /* RegistrationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */; };
 		4B4210F72715A9D500D5E809 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F62715A9D500D5E809 /* APIController.swift */; };
 		4B4210F92715C59F00D5E809 /* VerificationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */; };
+		4B480484274FB1A70055C62B /* UploadImageResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B480483274FB1A70055C62B /* UploadImageResponseData.swift */; };
+		4B480486275117800055C62B /* PublicationServerUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B480485275117800055C62B /* PublicationServerUpload.swift */; };
 		4B5510D0274B9D3800DE47BF /* CreatePublicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */; };
 		4B55111E274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55111C274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift */; };
 		4B55111F274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B55111D274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib */; };
@@ -77,6 +79,8 @@
 		4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFormViewController.swift; sourceTree = "<group>"; };
 		4B4210F62715A9D500D5E809 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationFormViewController.swift; sourceTree = "<group>"; };
+		4B480483274FB1A70055C62B /* UploadImageResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageResponseData.swift; sourceTree = "<group>"; };
+		4B480485275117800055C62B /* PublicationServerUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationServerUpload.swift; sourceTree = "<group>"; };
 		4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePublicationViewController.swift; sourceTree = "<group>"; };
 		4B55111C274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		4B55111D274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageAndDescriptionTableViewCell.xib; sourceTree = "<group>"; };
@@ -185,28 +189,37 @@
 		4B4210DF27157C4700D5E809 /* PulseAPP */ = {
 			isa = PBXGroup;
 			children = (
+				4B4210E627157C4700D5E809 /* Main.storyboard */,
+				4B4210E027157C4700D5E809 /* AppDelegate.swift */,
+				4B4210E227157C4700D5E809 /* SceneDelegate.swift */,
+				4B4210EB27157C4900D5E809 /* LaunchScreen.storyboard */,
 				4B1B00652747CF3600D03BF2 /* MapTab */,
 				4B1B00642746310C00D03BF2 /* Database */,
 				4B034916271FF0AE0004BD0B /* ErrorHandler */,
 				4B91140E2719B4B400841927 /* ImageController */,
 				4B9113F12716B05400841927 /* UserAPIControllers */,
 				4B91140327196A1500841927 /* PublicationAPIControllers */,
-				4B4210E027157C4700D5E809 /* AppDelegate.swift */,
-				4B4210E227157C4700D5E809 /* SceneDelegate.swift */,
 				4B91140627196EC600841927 /* UserProfileTab */,
 				4B4210E427157C4700D5E809 /* AuthFormViewController.swift */,
 				4B6F32342727DE29008A8838 /* Registration */,
-				4B4210E627157C4700D5E809 /* Main.storyboard */,
 				4B9113FE27171BD900841927 /* ToolMenuViewController.swift */,
 				4B9113FC27171A7500841927 /* SubscriptionsViewController.swift */,
 				4B9113FA271719AF00841927 /* CalendarViewController.swift */,
 				4B9113F42717086F00841927 /* MainGlobeTabBarController.swift */,
 				4B4210E927157C4900D5E809 /* Assets.xcassets */,
-				4B4210EB27157C4900D5E809 /* LaunchScreen.storyboard */,
 				4B4210EE27157C4900D5E809 /* Info.plist */,
 				4B1B00602744FB7600D03BF2 /* DateExtension.swift */,
 			);
 			path = PulseAPP;
+			sourceTree = "<group>";
+		};
+		4B480481274F84180055C62B /* ImageAndDescriptionTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				4B55111C274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift */,
+				4B55111D274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib */,
+			);
+			path = ImageAndDescriptionTableCell;
 			sourceTree = "<group>";
 		};
 		4B5510A6274B6FA300DE47BF /* AddPublication */ = {
@@ -221,11 +234,9 @@
 		4B55111B274BCD9800DE47BF /* CreatePublication */ = {
 			isa = PBXGroup;
 			children = (
-				4BC35708274E5A4E0075896F /* CategoryCollectionCell */,
+				4B480481274F84180055C62B /* ImageAndDescriptionTableCell */,
 				4BC35707274E59FB0075896F /* CategoryCollectionTableCell */,
 				4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */,
-				4B55111C274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift */,
-				4B55111D274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib */,
 				4BC356E1274E31550075896F /* GeoDataViewController.swift */,
 			);
 			path = CreatePublication;
@@ -259,6 +270,7 @@
 				4B6F3261272835A0008A8838 /* PublicationType.swift */,
 				4B6F3262272835A0008A8838 /* User.swift */,
 				4B91140427196A5E00841927 /* PublicationData.swift */,
+				4B480485275117800055C62B /* PublicationServerUpload.swift */,
 			);
 			path = PublicationData;
 			sourceTree = "<group>";
@@ -307,6 +319,7 @@
 			children = (
 				4B9114112719B65F00841927 /* ImageAPIController.swift */,
 				4B551120274CC3F400DE47BF /* ImageResizer.swift */,
+				4B480483274FB1A70055C62B /* UploadImageResponseData.swift */,
 			);
 			path = ImageController;
 			sourceTree = "<group>";
@@ -314,6 +327,7 @@
 		4BC35707274E59FB0075896F /* CategoryCollectionTableCell */ = {
 			isa = PBXGroup;
 			children = (
+				4BC35708274E5A4E0075896F /* CategoryCollectionCell */,
 				4BC35704274E59E80075896F /* CategoryCollectionTableViewCell.xib */,
 				4BC35703274E59E80075896F /* CategoryCollectionTableViewCell.swift */,
 			);
@@ -429,12 +443,14 @@
 				4B6F3267272835A1008A8838 /* PublicationCategories.swift in Sources */,
 				4B6F326A272835A1008A8838 /* Publication.swift in Sources */,
 				4B4210F52715953B00D5E809 /* RegistrationFormViewController.swift in Sources */,
+				4B480486275117800055C62B /* PublicationServerUpload.swift in Sources */,
 				4B36CDC0271DAC1C0091D229 /* CollectionViewCell.swift in Sources */,
 				4B9113FD27171A7500841927 /* SubscriptionsViewController.swift in Sources */,
 				4B9113F32716B24800841927 /* UserData.swift in Sources */,
 				4B6F32362727DE6F008A8838 /* CountryViewController.swift in Sources */,
 				4B9113F72717153B00841927 /* MapViewController.swift in Sources */,
 				4B4210E127157C4700D5E809 /* AppDelegate.swift in Sources */,
+				4B480484274FB1A70055C62B /* UploadImageResponseData.swift in Sources */,
 				4B6F32392727EFEA008A8838 /* CountriesData.swift in Sources */,
 				4B4210F92715C59F00D5E809 /* VerificationFormViewController.swift in Sources */,
 				4B1B00632746310300D03BF2 /* Database.swift in Sources */,

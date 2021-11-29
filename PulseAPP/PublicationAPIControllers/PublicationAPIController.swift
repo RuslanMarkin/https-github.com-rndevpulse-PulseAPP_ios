@@ -111,4 +111,40 @@ class PublicationAPIController {
         }
         task.resume()
     }
+    
+    func upload(publication: PublicationServerUpload, with token: String, completion: @escaping (Result <PublicationServerResponse, ServerErrorData>) -> Void) {
+        let url = baseURL.appendingPathComponent("publications/posts/create")
+        
+        var request = URLRequest(url: url)
+        let headers = ["authorization": "Bearer \(token)"]
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.allHTTPHeaderFields = headers
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = headers
+        let session = URLSession.init(configuration: config)
+        
+        let data: [String: Any] = ["userId": publication.userId, "description": publication.description, "geoposition": publication.geoposition, "publicationCategories": publication.publicationCategories, "publicationTypeId": publication.publicationTypeId, "files": publication.files]
+
+        let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
+        if let jsonData = jsonData {
+            let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
+            print(jsonString)
+        }
+        request.httpBody = jsonData
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data {
+                if let publicationResponse = try? jsonDecoder.decode(PublicationServerResponse.self, from: data) {
+                    completion(.success(publicationResponse))
+                } else {
+                    if let errorData = try? jsonDecoder.decode(ServerErrorData.self, from: data) {
+                        completion(.failure(errorData))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
 }

@@ -30,9 +30,10 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func addPublicationTapped(_ sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let addPublicationController = storyboard.instantiateViewController(withIdentifier: "AddPublicationTypeController") as! AddPublicationViewController
-        self.present(addPublicationController, animated: true, completion: nil)
+        performSegue(withIdentifier: "AddPublicationSegue", sender: nil)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let addPublicationController = storyboard.instantiateViewController(withIdentifier: "AddPublicationTypeController") as! AddPublicationViewController
+//        self.present(addPublicationController, animated: true, completion: nil)
     }
     
     /*

@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol CategoryCollectionTableViewCellDelegate: AnyObject {
+    func didTap(with chosenCategories: [String])
+}
+
 class CategoryCollectionTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     static let identifier = "CategoryCollectionTableViewCell"
+    
+    weak var delegate: CategoryCollectionTableViewCellDelegate?
     
     @IBOutlet var collectionView: UICollectionView!
     
@@ -77,10 +83,12 @@ class CategoryCollectionTableViewCell: UITableViewCell, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         chosenCategories.append(publicationCategories[indexPath.row].id!)
+        delegate?.didTap(with: chosenCategories)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         chosenCategories.remove(at: indexPath.row)
+        delegate?.didTap(with: chosenCategories)
     }
     
 }

@@ -20,3 +20,9 @@ struct ErrorData: Codable, Error {
     var traceId: String
     var errors: [String: [String]]
 }
+
+struct ServerErrorData: Codable, Error {
+    var title: String
+    var code: Int
+    var detail: String
+}

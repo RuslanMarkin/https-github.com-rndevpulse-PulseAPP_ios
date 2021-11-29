@@ -193,25 +193,16 @@
             </objects>
             <point key="canvasLocation" x="4516" y="69"/>
         </scene>
-        <!--Create Publication View Controller-->
+        <!--New Publication-->
         <scene sceneID="Ztd-dU-1nl">
             <objects>
                 <viewController id="rx1-By-t55" customClass="CreatePublicationViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bci-ex-87q" customClass="CreatePublicationView">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEB-kq-xTR">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                                <items>
-                                    <navigationItem id="tpi-hf-0KQ">
-                                        <barButtonItem key="rightBarButtonItem" title="Share" id="vBa-pk-PfE">
-                                            <connections>
-                                                <action selector="sharePublicationButtonTapped:" destination="rx1-By-t55" id="by9-Pu-9Vr"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
                             </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RcU-f7-577"/>
@@ -222,7 +213,13 @@
                             <constraint firstItem="DEB-kq-xTR" firstAttribute="top" secondItem="RcU-f7-577" secondAttribute="top" id="zNc-T4-Oui"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Kb6-eT-stL"/>
+                    <navigationItem key="navigationItem" title="New Publication" id="Kb6-eT-stL">
+                        <barButtonItem key="rightBarButtonItem" title="Share" id="6u3-lU-W9V">
+                            <connections>
+                                <action selector="sharePublicationButtonTapped:" destination="rx1-By-t55" id="yYI-A0-hZL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="eqt-Av-Jt0" kind="show" identifier="GeoSegue" id="Xz5-ec-brF"/>
                     </connections>
@@ -231,48 +228,28 @@
             </objects>
             <point key="canvasLocation" x="7407" y="828"/>
         </scene>
-        <!--Geo Data View Controller-->
+        <!--Add location-->
         <scene sceneID="GSc-Nd-7Jl">
             <objects>
                 <viewController id="eqt-Av-Jt0" customClass="GeoDataViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DTr-ol-7AG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iTa-SS-o24">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                                <items>
-                                    <navigationItem title="Add location" id="N3x-1v-CB4">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" image="dot.arrowtriangles.up.right.down.left.circle" catalog="system" id="r16-g4-oE2">
-                                            <connections>
-                                                <action selector="getGeopositionButtonTapped:" destination="eqt-Av-Jt0" id="QK9-OW-HNs"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Back" id="3SQ-hj-tgW">
-                                            <connections>
-                                                <segue destination="H8u-HD-rnI" kind="unwind" unwindAction="unwindToCreatePublicationWithSender:" id="UXv-L2-QYB"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="4g5-Sf-Ruk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="iTa-SS-o24" firstAttribute="leading" secondItem="4g5-Sf-Ruk" secondAttribute="leading" id="MHl-3b-Njn"/>
-                            <constraint firstItem="iTa-SS-o24" firstAttribute="top" secondItem="4g5-Sf-Ruk" secondAttribute="top" id="g2b-9f-mKy"/>
-                            <constraint firstItem="iTa-SS-o24" firstAttribute="trailing" secondItem="4g5-Sf-Ruk" secondAttribute="trailing" id="wy4-VW-gSa"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="cpt-1h-PgS"/>
+                    <navigationItem key="navigationItem" title="Add location" id="cpt-1h-PgS">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="dot.arrowtriangles.up.right.down.left.circle" catalog="system" id="r16-g4-oE2">
+                            <connections>
+                                <action selector="getGeopositionButtonTapped:" destination="eqt-Av-Jt0" id="QK9-OW-HNs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="NaviBar" destination="iTa-SS-o24" id="Ouc-yh-JDQ"/>
                         <outlet property="getGeopositionButton" destination="r16-g4-oE2" id="CqB-1c-yjb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="svM-ub-rxz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="H8u-HD-rnI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="8293" y="403"/>
         </scene>
@@ -605,6 +582,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="AAD-qP-PZc" id="rz6-Xg-BC1"/>
+                        <segue destination="5LI-i7-4pb" kind="show" identifier="AddPublicationSegue" id="2e2-UD-mPK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gQ3-Hx-iWh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -620,7 +598,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="s2w-Vh-4H7">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PublicationTypeCell" id="Jpc-11-suC">
@@ -643,9 +621,10 @@
                             <constraint firstItem="s2w-Vh-4H7" firstAttribute="top" secondItem="cKR-NJ-ggE" secondAttribute="top" id="yyA-hN-Q9J"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="qyg-oh-aJI"/>
                     <connections>
                         <outlet property="tableView" destination="s2w-Vh-4H7" id="QyL-dj-nLT"/>
-                        <segue destination="rx1-By-t55" kind="presentation" identifier="CreatePublicationSegue" id="Ebn-z6-bUa"/>
+                        <segue destination="rx1-By-t55" kind="show" identifier="CreatePublicationSegue" id="Ebn-z6-bUa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FW7-nf-iAr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

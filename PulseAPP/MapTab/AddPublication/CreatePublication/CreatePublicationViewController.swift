@@ -8,6 +8,12 @@
 import UIKit
 import CoreLocation
 
+extension CreatePublicationViewController: CategoryCollectionTableViewCellDelegate {
+    func didTap(with chosenCategories: [String]) {
+        publicationCategories = chosenCategories
+    }
+}
+
 class CreatePublicationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     var locManager = CLLocationManager()
@@ -24,17 +30,36 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     
     //Properties for sending request to server
     var selectedImage = UIImage()
+    var imgUrl: String?
+    var selectedImageExtension = String()
     var publicationDescription: String?
     var geoposition: String?
     var publicationCategories: [String]?
     var publicationTypeId: String?
-    //var publicationType: String!
+    var userId: String?
+    var fileIds = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        userId = Database.shared.queryUserId()
+        publicationTypeId = publicationTypeId!
+//        fileIds.append("f9485671-353b-4a55-8779-35be50312367")
+        if let imageUrl = imgUrl {
+            ImageAPIController.shared.uploadImage(with: AuthUserData.shared.accessToken, pathToFile: imageUrl, fileExtension: selectedImageExtension, image: selectedImage) { (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let imageServerData):
+                        self.fileIds.append(imageServerData.id)
+                        print(imageServerData.file)
+                    case .failure(let serverError):
+                        print(NSLocalizedString(serverError.detail, comment: ""))
+                    }
+                }
+            }
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -48,8 +73,17 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     }
     
     @IBAction func sharePublicationButtonTapped(_ sender: Any) {
-        
+        let publication = PublicationServerUpload(userId: userId!, description: publicationDescription!, geoposition: geoposition!, publicationCategories: publicationCategories!, publicationTypeId: publicationTypeId!, files: fileIds)
+        PublicationAPIController.shared.upload(publication: publication, with: AuthUserData.shared.accessToken) { (result) in
+            switch result {
+            case .success(let publicationUploadResponse):
+                print(publicationUploadResponse)
+            case .failure(let errorData):
+                print(NSLocalizedString(errorData.detail, comment: ""))
+            }
+        }
     }
+    
     @IBAction func unwindToCreatePublication(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? GeoDataViewController {
             geoposition = sourceViewController.geoposition!
@@ -79,6 +113,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: ImageAndDescriptionTableViewCell.identifier, for: indexPath) as! ImageAndDescriptionTableViewCell
             cell.configure(with: selectedImage)
+            cell.descriptionTextField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: .editingChanged)
             return cell
         case 1:
             guard let geoposition = geoposition else {
@@ -92,7 +127,8 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
             cell.textLabel?.text = geoposition
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCollectionTableViewCell.identifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCollectionTableViewCell.identifier, for: indexPath) as! CategoryCollectionTableViewCell
+            cell.delegate = self
             return cell
         default:
             return UITableViewCell()
@@ -104,26 +140,6 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         return 100
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let label = UILabel()
-        label.frame = CGRect.init(x: 5, y: 5, width: 50, height: 30)
-        label.text = "New publication"
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
-        label.textAlignment = NSTextAlignment.center
-        
-        let constraint = NSLayoutConstraint.constraints(withVisualFormat: "H:[label]", options: NSLayoutConstraint.FormatOptions.alignAllCenterX, metrics: nil, views: ["label": label])
-
-        label.addConstraints(constraint)
-                
-        return label
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
@@ -133,6 +149,10 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         default:
             return
         }
+    }
+    
+    @objc func textFieldDidChange(textField: UITextField) {
+        publicationDescription = textField.text!
     }
 
     /*

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 class AddPublicationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISheetPresentationControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -13,6 +14,8 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
     var indexOfSelectedRow: Int?
     
     var selectedImage = UIImage()
+    var selectedImageFileName: URL?
+    var selectedImageExtension = String()
     
     override var sheetPresentationController: UISheetPresentationController {
         presentationController as! UISheetPresentationController
@@ -42,6 +45,12 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let navigationBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
+        print(navigationBarHeight)
+    }
+    
     func updateUI(with publicationTypes: [PublicationType]) {
         self.publicationTypes = publicationTypes
         self.tableView.reloadData()
@@ -53,6 +62,20 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         
         self.selectedImage = image
+        
+        if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+                let imgName = url.lastPathComponent
+                let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
+                    let localPath = documentDirectory?.appending(imgName)
+
+                    let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+                    let data = image.jpegData(compressionQuality: 1.0)! as NSData
+                    data.write(toFile: localPath!, atomically: true)
+                    //let imageData = NSData(contentsOfFile: localPath!)!
+                    let photoURL = URL.init(fileURLWithPath: localPath!)//NSURL(fileURLWithPath: localPath!)
+                selectedImageFileName = photoURL
+                selectedImageExtension = url.pathExtension
+        }
         
         picker.dismiss(animated: true, completion: nil)
 
@@ -68,6 +91,11 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
             let destinationVC = segue.destination as! CreatePublicationViewController
             destinationVC.publicationTypeId = publicationTypes[indexOfSelectedRow!].name
             destinationVC.selectedImage = selectedImage
+            destinationVC.publicationTypeId = publicationTypes[indexOfSelectedRow!].id
+            if let pathToFile = selectedImageFileName {
+                destinationVC.imgUrl = String("\(pathToFile)".dropFirst(7))
+            }
+            destinationVC.selectedImageExtension = selectedImageExtension
         }
     }
     
@@ -141,4 +169,12 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
     }
     */
 
+}
+
+extension String {
+    func removing(charactersOf string: String) -> String {
+        let characterSet = CharacterSet(charactersIn: string)
+        let components = self.components(separatedBy: characterSet)
+        return components.joined(separator: "")
+    }
 }

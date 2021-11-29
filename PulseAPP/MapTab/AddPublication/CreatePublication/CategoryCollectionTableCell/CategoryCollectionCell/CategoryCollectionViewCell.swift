@@ -30,10 +30,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-//        label.layer.cornerRadius = 5.0
-//        label.layer.borderColor = UIColor.systemBlue.cgColor
-//        label.layer.borderWidth = 3.0
-        // Initialization code
     }
     
     public func configure(with text: String) {
