@@ -42,7 +42,8 @@ class PublicationAPIController {
         }
         task.resume()
     }
-     
+    
+    //Fetch user's publications with counter 'withCoef'
     func getMyPublications(withUserId: String, withToken: String, withCoef: Int, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
         let publicationsURL = baseURL.appendingPathComponent("publications/user/\(withCoef)")
         
@@ -64,6 +65,36 @@ class PublicationAPIController {
 //            if let error = error {
 //                completion(.failure(error))
 //            }
+            let jsonDecoder = JSONDecoder()
+            if let data = data {
+                if let myPublications = try? jsonDecoder.decode([UserPublication].self, from: data) {
+                    completion(.success(myPublications))
+                } else {
+                    if let errorData = try? jsonDecoder.decode(ErrorData.self, from: data) {
+                        completion(.failure(errorData))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    //Fetch publications filtered by categories and type
+    func getPublications(ofType: String, ofCategories: [String], afterPublicationWithLastId: String, with coef: Int, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
+        let url = baseURL.appendingPathComponent("publications/\(coef)")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let config = URLSessionConfiguration.default
+        let session = URLSession.init(configuration: config)
+        
+        let data: [String: Any] = ["lastid": afterPublicationWithLastId, "name": ofType, "category": ofCategories]
+
+        let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
+        request.httpBody = jsonData
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
             if let data = data {
                 if let myPublications = try? jsonDecoder.decode([UserPublication].self, from: data) {

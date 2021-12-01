@@ -11,8 +11,8 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     
     static let identifier = "PublicationTableViewCell"
     
+    var imageURLs: [String]?
     var imagesOfPublication = [UIImage]()
-//    var imagesOfPublication: [UIImage] = [UIImage(named: "0.png"), UIImage(named: "1.png"), UIImage(named: "2.png")].compactMap({ $0 })
     
     @IBOutlet weak var publicationTime: UILabel!
     @IBOutlet weak var orgOrUserPublicName: UILabel!
@@ -30,6 +30,7 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
         collectionView.register(CollectionViewCell.nib(), forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        
         
         // Initialization code
     }
@@ -56,7 +57,6 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     
     func configureTableCell(with publicationForCell: UserPublication?) {
         
-        
         if let publication = publicationForCell {
             
             let isoDate = publication.publication!.datePublication!
@@ -72,22 +72,42 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
             self.orgOrUserPublicName.text = publication.user!.publicName
             self.publicationDescriptionLabel.text = publication.publication!.description
             
-            if let imagesURLs = getImagesURLs(for: publication) {
-                print(imagesURLs)
-                for i in imagesURLs.indices {
-                    ImageAPIController.shared.getImage(withURL: imagesURLs[i]) { result in
-                        DispatchQueue.main.async {
-                        switch result {
-                                    case .success(let image):
-                                        self.imagesOfPublication.append(image)
-                                    case .failure(let error):
-                                        print(error)
-                                    }
+            APIController.shared.getUserAvatarURL(withToken: AuthUserData.shared.accessToken) {
+                (result) in DispatchQueue.main.async {
+                    switch result {
+                    case .success(let userPhoto):
+                        ImageAPIController.shared.getUserAvatarImage(withUrl: userPhoto.url) {
+                            (result) in DispatchQueue.main.async {
+                                switch result {
+                                case .success(let image):
+                                    self.publicationUserAvatar.image = image
+                                case .failure(let error):
+                                    print(error)
+                                }
+                            }
                         }
+                    case .failure(let error):
+                        print(error)
                     }
                 }
             }
-            collectionView.reloadData()
+            
+            if let imageURLs = getImagesURLs(for: publication) {
+                    for i in imageURLs.indices {
+                        ImageAPIController.shared.getImage(withURL: imageURLs[i]) { result in
+                            DispatchQueue.main.async {
+                            switch result {
+                                        case .success(let image):
+                                            self.imagesOfPublication.append(image)
+                                            self.collectionView.reloadData()
+                                            print("image appended")
+                                        case .failure(let error):
+                                            print(error)
+                                        }
+                            }
+                        }
+                    }
+            }
         }
     }
     

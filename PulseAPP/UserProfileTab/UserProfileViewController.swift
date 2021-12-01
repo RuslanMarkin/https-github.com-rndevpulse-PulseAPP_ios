@@ -20,16 +20,36 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         table.delegate = self
         table.dataSource = self
         
-        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0) { result in
+        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Publication", ofCategories: [
+            "PUBLICATIONCATEGORY.Food",
+            "PUBLICATIONCATEGORY.Monument",
+            "PUBLICATIONCATEGORY.Design"
+        ], afterPublicationWithLastId: "2713c5ae-a94d-4a9d-ac84-b58d08fd90b7", with: 0) { result in
             DispatchQueue.main.async {
-            switch result {
-                        case .success(let userPublications):
-                            self.updateUI(with: userPublications!)
-                        case .failure(let error):
-                            print(error)
-                        }
-            }
+                switch result {
+                            case .success(let userPublications):
+                                self.updateUI(with: userPublications!)
+                            case .failure(let error):
+                                print(error)
+                            }
+                }
         }
+        
+//        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0) { result in
+//            DispatchQueue.main.async {
+//            switch result {
+//                        case .success(let userPublications):
+//                            self.updateUI(with: userPublications!)
+//                        case .failure(let error):
+//                            print(error)
+//                        }
+//            }
+//        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        table.automaticallyAdjustsScrollIndicatorInsets = false
     }
     
     func updateUI(with userPublications: [UserPublication]) {
@@ -64,7 +84,6 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             (result) in DispatchQueue.main.async {
                 switch result {
                 case .success(let userPreviewData):
-                    //print(userPreviewData)
                     view.publicNameLabel.text = userPreviewData.publicName
                     view.userNameLabel.text = userPreviewData.name
                     view.countPublicationsLabel.text = String("Publications:  \(userPreviewData.countPublications)")
@@ -99,7 +118,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 221
+        return 130
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

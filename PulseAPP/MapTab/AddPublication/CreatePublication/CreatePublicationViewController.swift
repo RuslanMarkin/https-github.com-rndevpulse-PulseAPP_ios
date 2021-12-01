@@ -35,18 +35,20 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     var publicationDescription: String?
     var geoposition: String?
     var publicationCategories: [String]?
-    var publicationTypeId: String?
+    var publicationTypeId: String!
     var userId: String?
     var fileIds = [String]()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        userId = Database.shared.queryUserId()
-        publicationTypeId = publicationTypeId!
-//        fileIds.append("f9485671-353b-4a55-8779-35be50312367")
+        //Here should be userId for from AuthForm
+        //userId = Database.shared.queryUserId()
+        userId = AuthUserData.shared.userId
+        
         if let imageUrl = imgUrl {
             ImageAPIController.shared.uploadImage(with: AuthUserData.shared.accessToken, pathToFile: imageUrl, fileExtension: selectedImageExtension, image: selectedImage) { (result) in
                 DispatchQueue.main.async {
@@ -75,13 +77,16 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     @IBAction func sharePublicationButtonTapped(_ sender: Any) {
         let publication = PublicationServerUpload(userId: userId!, description: publicationDescription!, geoposition: geoposition!, publicationCategories: publicationCategories!, publicationTypeId: publicationTypeId!, files: fileIds)
         PublicationAPIController.shared.upload(publication: publication, with: AuthUserData.shared.accessToken) { (result) in
-            switch result {
-            case .success(let publicationUploadResponse):
-                print(publicationUploadResponse)
-            case .failure(let errorData):
-                print(NSLocalizedString(errorData.detail, comment: ""))
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let publicationUploadResponse):
+                    print(publicationUploadResponse)
+                case .failure(let errorData):
+                    print(NSLocalizedString(errorData.detail, comment: ""))
+                }
             }
         }
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func unwindToCreatePublication(sender: UIStoryboardSegue) {

@@ -33,6 +33,7 @@ class ImageAPIController {
         }
         task.resume()
     }
+    
     //Actually method above should be united with this one
     func getImage(withURL: String, completion: @escaping (Result<UIImage, ErrorData>) -> Void) {
         
@@ -59,31 +60,6 @@ class ImageAPIController {
         }
         task.resume()
     }
-    
-//    func uploadImage(image: UIImage, completion: @escaping (Result<UploadImageResponseData, ServerErrorData>) -> Void) {
-//        let uploadImageURL = baseURL.appendingPathComponent("files/images/create")
-//
-//        var request = URLRequest(url: uploadImageURL)
-//        request.allHTTPHeaderFields = header
-//        request.httpMethod = MethodHttp.post.rawValue
-//
-//        let boundary = generateBoundaryString()
-//
-//        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-//        // built data from img
-//        if let imageData = image.jpegData(compressionQuality: 1) {
-//                request.httpBody = createBodyWithParameters(parameters: param, filePathKey: "file", imageDataKey: imageData, boundary: boundary)
-//            }
-//
-//            let task =  URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) -> Void in
-//                if let data = data {
-//                    debugPrint("image uploaded successfully \(data)")
-//                } else if let error = error {
-//                    debugPrint(error.localizedDescription)
-//                }
-//            })
-//            task.resume()
-//    }
     
     func uploadImage(with token: String, pathToFile: String, fileExtension: String, image: UIImage, completion: @escaping (Result<UploadImageResponseData, ServerErrorData>) -> Void) {
         let url = baseURL.appendingPathComponent("files/images/create")
