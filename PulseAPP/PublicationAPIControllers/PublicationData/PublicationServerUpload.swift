@@ -14,6 +14,7 @@ struct PublicationServerUpload: Codable {
     var publicationCategories: [String]
     var publicationTypeId: String
     var files: [String]
+    var regionCode: String
 }
 
 

@@ -7,15 +7,17 @@
 
 import UIKit
 import Photos
+import PhotosUI
 
-class AddPublicationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISheetPresentationControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddPublicationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISheetPresentationControllerDelegate, PHPickerViewControllerDelegate, UINavigationControllerDelegate {
+    
     
     var publicationTypes = [PublicationType]()
     var indexOfSelectedRow: Int?
     
-    var selectedImage = UIImage()
-    var selectedImageFileName: URL?
-    var selectedImageExtension = String()
+    var selectedImages = [UIImage]()
+    var selectedImagesUrls = [String]()
+    var selectedImagesExtensions = [String]()
     
     override var sheetPresentationController: UISheetPresentationController {
         presentationController as! UISheetPresentationController
@@ -45,57 +47,56 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let navigationBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
-        print(navigationBarHeight)
-    }
-    
     func updateUI(with publicationTypes: [PublicationType]) {
         self.publicationTypes = publicationTypes
         self.tableView.reloadData()
     }
     
     //Code for image picker and to pass selected image to 'create publication view controller'
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
-        self.selectedImage = image
+        self.selectedImages.removeAll()
+        self.selectedImagesUrls.removeAll()
+        self.selectedImagesExtensions.removeAll()
+        picker.dismiss(animated: true, completion: nil)
+        let group = DispatchGroup()
         
-        if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-                let imgName = url.lastPathComponent
-                let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
-                    let localPath = documentDirectory?.appending(imgName)
-
-                    let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-                    let data = image.jpegData(compressionQuality: 1.0)! as NSData
-                    data.write(toFile: localPath!, atomically: true)
-                    //let imageData = NSData(contentsOfFile: localPath!)!
-                    let photoURL = URL.init(fileURLWithPath: localPath!)//NSURL(fileURLWithPath: localPath!)
-                selectedImageFileName = photoURL
-                selectedImageExtension = url.pathExtension
+        DispatchQueue.main.async {
+            results.forEach { result in
+                group.enter()
+                result.itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { (url, error) in
+                        guard let url = url else {
+                            return
+                        }
+                    let urlString = String("\(url)".dropFirst(7))
+                    self.selectedImagesUrls.append(urlString)
+                    self.selectedImagesExtensions.append(url.pathExtension)
+                }
+                result.itemProvider.loadObject(ofClass: UIImage.self) { reading, error in
+                    defer {
+                        group.leave()
+                    }
+                    guard let image = reading as? UIImage, error == nil else {
+                        return
+                    }
+                    self.selectedImages.append(image)
+                }
+            }
+            group.notify(queue: .main) {
+                print(self.selectedImagesUrls.count)
+                self.performSegue(withIdentifier: "CreatePublicationSegue", sender: self)
+            }
         }
-        
-        picker.dismiss(animated: true, completion: nil)
-
-        performSegue(withIdentifier: "CreatePublicationSegue", sender: self)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CreatePublicationSegue" {
             let destinationVC = segue.destination as! CreatePublicationViewController
-            destinationVC.publicationTypeId = publicationTypes[indexOfSelectedRow!].name
-            destinationVC.selectedImage = selectedImage
-            destinationVC.publicationTypeId = publicationTypes[indexOfSelectedRow!].id
-            if let pathToFile = selectedImageFileName {
-                destinationVC.imgUrl = String("\(pathToFile)".dropFirst(7))
-            }
-            destinationVC.selectedImageExtension = selectedImageExtension
+
+            destinationVC.selectedImages = selectedImages
+            destinationVC.publicationType = publicationTypes[indexOfSelectedRow!]
+            destinationVC.imgUrls = selectedImagesUrls
+            destinationVC.selectedImagesExtensions = selectedImagesExtensions
         }
     }
     
@@ -105,8 +106,8 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PublicationTypeCell", for: indexPath)
-        cell.textLabel?.text = NSLocalizedString(publicationTypes[indexPath.row].name!, comment: "") 
-        
+        cell.textLabel?.text = NSLocalizedString(publicationTypes[indexPath.row].name!, comment: "")
+
         return cell
     }
     
@@ -115,10 +116,15 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
         tableView.deselectRow(at: indexPath, animated: true)
         
         let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
         
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.selectionLimit = 3
+        config.filter = .images
+        let photoPickerController = PHPickerViewController(configuration: config)
+        photoPickerController.delegate = self
+//
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose photo for publication", preferredStyle: .actionSheet)
-        
+
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePickerController.sourceType = .camera
@@ -126,16 +132,15 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
             } else {
                 print("Camera is not available")
             }
-            
+
         }))
-        
+//
         actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
-            imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
+            self.present(photoPickerController, animated: true, completion: nil)
         }))
-        
+
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-        
+
         self.present(actionSheet, animated: true, completion: nil)
     }
     
@@ -169,12 +174,4 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
     }
     */
 
-}
-
-extension String {
-    func removing(charactersOf string: String) -> String {
-        let characterSet = CharacterSet(charactersIn: string)
-        let components = self.components(separatedBy: characterSet)
-        return components.joined(separator: "")
-    }
 }

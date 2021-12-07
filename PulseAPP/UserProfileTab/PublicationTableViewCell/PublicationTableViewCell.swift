@@ -52,7 +52,7 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 250, height: 250)
+        return CGSize(width: UIScreen.main.bounds.width, height: 250)
     }
     
     func configureTableCell(with publicationForCell: UserPublication?) {

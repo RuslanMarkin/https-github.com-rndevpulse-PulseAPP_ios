@@ -247,9 +247,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="getGeopositionButton" destination="r16-g4-oE2" id="CqB-1c-yjb"/>
+                        <segue destination="qEf-oB-5Zt" kind="unwind" identifier="unwindToCreatePublication" unwindAction="unwindToCreatePublicationWithSender:" id="4IR-eN-5B9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="svM-ub-rxz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="qEf-oB-5Zt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="8293" y="403"/>
         </scene>

@@ -7,7 +7,9 @@
 
 import UIKit
 
-class UserProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class UserProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationBarDelegate {
+    
+    private var pullControl = UIRefreshControl()
     
     @IBOutlet weak var table: UITableView!
     
@@ -20,31 +22,52 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         table.delegate = self
         table.dataSource = self
         
-        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Publication", ofCategories: [
-            "PUBLICATIONCATEGORY.Food",
-            "PUBLICATIONCATEGORY.Monument",
-            "PUBLICATIONCATEGORY.Design"
-        ], afterPublicationWithLastId: "2713c5ae-a94d-4a9d-ac84-b58d08fd90b7", with: 0) { result in
-            DispatchQueue.main.async {
-                switch result {
-                            case .success(let userPublications):
-                                self.updateUI(with: userPublications!)
-                            case .failure(let error):
-                                print(error)
-                            }
-                }
-        }
         
-//        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0) { result in
+
+        pullControl.attributedTitle = NSAttributedString(string: "Reload data")
+                pullControl.addTarget(self, action: #selector(refreshListData(_:)), for: .valueChanged)
+                if #available(iOS 10.0, *) {
+                    self.table.refreshControl = pullControl
+                } else {
+                    self.table.addSubview(pullControl)
+                }
+        
+        
+//        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Publication", ofCategories: [
+//            "PUBLICATIONCATEGORY.Food",
+//            "PUBLICATIONCATEGORY.Monument",
+//            "PUBLICATIONCATEGORY.Design"
+//        ], afterPublicationWithLastId: "2713c5ae-a94d-4a9d-ac84-b58d08fd90b7", with: 0) { result in
 //            DispatchQueue.main.async {
-//            switch result {
-//                        case .success(let userPublications):
-//                            self.updateUI(with: userPublications!)
-//                        case .failure(let error):
-//                            print(error)
-//                        }
-//            }
+//                switch result {
+//                            case .success(let userPublications):
+//                                self.updateUI(with: userPublications!)
+//                            case .failure(let error):
+//                                print(error)
+//                            }
+//                }
 //        }
+//
+        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0) { result in
+            DispatchQueue.main.async {
+            switch result {
+                        case .success(let userPublications):
+                            self.updateUI(with: userPublications!)
+                        case .failure(let error):
+                            print(error)
+                        }
+            }
+        }
+    }
+    
+    @objc private func refreshListData(_ sender: Any) {
+        self.table.reloadData()
+        self.pullControl.endRefreshing() // You can stop after API Call
+            // Call API
+    }
+    
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return UIBarPosition.topAttached
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,7 +95,8 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        return 350
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -155,7 +155,7 @@ class PublicationAPIController {
         config.httpAdditionalHeaders = headers
         let session = URLSession.init(configuration: config)
         
-        let data: [String: Any] = ["userId": publication.userId, "description": publication.description, "geoposition": publication.geoposition, "publicationCategories": publication.publicationCategories, "publicationTypeId": publication.publicationTypeId, "files": publication.files]
+        let data: [String: Any] = ["userId": publication.userId, "description": publication.description, "geoposition": publication.geoposition, "publicationCategories": publication.publicationCategories, "publicationTypeId": publication.publicationTypeId, "files": publication.files, "regionCode": publication.regionCode]
 
         let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
         if let jsonData = jsonData {
@@ -169,6 +169,42 @@ class PublicationAPIController {
             if let data = data {
                 if let publicationResponse = try? jsonDecoder.decode(PublicationServerResponse.self, from: data) {
                     completion(.success(publicationResponse))
+                } else {
+                    if let errorData = try? jsonDecoder.decode(ServerErrorData.self, from: data) {
+                        completion(.failure(errorData))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func uploadEvent(event: EventServerUpload, with token: String, completion: @escaping (Result <EventServerResponse, ServerErrorData>) -> Void) {
+        let url = baseURL.appendingPathComponent("publications/events/create")
+        
+        var request = URLRequest(url: url)
+        let headers = ["authorization": "Bearer \(token)"]
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.allHTTPHeaderFields = headers
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = headers
+        let session = URLSession.init(configuration: config)
+        
+        let data: [String: Any] = ["userId": event.userId, "name": event.name, "description": event.description, "geoposition": event.geoposition, "publicationCategories": event.publicationCategories, "publicationTypeId": event.publicationTypeId, "files": event.files, "begin": event.begin, "end": event.end, "CoverageRadius": event.coverageRadius, "regionCode": event.regionCode]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
+        if let jsonData = jsonData {
+            let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
+            print(jsonString)
+        }
+        request.httpBody = jsonData
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data {
+                if let eventResponse = try? jsonDecoder.decode(EventServerResponse.self, from: data) {
+                    completion(.success(eventResponse))
                 } else {
                     if let errorData = try? jsonDecoder.decode(ServerErrorData.self, from: data) {
                         completion(.failure(errorData))

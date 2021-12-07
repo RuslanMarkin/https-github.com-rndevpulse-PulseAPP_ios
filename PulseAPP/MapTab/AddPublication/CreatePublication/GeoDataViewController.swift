@@ -8,7 +8,13 @@
 import UIKit
 import CoreLocation
 
+protocol GeoDataViewControllerDelegate {
+    func sendGeoposition(geo: String)
+}
+
 class GeoDataViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+    
+    var delegate: GeoDataViewControllerDelegate? = nil
     
     @IBOutlet weak var getGeopositionButton: UIBarButtonItem!
     
@@ -29,8 +35,8 @@ class GeoDataViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func didMove(toParent: UIViewController?) {
-        if (parent == nil) {
-            print("back is tapped")
+        if (self.delegate != nil) && (parent == nil) {
+            self.delegate!.sendGeoposition(geo: geoposition!)
         }
     }
     

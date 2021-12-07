@@ -87,7 +87,7 @@ class CategoryCollectionTableViewCell: UITableViewCell, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        chosenCategories.remove(at: indexPath.row)
+        chosenCategories = chosenCategories.filter { $0 != publicationCategories[indexPath.row].id}
         delegate?.didTap(with: chosenCategories)
     }
     

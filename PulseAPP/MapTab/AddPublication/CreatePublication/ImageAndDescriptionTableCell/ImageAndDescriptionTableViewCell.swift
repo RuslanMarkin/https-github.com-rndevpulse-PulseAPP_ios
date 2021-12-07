@@ -5,14 +5,14 @@
 //  Created by Алексей Поддубный on 22.11.2021.
 //
 
-import UIKit
+import UIKit 
 
-class ImageAndDescriptionTableViewCell: UITableViewCell {
+class ImageAndDescriptionTableViewCell: UITableViewCell, UITextViewDelegate {
     
     static let identifier = "ImageAndDescriptionTableViewCell"
     
     @IBOutlet var publicationImageView: UIImageView!
-    @IBOutlet var descriptionTextField: UITextField!
+    @IBOutlet var descriptionTextView: UITextView!
     
     static func nib() -> UINib {
         return UINib(nibName: "ImageAndDescriptionTableViewCell", bundle: nil)
@@ -20,6 +20,8 @@ class ImageAndDescriptionTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        descriptionTextView.textColor = .lightGray
+        descriptionTextView.text = "Description"
         // Initialization code
     }
 
