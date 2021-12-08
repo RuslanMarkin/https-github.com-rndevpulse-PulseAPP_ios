@@ -29,11 +29,6 @@ class BeginEndEventTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        let startDate = Date()
-        let endDate = Date(timeInterval: 3600, since: startDate)
-        eventEndDatePicker.setDate(endDate, animated: false)
-        print(eventStartDatePicker.date.description)
-        print(eventEndDatePicker.date.description)
         // Initialization code
     }
 
@@ -50,6 +45,8 @@ class BeginEndEventTableViewCell: UITableViewCell {
         eventEndDatePicker.setDate(endDate, animated: false)
         eventStartDatePicker.minimumDate = startDate
         eventEndDatePicker.minimumDate = startDate
+        delegate?.sendEventStartDate(startDate: startDate)
+        delegate?.sendEventEndDate(endDate: endDate)
     }
     
     @IBAction func eventStartPickerChanged(_ sender: UIDatePicker) {

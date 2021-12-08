@@ -154,6 +154,9 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                             }
                         }
                 }
+            else {
+                print("Can not send event to server")
+            }
             default:
                 print("Hello")
             }
@@ -316,21 +319,17 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         let dispatchGroup = DispatchGroup()
         for (i, imageUrl) in imgUrls.enumerated() {
             dispatchGroup.enter()
-            print(i)
-            print(selectedImagesExtensions[i])
-            print(selectedImages.count)
-            
-//              ImageAPIController.shared.uploadImage(with: AuthUserData.shared.accessToken, pathToFile: imageUrl, fileExtension: selectedImagesExtensions[i], image: selectedImages[i]) { (result) in
-//                  DispatchQueue.main.async {
-//                      switch result {
-//                      case .success(let imageServerData):
-//                          self.fileIds.append(imageServerData.id)
-//                          print(imageServerData.file)
-//                      case .failure(let serverError):
-//                          print(NSLocalizedString(serverError.detail, comment: ""))
-//                      }
-//                  }
-//              }
+              ImageAPIController.shared.uploadImage(with: AuthUserData.shared.accessToken, pathToFile: imageUrl, fileExtension: selectedImagesExtensions[i], image: selectedImages[i]) { (result) in
+                  DispatchQueue.main.async {
+                      switch result {
+                      case .success(let imageServerData):
+                          self.fileIds.append(imageServerData.id)
+                          print(imageServerData.file)
+                      case .failure(let serverError):
+                          print(NSLocalizedString(serverError.detail, comment: ""))
+                      }
+                  }
+              }
             dispatchGroup.leave()
         }
         dispatchGroup.notify(queue: .main) {

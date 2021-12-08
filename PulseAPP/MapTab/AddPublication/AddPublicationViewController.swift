@@ -83,7 +83,6 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
             group.notify(queue: .main) {
-                print(self.selectedImagesUrls.count)
                 self.performSegue(withIdentifier: "CreatePublicationSegue", sender: self)
             }
         }
