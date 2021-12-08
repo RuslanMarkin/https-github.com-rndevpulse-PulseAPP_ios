@@ -95,7 +95,7 @@
                         <outlet property="invalidLoginLabel" destination="XCZ-E4-kL4" id="5cq-aa-N9S"/>
                         <outlet property="loginTextField" destination="hBA-Tt-djh" id="frU-Su-xv7"/>
                         <outlet property="passwordTextField" destination="jGa-U9-Ksn" id="t2n-Jw-U8h"/>
-                        <segue destination="LiH-ag-2nh" kind="show" identifier="UserAuthSegue" id="agX-EJ-Haa"/>
+                        <segue destination="LiH-ag-2nh" kind="presentation" identifier="UserAuthSegue" modalPresentationStyle="fullScreen" id="agX-EJ-Haa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -156,22 +156,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="2n5-uc-mmz" style="IBUITableViewCellStyleDefault" id="7M3-bx-JOD">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="7M3-bx-JOD">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7M3-bx-JOD" id="RnD-Sp-SM2">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2n5-uc-mmz">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="Cell"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -187,6 +179,7 @@
                     </view>
                     <connections>
                         <outlet property="table" destination="u0b-1a-lvc" id="Zej-df-ala"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="LogOutSegue" modalPresentationStyle="fullScreen" id="PGS-Pd-Bka"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HTb-nH-SAW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -316,11 +309,11 @@
             <objects>
                 <viewController id="yPY-vt-e21" customClass="RegistrationFormViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aTv-Au-Ded">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="NgG-QL-SYY">
-                                <rect key="frame" x="32" y="255.5" width="350" height="385.5"/>
+                                <rect key="frame" x="32" y="228.5" width="350" height="385.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG5-Tx-e7O">
                                         <rect key="frame" x="102.5" y="0.0" width="145" height="33.5"/>
@@ -378,7 +371,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xR7-YJ-lxR">
-                                <rect key="frame" x="186.5" y="811.5" width="41.5" height="20.5"/>
+                                <rect key="frame" x="186.5" y="757.5" width="41.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -413,16 +406,16 @@
             <objects>
                 <viewController id="CUl-pu-VAJ" customClass="VerificationFormViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5QI-PD-KEE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8TQ-pR-ZKS">
-                                <rect key="frame" x="107" y="811" width="200" height="31"/>
+                                <rect key="frame" x="107" y="757" width="200" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Login without authorization"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="Iop-ZL-XFe">
-                                <rect key="frame" x="58.5" y="393.5" width="297.5" height="109"/>
+                                <rect key="frame" x="58.5" y="366.5" width="297.5" height="109"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6-digit verifaction code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sk-7o-IId">
                                         <rect key="frame" x="0.0" y="0.0" width="297.5" height="35"/>
@@ -441,7 +434,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXl-3Q-loq">
-                                <rect key="frame" x="186.5" y="760.5" width="41.5" height="20.5"/>
+                                <rect key="frame" x="186.5" y="706.5" width="41.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -678,6 +671,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="agX-EJ-Haa"/>
+        <segue reference="PGS-Pd-Bka"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="dot.arrowtriangles.up.right.down.left.circle" catalog="system" width="128" height="121"/>

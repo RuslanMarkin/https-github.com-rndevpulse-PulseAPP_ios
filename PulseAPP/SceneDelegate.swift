@@ -60,6 +60,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userData):
+                //    Database.shared.insertUserData(userId: userData.userId, login: login, password: password, token: userData.accessToken)
+                // How to replace db row?
                     AuthUserData.shared = userData
                     print("Got token success")
                 case .failure(_):

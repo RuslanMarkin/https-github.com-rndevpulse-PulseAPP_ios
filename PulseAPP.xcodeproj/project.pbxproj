@@ -57,6 +57,8 @@
 		4B91140B271973FD00841927 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B91140A271973FD00841927 /* HeaderView.xib */; };
 		4B91140D2719742300841927 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B91140C2719742300841927 /* HeaderView.swift */; };
 		4B9114122719B65F00841927 /* ImageAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9114112719B65F00841927 /* ImageAPIController.swift */; };
+		4B95D4B527609B59003473B3 /* LogOutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95D4B327609B59003473B3 /* LogOutTableViewCell.swift */; };
+		4B95D4B627609B59003473B3 /* LogOutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B95D4B427609B59003473B3 /* LogOutTableViewCell.xib */; };
 		4BC356E2274E31550075896F /* GeoDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC356E1274E31550075896F /* GeoDataViewController.swift */; };
 		4BC35705274E59E80075896F /* CategoryCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC35703274E59E80075896F /* CategoryCollectionTableViewCell.swift */; };
 		4BC35706274E59E80075896F /* CategoryCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC35704274E59E80075896F /* CategoryCollectionTableViewCell.xib */; };
@@ -118,6 +120,8 @@
 		4B91140A271973FD00841927 /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		4B91140C2719742300841927 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		4B9114112719B65F00841927 /* ImageAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIController.swift; sourceTree = "<group>"; };
+		4B95D4B327609B59003473B3 /* LogOutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutTableViewCell.swift; sourceTree = "<group>"; };
+		4B95D4B427609B59003473B3 /* LogOutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogOutTableViewCell.xib; sourceTree = "<group>"; };
 		4BC356E1274E31550075896F /* GeoDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoDataViewController.swift; sourceTree = "<group>"; };
 		4BC35703274E59E80075896F /* CategoryCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		4BC35704274E59E80075896F /* CategoryCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionTableViewCell.xib; sourceTree = "<group>"; };
@@ -347,7 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				4B9113F82717157500841927 /* UserProfileViewController.swift */,
-				4B55CE952743EE78007152B3 /* ProfileSettingsViewController.swift */,
+				4B95D4B227609B1E003473B3 /* ProfileSettings */,
 				4B91140927196F9900841927 /* Header */,
 				4B36CDC5271EEB490091D229 /* PublicationTableViewCell */,
 				4B36CDBD271DABDE0091D229 /* CollectionViewCell */,
@@ -372,6 +376,24 @@
 				4B480483274FB1A70055C62B /* UploadImageResponseData.swift */,
 			);
 			path = ImageController;
+			sourceTree = "<group>";
+		};
+		4B95D4B227609B1E003473B3 /* ProfileSettings */ = {
+			isa = PBXGroup;
+			children = (
+				4B55CE952743EE78007152B3 /* ProfileSettingsViewController.swift */,
+				4B95D4B727609BDA003473B3 /* LogOutTableCell */,
+			);
+			path = ProfileSettings;
+			sourceTree = "<group>";
+		};
+		4B95D4B727609BDA003473B3 /* LogOutTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				4B95D4B327609B59003473B3 /* LogOutTableViewCell.swift */,
+				4B95D4B427609B59003473B3 /* LogOutTableViewCell.xib */,
+			);
+			path = LogOutTableCell;
 			sourceTree = "<group>";
 		};
 		4BC35707274E59FB0075896F /* CategoryCollectionTableCell */ = {
@@ -468,6 +490,7 @@
 				4BC3570C274E5A9F0075896F /* CategoryCollectionViewCell.xib in Resources */,
 				4B3D81CB2758F9E1009CA0F6 /* BeginEndEventTableViewCell.xib in Resources */,
 				4B4210E827157C4700D5E809 /* Main.storyboard in Resources */,
+				4B95D4B627609B59003473B3 /* LogOutTableViewCell.xib in Resources */,
 				4B91140B271973FD00841927 /* HeaderView.xib in Resources */,
 				4B36CDC1271DAC1C0091D229 /* CollectionViewCell.xib in Resources */,
 				4B7C8AB9275A16920068AE19 /* CoverageRadiusTableViewCell.xib in Resources */,
@@ -481,6 +504,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B95D4B527609B59003473B3 /* LogOutTableViewCell.swift in Sources */,
 				4B36CDC8271EEB830091D229 /* PublicationTableViewCell.swift in Sources */,
 				4B1B00612744FB7600D03BF2 /* DateExtension.swift in Sources */,
 				4B551121274CC3F400DE47BF /* ImageResizer.swift in Sources */,
