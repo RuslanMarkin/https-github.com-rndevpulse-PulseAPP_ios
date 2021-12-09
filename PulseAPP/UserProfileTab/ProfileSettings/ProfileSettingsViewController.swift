@@ -35,7 +35,7 @@ class ProfileSettingsViewController: UIViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: LogOutTableViewCell.identifier, for: indexPath) as! LogOutTableViewCell
         cell.delegate = self
-        cell.logOutButton.setTitle("Log out", for: .normal)
+        cell.logOutButton.setTitle(NSLocalizedString("Log out", comment: ""), for: .normal)
         return cell
     }
     /*

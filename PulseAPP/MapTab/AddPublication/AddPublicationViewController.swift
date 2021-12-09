@@ -83,7 +83,9 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
             group.notify(queue: .main) {
-                self.performSegue(withIdentifier: "CreatePublicationSegue", sender: self)
+                if !self.selectedImages.isEmpty {
+                    self.performSegue(withIdentifier: "CreatePublicationSegue", sender: self)
+                }
             }
         }
     }
@@ -112,19 +114,30 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         indexOfSelectedRow = indexPath.row
+        let selectedType = publicationTypes[indexPath.row].name
         tableView.deselectRow(at: indexPath, animated: true)
         
         let imagePickerController = UIImagePickerController()
         
         var config = PHPickerConfiguration(photoLibrary: .shared())
-        config.selectionLimit = 3
+        switch selectedType {
+        case "PUBLICATIONTYPE.Publication":
+            config.selectionLimit = 10
+        case "PUBLICATIONTYPE.Event":
+            config.selectionLimit = 10
+        case "PUBLICATIONTYPE.Organization":
+            config.selectionLimit = 1
+        default:
+            config.selectionLimit = 1
+        }
         config.filter = .images
+        
         let photoPickerController = PHPickerViewController(configuration: config)
         photoPickerController.delegate = self
 //
-        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose photo for publication", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: NSLocalizedString("Photo Source", comment: ""), message: NSLocalizedString("Choose image", comment: ""), preferredStyle: .actionSheet)
 
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString("Camera", comment: ""), style: .default, handler: { (action: UIAlertAction) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePickerController.sourceType = .camera
                 self.present(imagePickerController, animated: true, completion: nil)
@@ -134,11 +147,11 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
 
         }))
 //
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString("Photo Library", comment: ""), style: .default, handler: { (action: UIAlertAction) in
             self.present(photoPickerController, animated: true, completion: nil)
         }))
 
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .default, handler: nil))
 
         self.present(actionSheet, animated: true, completion: nil)
     }
@@ -147,7 +160,7 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
         
         let label = UILabel()
         label.frame = CGRect.init(x: 5, y: 5, width: 50, height: 30)
-        label.text = "Create: "
+        label.text = NSLocalizedString("Create: ", comment: "")
         label.font = .systemFont(ofSize: 16)
         label.textColor = .black
         label.textAlignment = NSTextAlignment.center

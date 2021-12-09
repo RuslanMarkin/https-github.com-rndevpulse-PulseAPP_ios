@@ -110,9 +110,9 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 case .success(let userPreviewData):
                     view.publicNameLabel.text = userPreviewData.publicName
                     view.userNameLabel.text = userPreviewData.name
-                    view.countPublicationsLabel.text = String("Publications:  \(userPreviewData.countPublications)")
+                    view.countPublicationsLabel.text = "\(NSLocalizedString("Publications: ", comment: "")) \(userPreviewData.countPublications)"
                     view.countPublicationsLabel.adjustsFontSizeToFitWidth = true
-                    view.countSubscriptionsLabel.text = String("Subscriptions: \(userPreviewData.countUsersSubscription)")
+                    view.countSubscriptionsLabel.text = "\(NSLocalizedString("Subscriptions: ", comment: ""))  \(userPreviewData.countUsersSubscription)"
                     view.countSubscriptionsLabel.adjustsFontSizeToFitWidth = true
                 case .failure(let error):
                     print(error)

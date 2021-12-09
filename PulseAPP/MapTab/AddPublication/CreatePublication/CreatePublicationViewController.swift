@@ -83,6 +83,8 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         
         table.register(CoverageRadiusTableViewCell.nib(), forCellReuseIdentifier: CoverageRadiusTableViewCell.identifier)
         
+        table.register(DescriptionTableViewCell.nib(), forCellReuseIdentifier: DescriptionTableViewCell.identifier)
+        
         return table
     }()
     
@@ -114,19 +116,20 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        self.navigationItem.title = "New \(NSLocalizedString(publicationType.name!, comment: ""))"
+        self.navigationItem.title = "\(NSLocalizedString("New", comment: "")) \(NSLocalizedString(publicationType.name!, comment: ""))"
         
         userId = AuthUserData.shared.userId
         //Uploading images to server by the moment we get createPublicationViewController
-        self.uploadImages(with: imgUrls)
+        //self.uploadImages(with: imgUrls)
+        print(publicationType.name)
         
 
         // Do any additional setup after loading the view.
     }
     
     @IBAction func sharePublicationButtonTapped(_ sender: Any) {
-        switch publicationType.id {
-            case "4b64cfdf-ecaf-430c-491d-08d995241a63": //Publication
+        switch publicationType.name {
+            case "PUBLICATIONTYPE.Publication": //Publication
             if let userId = userId, let geoposition = geoposition, let publicationCategories = publicationCategories, let publicationDescription = publicationDescription, let publicationTypeId = publicationType.id {
                 let publication = PublicationServerUpload(userId: userId, description: publicationDescription, geoposition: geoposition, publicationCategories: publicationCategories, publicationTypeId: publicationTypeId, files: fileIds, regionCode: regionCode)
                 PublicationAPIController.shared.upload(publication: publication, with: AuthUserData.shared.accessToken) { (result) in
@@ -140,7 +143,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                     }
                 }
             }
-            case "69a3ede9-171d-4684-491e-08d995241a63": //Event
+            case "PUBLICATIONTYPE.Event": //Event
                 if let userId = userId, let eventName = eventName, let coverageRadius = coverageRadius, let geoposition = geoposition, let publicationCategories = publicationCategories, let publicationDescription = publicationDescription, let publicationTypeId = publicationType.id, let eventStartDate = eventStartDate, let eventEndDate = eventEndDate {
                         let event = EventServerUpload(userId: userId, name: eventName, description: publicationDescription, geoposition: geoposition, publicationCategories: publicationCategories, publicationTypeId: publicationTypeId, files: fileIds, begin: eventStartDate, end: eventEndDate, coverageRadius: coverageRadius, regionCode: regionCode)
                     PublicationAPIController.shared.uploadEvent(event: event, with: AuthUserData.shared.accessToken) { (result) in
@@ -169,19 +172,21 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch publicationType.id {
-        case "4b64cfdf-ecaf-430c-491d-08d995241a63": //Publication
+        switch publicationType.name {
+        case "PUBLICATIONTYPE.Publication": //Publication
             return 3
-        case "69a3ede9-171d-4684-491e-08d995241a63": //Event
+        case "PUBLICATIONTYPE.Event": //Event
             return 6
+        case "PUBLICATIONTYPE.Organization": //Organization
+            return 4
         default:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch publicationType.id {
-        case "4b64cfdf-ecaf-430c-491d-08d995241a63": //Publication creation
+        switch publicationType.name {
+        case "PUBLICATIONTYPE.Publication": //Publication creation
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: ImageAndDescriptionTableViewCell.identifier, for: indexPath) as! ImageAndDescriptionTableViewCell
@@ -195,7 +200,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                 guard let geoposition = self.geoposition else {
                     let cell = UITableViewCell()
                     cell.accessoryType = .disclosureIndicator
-                    cell.textLabel?.text = "Add geoposition"
+                    cell.textLabel?.text = NSLocalizedString("Add geoposition", comment: "")
                     return cell
                 }
                 let cell = UITableViewCell()
@@ -209,7 +214,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
             default:
                 return UITableViewCell()
             }
-        case "69a3ede9-171d-4684-491e-08d995241a63": //Event Creation
+        case "PUBLICATIONTYPE.Event": //Event Creation
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: NameTableViewCell.identifier, for: indexPath) as! NameTableViewCell
@@ -228,7 +233,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                 guard let geoposition = geoposition else {
                     let cell = UITableViewCell()
                     cell.accessoryType = .disclosureIndicator
-                    cell.textLabel?.text = "Add geoposition"
+                    cell.textLabel?.text = NSLocalizedString("Add geoposition", comment: "")
                     return cell
                 }
                 let cell = UITableViewCell()
@@ -251,14 +256,43 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
             default:
                 return UITableViewCell()
             }
+        case "PUBLICATIONTYPE.Organization": //Organization
+            switch indexPath.row {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: NameTableViewCell.identifier, for: indexPath) as! NameTableViewCell
+                cell.configure()
+                cell.nameTextField.delegate = self
+                return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionTableViewCell.identifier, for: indexPath) as! DescriptionTableViewCell
+                cell.descriptionTextView.delegate = self
+                return cell
+            case 2:
+                guard let geoposition = geoposition else {
+                    let cell = UITableViewCell()
+                    cell.accessoryType = .disclosureIndicator
+                    cell.textLabel?.text = NSLocalizedString("Add geoposition", comment: "")
+                    return cell
+                }
+                let cell = UITableViewCell()
+                cell.accessoryType = .disclosureIndicator
+                cell.textLabel?.text = geoposition
+                return cell
+            case 3:
+                let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCollectionTableViewCell.identifier, for: indexPath) as! CategoryCollectionTableViewCell
+                cell.delegate = self
+                return cell
+            default:
+                return UITableViewCell()
+            }
         default:
             return UITableViewCell()
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch publicationType.id {
-        case "4b64cfdf-ecaf-430c-491d-08d995241a63": //Publication creation
+        switch publicationType.name {
+        case "PUBLICATIONTYPE.Publication": //Publication creation
             switch indexPath.row {
             case 0:
                 return 100 //Image and description
@@ -269,20 +303,33 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
             default:
                 return 0
             }
-        case "69a3ede9-171d-4684-491e-08d995241a63": //Event Creation
+        case "PUBLICATIONTYPE.Event": //Event Creation
             switch indexPath.row {
             case 0:
-                return 50
+                return 50 //Name
             case 1:
-                return 100
+                return 100 //Image and description
             case 2:
                 return 50 //Geoposition
             case 3:
                 return 65 //Categories
             case 4:
-                return 250
+                return 250 //DatePickers for eventStart and eventEnd
             case 5:
-                return 110
+                return 110 //CoverageRadius slider
+            default:
+                return 0
+            }
+        case "PUBLICATIONTYPE.Organization": //Organization
+            switch indexPath.row {
+            case 0:
+                return 50 //Name
+            case 1:
+                return 120 //Description
+            case 2:
+                return 50 //Geoposition
+            case 3:
+                return 65 //Categories
             default:
                 return 0
             }
@@ -293,8 +340,8 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        switch publicationType.id {
-        case "4b64cfdf-ecaf-430c-491d-08d995241a63": //Publication creation
+        switch publicationType.name {
+        case "PUBLICATIONTYPE.Publication": //Publication creation
             switch indexPath.row {
             case 1:
                 geoposition = nil
@@ -302,7 +349,15 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
             default:
                 return
             }
-        case "69a3ede9-171d-4684-491e-08d995241a63": //Event Creation
+        case "PUBLICATIONTYPE.Event": //Event creation
+            switch indexPath.row {
+            case 2:
+                geoposition = nil
+                performSegue(withIdentifier: "GeoSegue", sender: nil)
+            default:
+                return
+            }
+        case "PUBLICATIONTYPE.Organization": //Organization creation
             switch indexPath.row {
             case 2:
                 geoposition = nil

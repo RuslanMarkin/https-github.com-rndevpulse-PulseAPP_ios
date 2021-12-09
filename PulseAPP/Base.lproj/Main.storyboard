@@ -207,7 +207,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Publication" id="Kb6-eT-stL">
-                        <barButtonItem key="rightBarButtonItem" title="Share" id="6u3-lU-W9V">
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="6u3-lU-W9V">
                             <connections>
                                 <action selector="sharePublicationButtonTapped:" destination="rx1-By-t55" id="yYI-A0-hZL"/>
                             </connections>

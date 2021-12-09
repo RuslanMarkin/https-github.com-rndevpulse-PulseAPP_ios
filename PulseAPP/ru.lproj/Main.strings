@@ -1,0 +1,108 @@
+
+/* Class = "UIBarButtonItem"; title = "Add"; ObjectID = "0zy-uw-WAs"; */
+"0zy-uw-WAs.title" = "Добавить";
+
+/* Class = "UITabBarItem"; title = "Subscriptions"; ObjectID = "5qe-ra-EAt"; */
+"5qe-ra-EAt.title" = "Подписки";
+
+/* Class = "UITabBarItem"; title = "Tool Menu"; ObjectID = "6K0-yy-NQj"; */
+"6K0-yy-NQj.title" = "Настройки";
+
+/* Class = "UILabel"; text = "6-digit verifaction code:"; ObjectID = "6sk-7o-IId"; */
+"6sk-7o-IId.text" = "6-знач. код верификации:";
+
+/* Class = "UIBarButtonItem"; title = "Create"; ObjectID = "6u3-lU-W9V"; */
+"6u3-lU-W9V.title" = "Создать";
+
+/* Class = "UIButton"; configuration.title = "Login without authorization"; ObjectID = "8TQ-pR-ZKS"; */
+"8TQ-pR-ZKS.configuration.title" = "Вход без авторизации";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "8TQ-pR-ZKS"; */
+"8TQ-pR-ZKS.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Registration"; ObjectID = "DG5-Tx-e7O"; */
+"DG5-Tx-e7O.text" = "Регистрация";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "Due-iA-Vyb"; */
+"Due-iA-Vyb.placeholder" = "пароль";
+
+/* Class = "UINavigationItem"; title = "New Publication"; ObjectID = "Kb6-eT-stL"; */
+"Kb6-eT-stL.title" = "Новый пост";
+
+/* Class = "UITextField"; placeholder = "tel.number"; ObjectID = "Mwi-QK-hyA"; */
+"Mwi-QK-hyA.placeholder" = "тел. номер";
+
+/* Class = "UIButton"; configuration.title = "Registration"; ObjectID = "N3o-ul-qjX"; */
+"N3o-ul-qjX.configuration.title" = "Регистрация";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "N3o-ul-qjX"; */
+"N3o-ul-qjX.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "your name"; ObjectID = "NJD-GQ-dA4"; */
+"NJD-GQ-dA4.placeholder" = "имя";
+
+/* Class = "UITabBarItem"; title = "Calendar"; ObjectID = "SMR-J4-Xp5"; */
+"SMR-J4-Xp5.title" = "Календарь";
+
+/* Class = "UIButton"; configuration.title = "OK"; ObjectID = "VVB-zt-o5i"; */
+"VVB-zt-o5i.configuration.title" = "OK";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "VVB-zt-o5i"; */
+"VVB-zt-o5i.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "WXl-3Q-loq"; */
+"WXl-3Q-loq.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "XCZ-E4-kL4"; */
+"XCZ-E4-kL4.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Add location"; ObjectID = "cpt-1h-PgS"; */
+"cpt-1h-PgS.title" = "Добавить локацию";
+
+/* Class = "UITextField"; placeholder = "tel. number/e-mail"; ObjectID = "hBA-Tt-djh"; */
+"hBA-Tt-djh.placeholder" = "тел. номер/e-mail";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "jGa-U9-Ksn"; */
+"jGa-U9-Ksn.placeholder" = "пароль";
+
+/* Class = "UITabBarItem"; title = "Map"; ObjectID = "m9k-8y-yEz"; */
+"m9k-8y-yEz.title" = "Карта";
+
+/* Class = "UIBarButtonItem"; title = "Settings"; ObjectID = "mI3-p0-NDs"; */
+"mI3-p0-NDs.title" = "Настройки";
+
+/* Class = "UIButton"; configuration.title = "Country"; ObjectID = "mxT-wi-7KY"; */
+"mxT-wi-7KY.configuration.title" = "Страна";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "mxT-wi-7KY"; */
+"mxT-wi-7KY.normalTitle" = "Button";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "r16-g4-oE2"; */
+"r16-g4-oE2.title" = "Item";
+
+/* Class = "UIBarButtonItem"; title = "Organizations"; ObjectID = "uUg-t3-CPu"; */
+"uUg-t3-CPu.title" = "Организации";
+
+/* Class = "UITextField"; placeholder = "e-mail"; ObjectID = "vmR-AE-oO8"; */
+"vmR-AE-oO8.placeholder" = "e-mail";
+
+/* Class = "UIButton"; configuration.title = "Login without authorization"; ObjectID = "vmX-9n-ha3"; */
+"vmX-9n-ha3.configuration.title" = "Вход без авторизации";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "vmX-9n-ha3"; */
+"vmX-9n-ha3.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xR7-YJ-lxR"; */
+"xR7-YJ-lxR.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "ytg-zP-t0D"; */
+"ytg-zP-t0D.title" = "Профиль";
+
+/* Class = "UIButton"; configuration.title = "Confirm"; ObjectID = "ytx-yU-EXC"; */
+"ytx-yU-EXC.configuration.title" = "Подтвердить";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "ytx-yU-EXC"; */
+"ytx-yU-EXC.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Authorization"; ObjectID = "zTe-kf-wDi"; */
+"zTe-kf-wDi.text" = "Авторизация";

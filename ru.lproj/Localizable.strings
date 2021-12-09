@@ -6,17 +6,17 @@
   
 */
 //Категории публикаций
-"PUBLICATIONCATEGORY.Food" = "Food";
-"PUBLICATIONCATEGORY.Transport" = "Transport";
-"PUBLICATIONCATEGORY.Nature" = "Nature";
-"PUBLICATIONCATEGORY.Excursion" = "Excursion";
-"PUBLICATIONCATEGORY.Monument" = "Monument";
-"PUBLICATIONCATEGORY.Design" = "Design";
-"PUBLICATIONCATEGORY.Music" = "Music";
-"PUBLICATIONCATEGORY.Dances" = "Dances";
-"PUBLICATIONCATEGORY.Interior" = "Interior";
-"PUBLICATIONCATEGORY.People" = "People";
-"PUBLICATIONCATEGORY.Concert" = "Concert";
+"PUBLICATIONCATEGORY.Food" = "Еда";
+"PUBLICATIONCATEGORY.Transport" = "Транспорт";
+"PUBLICATIONCATEGORY.Nature" = "Природа";
+"PUBLICATIONCATEGORY.Excursion" = "Экскурсия";
+"PUBLICATIONCATEGORY.Monument" = "Памятник";
+"PUBLICATIONCATEGORY.Design" = "Дизайн";
+"PUBLICATIONCATEGORY.Music" = "Музыка";
+"PUBLICATIONCATEGORY.Dances" = "Танцы";
+"PUBLICATIONCATEGORY.Interior" = "Интерьер";
+"PUBLICATIONCATEGORY.People" = "Люди";
+"PUBLICATIONCATEGORY.Concert" = "Концерт";
 //Статусы модерации
 "MODERATIONSTATUS.New" = "New";
 "MODERATIONSTATUS.AdultRating" = "AdultRating";
@@ -26,11 +26,11 @@
 "MODERATIONSTATUS.DelByUser" = "DelByUser";
 "MODERATIONSTATUS.DelByPeriod" = "DelByPeriod";
 //Типы публикаций
-"PUBLICATIONTYPE.Publication" = "Publication";
-"PUBLICATIONTYPE.Event" = "Event";
-"PUBLICATIONTYPE.Route" = "Route";
-"PUBLICATIONTYPE.MapObject" = "MapObject";
-"PUBLICATIONTYPE.Organization" = "Organization";
+"PUBLICATIONTYPE.Publication" = "Публикация";
+"PUBLICATIONTYPE.Event" = "Событие";
+"PUBLICATIONTYPE.Route" = "Маршрут";
+"PUBLICATIONTYPE.MapObject" = "Точка на карте";
+"PUBLICATIONTYPE.Organization" = "Организация";
 //Права пользователей
 "RULETYPE.Basic" = "Basic";
 "RULETYPE.Comment" = "Comment";
@@ -81,3 +81,20 @@
 "E_BADREQUEST_LOG" = "Invalid login";
 "E_BADREQUEST_PUB_T" = "PublicationTypeId value is not correct";
 "E_BADREQUEST_SEARCH" = "Search conditions are not set";
+
+//Some strings used in code
+"New" = "Нов.";
+"Create: " = "Создать: ";
+"Add geoposition" = "Добавить геопозицию";
+"Description" = "Описание";
+"Name" = "Название";
+"Log out" = "Выйти";
+"Photo Source" = "Фото источник";
+"Choose image" = "Выбрать картинку";
+"Camera" = "Камера";
+"Photo Library" = "Галерея";
+"Cancel" = "Отмена";
+"Publications: " = "Публикации: ";
+"Subscriptions: " = "Подписки: ";
+
+

@@ -21,7 +21,7 @@ class ImageAndDescriptionTableViewCell: UITableViewCell, UITextViewDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         descriptionTextView.textColor = .lightGray
-        descriptionTextView.text = "Description"
+        descriptionTextView.text = NSLocalizedString("Description", comment: "")
         // Initialization code
     }
 

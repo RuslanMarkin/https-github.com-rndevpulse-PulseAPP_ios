@@ -1,0 +1,98 @@
+/* 
+  Localizable.strings
+  PulseAPP
+
+  Created by Алексей Поддубный on 25.10.2021.
+  
+*/
+//Категории публикаций
+"PUBLICATIONCATEGORY.Food" = "Food";
+"PUBLICATIONCATEGORY.Transport" = "Transport";
+"PUBLICATIONCATEGORY.Nature" = "Nature";
+"PUBLICATIONCATEGORY.Excursion" = "Excursion";
+"PUBLICATIONCATEGORY.Monument" = "Monument";
+"PUBLICATIONCATEGORY.Design" = "Design";
+"PUBLICATIONCATEGORY.Music" = "Music";
+"PUBLICATIONCATEGORY.Dances" = "Dances";
+"PUBLICATIONCATEGORY.Interior" = "Interior";
+"PUBLICATIONCATEGORY.People" = "People";
+"PUBLICATIONCATEGORY.Concert" = "Concert";
+//Статусы модерации
+"MODERATIONSTATUS.New" = "New";
+"MODERATIONSTATUS.AdultRating" = "AdultRating";
+"MODERATIONSTATUS.InconsistencyContent" = "InconsistencyContent";
+"MODERATIONSTATUS.ViolationOfRules" = "ViolationOfRules";
+"MODERATIONSTATUS.Ok" = "Ok";
+"MODERATIONSTATUS.DelByUser" = "DelByUser";
+"MODERATIONSTATUS.DelByPeriod" = "DelByPeriod";
+//Типы публикаций
+"PUBLICATIONTYPE.Publication" = "Publication";
+"PUBLICATIONTYPE.Event" = "Event";
+"PUBLICATIONTYPE.Route" = "Route";
+"PUBLICATIONTYPE.MapObject" = "MapObject";
+"PUBLICATIONTYPE.Organization" = "Organization";
+//Права пользователей
+"RULETYPE.Basic" = "Basic";
+"RULETYPE.Comment" = "Comment";
+"RULETYPE.Creator" = "Creator";
+"RULETYPE.DelComment" = "DelComment";
+"RULETYPE.DetachPosts" = "DetachPosts";
+"RULETYPE.Event" = "Event";
+"RULETYPE.Modder" = "Modder";
+"RULETYPE.ModderOrgs" = "ModderOrgs";
+"RULETYPE.Range0" = "Range0";
+"RULETYPE.Range1" = "Range1";
+"RULETYPE.Range3" = "Range3";
+"RULETYPE.SavePosts" = "SavePosts";
+//Ошибки
+"E_NOTFOUND_USER" = "User not found";
+"E_NOTFOUND_M_OBJ" = "Map object not found";
+"E_NOTFOUND_EVENT" = "Event not found";
+"E_NOTFOUND_FILE" = "File not found";
+"E_NOTFOUND_MOD" = "Moderation not found";
+"E_NOTFOUND_AC_CODE" = "Activation code not found";
+"E_NOTFOUND_MOD_S" = "Moderation status not found not found";
+"E_NOTFOUND_PUB_T" = "Publication type not found";
+"E_NOTFOUND_ORG" = "Organization not found";
+"E_NOTFOUND_PUB_C" = "Publication category not found";
+"E_NOTFOUND_COMM" = "Comment not found";
+"E_NOTFOUND_PUB" = "Publication not found";
+"E_UNAUTHORIZED" = "User not activated, enter the activation code sent to your email";
+"E_FORBID_ON_MOD" = "Publication is under moderation";
+"E_FORBID_ORG_ON_MOD" = "Organization is under moderation";
+"E_FORBID_RIGHT" = "User does not have the necessary right";
+"E_FORBID_ORG" = "User is not the owner or admin organization";
+"E_BADREQUEST_SUB_ADD" = "Could not determine the type of object to subscribe to";
+"E_BADREQUEST_FILE_CORR" = "File was corrupted";
+"E_BADREQUEST_FILE_FORM" = "File format not correct";
+"E_BADREQUEST_CAT_INVAL" = "Category name contains an invalid value";
+"E_BADREQUEST_CAT_EXISTS" = "Category already exists!";
+"E_BADREQUEST_CAT_NAME" = "One or more category name is not correct";
+"E_BADREQUEST_GEO_CONV" = "Conversion error geoposition";
+"E_BADREQUEST_GEO_AREA" = "Geo position does not belong to the specified area";
+"E_BADREQUEST_US_NO_CRE" = "Current user not creator this post";
+"E_BADREQUEST_US_NO_IDENT" = "User not identifacation";
+"E_BADREQUEST_US_EXISTS" = "User already exists!";
+"E_BADREQUEST_ORG_DOC" = "Doc must be at least one value";
+"E_BADREQUEST_PUB_C" = "Publication categories must be at least one value";
+"E_BADREQUEST_EVENT_TIME" = "Incorrect event intervals";
+"E_BADREQUEST_FIELD" = "Required fields are not filled in";
+"E_BADREQUEST_LOG_PAS" = "Invalid login or password";
+"E_BADREQUEST_LOG" = "Invalid login";
+"E_BADREQUEST_PUB_T" = "PublicationTypeId value is not correct";
+"E_BADREQUEST_SEARCH" = "Search conditions are not set";
+
+//Some strings used in code
+"New" = "New";
+"Create: " = "Create: ";
+"Add geoposition" = "Add geoposition";
+"Description" = "Description";
+"Name" = "Name";
+"Log out" = "Log out";
+"Photo Source" = "Photo Source";
+"Choose image" = "Choose image";
+"Camera"= "Camera";
+"Photo Library" = "Photo Library";
+"Cancel" = "Cancel";
+"Publications: " = "Publications: ";
+"Subscriptions: " = "Subscriptions: ";

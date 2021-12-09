@@ -18,7 +18,7 @@ class NameTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     public func configure() {
         contentView.addSubview(nameTextField)
-        nameTextField.placeholder = "Name your event"
+        nameTextField.placeholder = NSLocalizedString("Name", comment: "")
     }
     
     override func layoutSubviews() {
