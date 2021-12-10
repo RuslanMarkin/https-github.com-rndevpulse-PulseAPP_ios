@@ -66,6 +66,10 @@
 		4BC35706274E59E80075896F /* CategoryCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC35704274E59E80075896F /* CategoryCollectionTableViewCell.xib */; };
 		4BC3570B274E5A9F0075896F /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC35709274E5A9F0075896F /* CategoryCollectionViewCell.swift */; };
 		4BC3570C274E5A9F0075896F /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC3570A274E5A9F0075896F /* CategoryCollectionViewCell.xib */; };
+		4BE2E4E6276348B000A5D215 /* ImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE2E4E4276348B000A5D215 /* ImagesTableViewCell.swift */; };
+		4BE2E4E7276348B000A5D215 /* ImagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BE2E4E5276348B000A5D215 /* ImagesTableViewCell.xib */; };
+		4BE2E4EA27634E5F00A5D215 /* OrgData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE2E4E927634E5F00A5D215 /* OrgData.swift */; };
+		4BE2E4ED2763739300A5D215 /* MapObjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE2E4EC2763739300A5D215 /* MapObjectData.swift */; };
 		4BF7453F275E355F009B22A8 /* EventServerUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF7453E275E355F009B22A8 /* EventServerUpload.swift */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +138,10 @@
 		4BC35704274E59E80075896F /* CategoryCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionTableViewCell.xib; sourceTree = "<group>"; };
 		4BC35709274E5A9F0075896F /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		4BC3570A274E5A9F0075896F /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
+		4BE2E4E4276348B000A5D215 /* ImagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesTableViewCell.swift; sourceTree = "<group>"; };
+		4BE2E4E5276348B000A5D215 /* ImagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagesTableViewCell.xib; sourceTree = "<group>"; };
+		4BE2E4E927634E5F00A5D215 /* OrgData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrgData.swift; sourceTree = "<group>"; };
+		4BE2E4EC2763739300A5D215 /* MapObjectData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObjectData.swift; sourceTree = "<group>"; };
 		4BF7453E275E355F009B22A8 /* EventServerUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventServerUpload.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,6 +284,7 @@
 			children = (
 				4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */,
 				4BC356E1274E31550075896F /* GeoDataViewController.swift */,
+				4BE2E4E32763488700A5D215 /* ImagesTableCell */,
 				4B3D81C42758F75D009CA0F6 /* NameTableCell */,
 				4B480481274F84180055C62B /* ImageAndDescriptionTableCell */,
 				4B7C8ABA275A1C170068AE19 /* DescriptionTableCell */,
@@ -349,6 +358,8 @@
 		4B91140327196A1500841927 /* PublicationAPIControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4BE2E4EB2763737D00A5D215 /* MapObjectData */,
+				4BE2E4E827634E3A00A5D215 /* OrgData */,
 				4BF74540275E356A009B22A8 /* EventData */,
 				4B6F325E272834F3008A8838 /* PublicationData */,
 				4B36CDC2271EC3D10091D229 /* PublicationAPIController.swift */,
@@ -422,6 +433,31 @@
 				4BC3570A274E5A9F0075896F /* CategoryCollectionViewCell.xib */,
 			);
 			path = CategoryCollectionCell;
+			sourceTree = "<group>";
+		};
+		4BE2E4E32763488700A5D215 /* ImagesTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				4BE2E4E4276348B000A5D215 /* ImagesTableViewCell.swift */,
+				4BE2E4E5276348B000A5D215 /* ImagesTableViewCell.xib */,
+			);
+			path = ImagesTableCell;
+			sourceTree = "<group>";
+		};
+		4BE2E4E827634E3A00A5D215 /* OrgData */ = {
+			isa = PBXGroup;
+			children = (
+				4BE2E4E927634E5F00A5D215 /* OrgData.swift */,
+			);
+			path = OrgData;
+			sourceTree = "<group>";
+		};
+		4BE2E4EB2763737D00A5D215 /* MapObjectData */ = {
+			isa = PBXGroup;
+			children = (
+				4BE2E4EC2763739300A5D215 /* MapObjectData.swift */,
+			);
+			path = MapObjectData;
 			sourceTree = "<group>";
 		};
 		4BF74540275E356A009B22A8 /* EventData */ = {
@@ -499,6 +535,7 @@
 				4BC35706274E59E80075896F /* CategoryCollectionTableViewCell.xib in Resources */,
 				4BC3570C274E5A9F0075896F /* CategoryCollectionViewCell.xib in Resources */,
 				4B3D81CB2758F9E1009CA0F6 /* BeginEndEventTableViewCell.xib in Resources */,
+				4BE2E4E7276348B000A5D215 /* ImagesTableViewCell.xib in Resources */,
 				4B4210E827157C4700D5E809 /* Main.storyboard in Resources */,
 				4B95D4B627609B59003473B3 /* LogOutTableViewCell.xib in Resources */,
 				4B91140B271973FD00841927 /* HeaderView.xib in Resources */,
@@ -523,6 +560,7 @@
 				4B9113F52717086F00841927 /* MainGlobeTabBarController.swift in Sources */,
 				4B91140227171E3B00841927 /* ErrorHandler.swift in Sources */,
 				4B9113F92717157500841927 /* UserProfileViewController.swift in Sources */,
+				4BE2E4ED2763739300A5D215 /* MapObjectData.swift in Sources */,
 				4B36CDC3271EC3D10091D229 /* PublicationAPIController.swift in Sources */,
 				4B6F3269272835A1008A8838 /* User.swift in Sources */,
 				4B55CE962743EE78007152B3 /* ProfileSettingsViewController.swift in Sources */,
@@ -533,6 +571,7 @@
 				4B6F3268272835A1008A8838 /* PublicationType.swift in Sources */,
 				4B9114122719B65F00841927 /* ImageAPIController.swift in Sources */,
 				4B4210E527157C4700D5E809 /* AuthFormViewController.swift in Sources */,
+				4BE2E4E6276348B000A5D215 /* ImagesTableViewCell.swift in Sources */,
 				4BC35705274E59E80075896F /* CategoryCollectionTableViewCell.swift in Sources */,
 				4B9113FF27171BD900841927 /* ToolMenuViewController.swift in Sources */,
 				4B9113FB271719AF00841927 /* CalendarViewController.swift in Sources */,
@@ -556,6 +595,7 @@
 				4B1B00632746310300D03BF2 /* Database.swift in Sources */,
 				4B1B00672747CF6C00D03BF2 /* AddPublicationViewController.swift in Sources */,
 				4B91140527196A5E00841927 /* PublicationData.swift in Sources */,
+				4BE2E4EA27634E5F00A5D215 /* OrgData.swift in Sources */,
 				4B6F32332726CC09008A8838 /* ErrorData.swift in Sources */,
 				4B4210E327157C4700D5E809 /* SceneDelegate.swift in Sources */,
 				4B55111E274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift in Sources */,

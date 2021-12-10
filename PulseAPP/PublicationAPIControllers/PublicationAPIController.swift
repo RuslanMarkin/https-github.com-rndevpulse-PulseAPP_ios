@@ -233,4 +233,76 @@ class PublicationAPIController {
         }
         task.resume()
     }
+    
+    func uploadOrg(organization: Organization, withToken: String, completion: @escaping (Result<OrgServerResponse, ServerErrorData>) -> Void) {
+        let url = baseURL.appendingPathComponent("organizations/create")
+        
+        var request = URLRequest(url: url)
+        let headers = ["authorization": "Bearer \(withToken)"]
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.allHTTPHeaderFields = headers
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = headers
+        let session = URLSession.init(configuration: config)
+        
+        let data: [String: Any] = ["name": organization.name, "description": organization.description, "geoposition": organization.geoposition, "publicationTypeId": organization.publicationTypeId, "publicationCategories": organization.publicationCategories, "regionCode": organization.regionCode, "files": organization.files]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
+        if let jsonData = jsonData {
+            let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
+            print(jsonString)
+        }
+        request.httpBody = jsonData
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data {
+                if let orgResponse = try? jsonDecoder.decode(OrgServerResponse.self, from: data) {
+                    completion(.success(orgResponse))
+                } else {
+                    if let errorData = try? jsonDecoder.decode(ServerErrorData.self, from: data) {
+                        completion(.failure(errorData))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func uploadMapObject(mapObject: MapObject, withToken: String, completion: @escaping (Result<MapObjectServerResponse, ServerErrorData>) -> Void) {
+        let url = baseURL.appendingPathComponent("mapobject/create")
+        
+        var request = URLRequest(url: url)
+        let headers = ["authorization": "Bearer \(withToken)"]
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.allHTTPHeaderFields = headers
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = headers
+        let session = URLSession.init(configuration: config)
+        
+        let data: [String: Any] = ["name": mapObject.name, "description": mapObject.description, "geoposition": mapObject.geoposition, "publicationTypeId": mapObject.publicationTypeId, "publicationCategories": mapObject.publicationCategories, "regionCode": mapObject.regionCode, "files": mapObject.files]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
+        if let jsonData = jsonData {
+            let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
+            print(jsonString)
+        }
+        request.httpBody = jsonData
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data {
+                if let mapObjectResponse = try? jsonDecoder.decode(MapObjectServerResponse.self, from: data) {
+                    completion(.success(mapObjectResponse))
+                } else {
+                    if let errorData = try? jsonDecoder.decode(ServerErrorData.self, from: data) {
+                        completion(.failure(errorData))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
 }

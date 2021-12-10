@@ -85,6 +85,8 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         
         table.register(DescriptionTableViewCell.nib(), forCellReuseIdentifier: DescriptionTableViewCell.identifier)
         
+        table.register(ImagesTableViewCell.nib(), forCellReuseIdentifier: ImagesTableViewCell.identifier)
+        
         return table
     }()
     
@@ -105,12 +107,11 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     var regionCode = "344"
     
     //Properties that are used only for event
-    var eventName: String?
+    var eventName: String? //name is also utilized in organization creation
     var eventStartDate: String?
     var eventEndDate: String?
     var coverageRadius: Int?
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
@@ -121,7 +122,6 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         userId = AuthUserData.shared.userId
         //Uploading images to server by the moment we get createPublicationViewController
         self.uploadImages(with: imgUrls)
-        print(publicationType.name)
         
 
         // Do any additional setup after loading the view.
@@ -147,21 +147,50 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                 if let userId = userId, let eventName = eventName, let coverageRadius = coverageRadius, let geoposition = geoposition, let publicationCategories = publicationCategories, let publicationDescription = publicationDescription, let publicationTypeId = publicationType.id, let eventStartDate = eventStartDate, let eventEndDate = eventEndDate {
                         let event = EventServerUpload(userId: userId, name: eventName, description: publicationDescription, geoposition: geoposition, publicationCategories: publicationCategories, publicationTypeId: publicationTypeId, files: fileIds, begin: eventStartDate, end: eventEndDate, coverageRadius: coverageRadius, regionCode: regionCode)
                     PublicationAPIController.shared.uploadEvent(event: event, with: AuthUserData.shared.accessToken) { (result) in
-                            DispatchQueue.main.async {
-                                switch result {
-                                case .success(let eventUploadResponse):
-                                    print(eventUploadResponse)
-                                case .failure(let errorData):
-                                    print(NSLocalizedString(errorData.detail, comment: ""))
-                                }
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let eventUploadResponse):
+                                print(eventUploadResponse)
+                            case .failure(let errorData):
+                                print(NSLocalizedString(errorData.detail, comment: ""))
                             }
                         }
+                    }
                 }
-            else {
-                print("Can not send event to server")
+                else {
+                    print("Can not send event to server")
+                }
+            case "PUBLICATIONTYPE.Organization":
+                if let eventName = eventName, let publicationDescription = publicationDescription, let geoposition = geoposition, let publicationTypeId = publicationType.id, let publicationCategories = publicationCategories {
+                    let organization = Organization(name: eventName, description: publicationDescription, geoposition: geoposition, publicationCategories: publicationCategories, publicationTypeId: publicationTypeId, files: fileIds, regionCode: regionCode)
+                    print(organization)
+                    PublicationAPIController.shared.uploadOrg(organization: organization, withToken: AuthUserData.shared.accessToken) { (result) in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let eventUploadResponse):
+                                print(eventUploadResponse)
+                            case .failure(let errorData):
+                                print(NSLocalizedString(errorData.detail, comment: ""))
+                            }
+                        }
+                    }
+                }
+        case "PUBLICATIONTYPE.MapObject":
+            if let eventName = eventName, let publicationDescription = publicationDescription, let geoposition = geoposition, let publicationTypeId = publicationType.id, let publicationCategories = publicationCategories {
+                let mapObject = MapObject(name: eventName, description: publicationDescription, geoposition: geoposition, publicationCategories: publicationCategories, publicationTypeId: publicationTypeId, files: fileIds, regionCode: regionCode)
+                PublicationAPIController.shared.uploadMapObject(mapObject: mapObject, withToken: AuthUserData.shared.accessToken) { (result) in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let mapObjectUploadResponse):
+                            print(mapObjectUploadResponse)
+                        case .failure(let errorData):
+                            print(NSLocalizedString(errorData.detail, comment: ""))
+                        }
+                    }
+                }
             }
             default:
-                print("Hello")
+                break
             }
             self.navigationController?.popViewController(animated: true)
     }
@@ -178,7 +207,9 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         case "PUBLICATIONTYPE.Event": //Event
             return 6
         case "PUBLICATIONTYPE.Organization": //Organization
-            return 4
+            return 5
+        case "PUBLICATIONTYPE.MapObject": //MapObject
+            return 5
         default:
             return 0
         }
@@ -259,15 +290,22 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         case "PUBLICATIONTYPE.Organization": //Organization
             switch indexPath.row {
             case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: ImagesTableViewCell.identifier, for: indexPath) as! ImagesTableViewCell
+                cell.publicationImageView.image = nil
+                if let selectedImage = selectedImages.first {
+                    cell.configure(for: publicationType.name!, with: selectedImage)
+                }
+                return cell
+            case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: NameTableViewCell.identifier, for: indexPath) as! NameTableViewCell
                 cell.configure()
                 cell.nameTextField.delegate = self
                 return cell
-            case 1:
+            case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionTableViewCell.identifier, for: indexPath) as! DescriptionTableViewCell
                 cell.descriptionTextView.delegate = self
                 return cell
-            case 2:
+            case 3:
                 guard let geoposition = geoposition else {
                     let cell = UITableViewCell()
                     cell.accessoryType = .disclosureIndicator
@@ -278,7 +316,43 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                 cell.accessoryType = .disclosureIndicator
                 cell.textLabel?.text = geoposition
                 return cell
+            case 4:
+                let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCollectionTableViewCell.identifier, for: indexPath) as! CategoryCollectionTableViewCell
+                cell.delegate = self
+                return cell
+            default:
+                return UITableViewCell()
+            }
+        case "PUBLICATIONTYPE.MapObject": //MapObject
+            switch indexPath.row {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: ImagesTableViewCell.identifier, for: indexPath) as! ImagesTableViewCell
+                cell.publicationImageView.image = nil
+                if let selectedImage = selectedImages.first {
+                    cell.configure(for: publicationType.name!, with: selectedImage)
+                }
+                return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: NameTableViewCell.identifier, for: indexPath) as! NameTableViewCell
+                cell.configure()
+                cell.nameTextField.delegate = self
+                return cell
+            case 2:
+                let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionTableViewCell.identifier, for: indexPath) as! DescriptionTableViewCell
+                cell.descriptionTextView.delegate = self
+                return cell
             case 3:
+                guard let geoposition = geoposition else {
+                    let cell = UITableViewCell()
+                    cell.accessoryType = .disclosureIndicator
+                    cell.textLabel?.text = NSLocalizedString("Add geoposition", comment: "")
+                    return cell
+                }
+                let cell = UITableViewCell()
+                cell.accessoryType = .disclosureIndicator
+                cell.textLabel?.text = geoposition
+                return cell
+            case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCollectionTableViewCell.identifier, for: indexPath) as! CategoryCollectionTableViewCell
                 cell.delegate = self
                 return cell
@@ -323,12 +397,29 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         case "PUBLICATIONTYPE.Organization": //Organization
             switch indexPath.row {
             case 0:
-                return 50 //Name
+                return 80 //Logo Image
             case 1:
-                return 120 //Description
+                return 50 //Name
             case 2:
-                return 50 //Geoposition
+                return 120 //Description
             case 3:
+                return 50 //Geoposition
+            case 4:
+                return 65 //Categories
+            default:
+                return 0
+            }
+        case "PUBLICATIONTYPE.MapObject": //MapObject
+            switch indexPath.row {
+            case 0:
+                return 80 //Image
+            case 1:
+                return 50 //Name
+            case 2:
+                return 120 //Description
+            case 3:
+                return 50 //Geoposition
+            case 4:
                 return 65 //Categories
             default:
                 return 0
@@ -359,7 +450,15 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
             }
         case "PUBLICATIONTYPE.Organization": //Organization creation
             switch indexPath.row {
-            case 2:
+            case 3:
+                geoposition = nil
+                performSegue(withIdentifier: "GeoSegue", sender: nil)
+            default:
+                return
+            }
+        case "PUBLICATIONTYPE.MapObject": //MapObject
+            switch indexPath.row {
+            case 3:
                 geoposition = nil
                 performSegue(withIdentifier: "GeoSegue", sender: nil)
             default:
