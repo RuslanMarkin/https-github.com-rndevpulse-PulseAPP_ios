@@ -20,6 +20,12 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     @IBOutlet weak var publicationDescriptionLabel: UILabel!
     @IBOutlet var collectionView: UICollectionView!
     
+    //Outlets for likes, views, comments and pulse counters labels
+    @IBOutlet weak var likesCounterLabel: UILabel!
+    @IBOutlet weak var viewsCounterLabel: UILabel!
+    @IBOutlet weak var pulseCounterLabel: UILabel!
+    @IBOutlet weak var commentsCounterLabel: UILabel!
+    
     static func nib() -> UINib {
         return UINib(nibName: "PublicationTableViewCell", bundle: nil)
     }
@@ -53,7 +59,7 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 250)
+        return CGSize(width: UIScreen.main.bounds.width, height: 270)
     }
     
     func configureTableCell(with publicationForCell: UserPublication?) {
@@ -72,6 +78,19 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
             }
             self.orgOrUserPublicName.text = publication.user!.publicName
             self.publicationDescriptionLabel.text = publication.publication!.description
+            
+            if let counter = publication.publication!.countLikes {
+                self.likesCounterLabel.text = "♥️ " + String(counter)
+            }
+            if let counter = publication.publication!.countViews {
+                self.viewsCounterLabel.text = "👀 " + String(counter)
+            }
+            if let counter = publication.publication!.countPulse {
+                self.pulseCounterLabel.text = "🔴" + String(counter)
+            }
+            if let counter = publication.publication!.countComments {
+                self.commentsCounterLabel.text = "📃 " + String(counter)
+            }
             
             APIController.shared.getUserAvatarURL(withToken: AuthUserData.shared.accessToken) {
                 (result) in DispatchQueue.main.async {
