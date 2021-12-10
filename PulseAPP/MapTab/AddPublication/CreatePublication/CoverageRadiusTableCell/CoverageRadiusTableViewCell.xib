@@ -16,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="367" height="146"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coverage Radius" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u95-Ue-RTP">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u95-Ue-RTP">
                         <rect key="frame" x="5" y="5" width="357" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="atV-eP-JIK"/>
@@ -71,6 +71,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="SliderStartingPointLabel" destination="utP-bR-45Y" id="Ihw-Mo-OPQ"/>
+                <outlet property="coverageRadiusLabel" destination="u95-Ue-RTP" id="lbm-mT-3Yd"/>
                 <outlet property="coverageRadiusSlider" destination="F3Y-Pr-nhZ" id="Ori-bh-9NL"/>
                 <outlet property="sliderCurrentValueLabel" destination="51s-S7-REv" id="d54-WD-JyV"/>
                 <outlet property="sliderEndingPointLabel" destination="KX0-TT-FkX" id="jrY-hH-Aqw"/>

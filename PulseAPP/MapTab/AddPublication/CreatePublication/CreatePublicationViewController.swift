@@ -120,7 +120,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         
         userId = AuthUserData.shared.userId
         //Uploading images to server by the moment we get createPublicationViewController
-        //self.uploadImages(with: imgUrls)
+        self.uploadImages(with: imgUrls)
         print(publicationType.name)
         
 
@@ -129,7 +129,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     
     @IBAction func sharePublicationButtonTapped(_ sender: Any) {
         switch publicationType.name {
-            case "PUBLICATIONTYPE.Publication": //Publication
+            case "PUBLICATIONTYPE.Post": //Publication
             if let userId = userId, let geoposition = geoposition, let publicationCategories = publicationCategories, let publicationDescription = publicationDescription, let publicationTypeId = publicationType.id {
                 let publication = PublicationServerUpload(userId: userId, description: publicationDescription, geoposition: geoposition, publicationCategories: publicationCategories, publicationTypeId: publicationTypeId, files: fileIds, regionCode: regionCode)
                 PublicationAPIController.shared.upload(publication: publication, with: AuthUserData.shared.accessToken) { (result) in
@@ -173,7 +173,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch publicationType.name {
-        case "PUBLICATIONTYPE.Publication": //Publication
+        case "PUBLICATIONTYPE.Post": //Publication
             return 3
         case "PUBLICATIONTYPE.Event": //Event
             return 6
@@ -186,7 +186,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch publicationType.name {
-        case "PUBLICATIONTYPE.Publication": //Publication creation
+        case "PUBLICATIONTYPE.Post": //Publication creation
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: ImageAndDescriptionTableViewCell.identifier, for: indexPath) as! ImageAndDescriptionTableViewCell
@@ -292,7 +292,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch publicationType.name {
-        case "PUBLICATIONTYPE.Publication": //Publication creation
+        case "PUBLICATIONTYPE.Post": //Publication creation
             switch indexPath.row {
             case 0:
                 return 100 //Image and description
@@ -341,7 +341,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch publicationType.name {
-        case "PUBLICATIONTYPE.Publication": //Publication creation
+        case "PUBLICATIONTYPE.Post": //Publication creation
             switch indexPath.row {
             case 1:
                 geoposition = nil

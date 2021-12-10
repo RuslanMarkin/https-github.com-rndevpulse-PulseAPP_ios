@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event starts:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgd-jR-Gtz">
-                        <rect key="frame" x="10" y="10" width="96" height="21"/>
+                        <rect key="frame" x="10" y="10" width="95.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -61,7 +61,9 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="eventEndDatePicker" destination="gfc-6h-Ufe" id="TNJ-AE-PsZ"/>
+                <outlet property="eventFinishLabel" destination="wML-nE-d7z" id="WbL-Df-ljE"/>
                 <outlet property="eventStartDatePicker" destination="yEP-Yf-vna" id="pjR-k5-iLA"/>
+                <outlet property="eventStartLabel" destination="pgd-jR-Gtz" id="4Oa-4t-x1t"/>
             </connections>
             <point key="canvasLocation" x="92.028985507246389" y="35.491071428571423"/>
         </tableViewCell>

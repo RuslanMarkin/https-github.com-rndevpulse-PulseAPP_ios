@@ -26,7 +26,8 @@
 "MODERATIONSTATUS.DelByUser" = "DelByUser";
 "MODERATIONSTATUS.DelByPeriod" = "DelByPeriod";
 //Типы публикаций
-"PUBLICATIONTYPE.Publication" = "Публикация";
+"PUBLICATIONTYPE.Post" = "Пост";
+//"PUBLICATIONTYPE.Publication" = "Публикация";
 "PUBLICATIONTYPE.Event" = "Событие";
 "PUBLICATIONTYPE.Route" = "Маршрут";
 "PUBLICATIONTYPE.MapObject" = "Точка на карте";
@@ -96,5 +97,9 @@
 "Cancel" = "Отмена";
 "Publications: " = "Публикации: ";
 "Subscriptions: " = "Подписки: ";
+"Event starts:" = "Начало события:";
+"Event finishes" = "Конец события:";
+"Coverage radius" = "Радиус действия";
+"m" = "м";
 
 

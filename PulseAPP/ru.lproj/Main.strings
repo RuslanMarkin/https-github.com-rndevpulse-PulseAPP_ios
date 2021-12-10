@@ -106,3 +106,6 @@
 
 /* Class = "UILabel"; text = "Authorization"; ObjectID = "zTe-kf-wDi"; */
 "zTe-kf-wDi.text" = "Авторизация";
+
+/* Class = "UILabel"; text = "Coverage Radius"; ObjectID = "u95-Ue-RTP"; */
+"u95-Ue-RTP.text" = "Радиус действия";

@@ -121,7 +121,7 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
         
         var config = PHPickerConfiguration(photoLibrary: .shared())
         switch selectedType {
-        case "PUBLICATIONTYPE.Publication":
+        case "PUBLICATIONTYPE.Post":
             config.selectionLimit = 10
         case "PUBLICATIONTYPE.Event":
             config.selectionLimit = 10

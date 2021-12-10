@@ -21,6 +21,8 @@ class BeginEndEventTableViewCell: UITableViewCell {
     
     @IBOutlet weak var eventStartDatePicker: UIDatePicker!
     @IBOutlet weak var eventEndDatePicker: UIDatePicker!
+    @IBOutlet weak var eventStartLabel: UILabel!
+    @IBOutlet weak var eventFinishLabel: UILabel!
     
     
     static func nib() -> UINib {
@@ -29,6 +31,8 @@ class BeginEndEventTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        eventStartLabel.text = NSLocalizedString("Event starts:", comment: "")
+        eventFinishLabel.text = NSLocalizedString("Event finishes", comment: "")
         // Initialization code
     }
 

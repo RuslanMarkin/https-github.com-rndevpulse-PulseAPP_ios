@@ -670,6 +670,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="jdz-TP-FfA"/>
         <segue reference="agX-EJ-Haa"/>
         <segue reference="PGS-Pd-Bka"/>
     </inferredMetricsTieBreakers>

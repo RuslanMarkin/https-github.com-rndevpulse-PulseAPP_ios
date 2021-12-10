@@ -11,6 +11,8 @@ class PublicationAPIController {
     
     static let shared = PublicationAPIController()
     
+    var isPaginating = false
+    
     let baseURL = URL(string: "http://192.168.1.100/api/v1/")!
     
     //Retrieves a pile of user's publications (20) with multiplier (with coef)
@@ -44,7 +46,11 @@ class PublicationAPIController {
     }
     
     //Fetch user's publications with counter 'withCoef'
-    func getMyPublications(withUserId: String, withToken: String, withCoef: Int, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
+    func getMyPublications(withUserId: String, withToken: String, withCoef: Int, postLastId: String, pagination: Bool = false, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
+        if pagination {
+            self.isPaginating = true
+        }
+        
         let publicationsURL = baseURL.appendingPathComponent("publications/user/\(withCoef)")
         
         var request = URLRequest(url: publicationsURL)
@@ -56,7 +62,10 @@ class PublicationAPIController {
         config.httpAdditionalHeaders = headers
         let session = URLSession.init(configuration: config)
         
-        let data: [String: String] = ["id": withUserId]
+        var data: [String: String] = ["id": withUserId]
+        if !postLastId.isEmpty {
+            data = ["id": withUserId, "lastid": postLastId]
+        }
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(data)
         request.httpBody = jsonData
@@ -69,6 +78,9 @@ class PublicationAPIController {
             if let data = data {
                 if let myPublications = try? jsonDecoder.decode([UserPublication].self, from: data) {
                     completion(.success(myPublications))
+                    if pagination {
+                        self.isPaginating = false
+                    }
                 } else {
                     if let errorData = try? jsonDecoder.decode(ErrorData.self, from: data) {
                         completion(.failure(errorData))
@@ -80,7 +92,11 @@ class PublicationAPIController {
     }
     
     //Fetch publications filtered by categories and type
-    func getPublications(ofType: String, ofCategories: [String], afterPublicationWithLastId: String, with coef: Int, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
+    func getPublications(ofType: String, ofCategories: [String], afterPublicationWithLastId: String, with coef: Int, pagination: Bool = false, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
+        if pagination {
+            self.isPaginating = true
+        }
+        
         let url = baseURL.appendingPathComponent("publications/\(coef)")
         
         var request = URLRequest(url: url)
@@ -99,6 +115,9 @@ class PublicationAPIController {
             if let data = data {
                 if let myPublications = try? jsonDecoder.decode([UserPublication].self, from: data) {
                     completion(.success(myPublications))
+                    if pagination {
+                        self.isPaginating = false
+                    }
                 } else {
                     if let errorData = try? jsonDecoder.decode(ErrorData.self, from: data) {
                         completion(.failure(errorData))

@@ -30,6 +30,7 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
         collectionView.register(CollectionViewCell.nib(), forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.contentInsetAdjustmentBehavior = .never
         
         
         // Initialization code
@@ -93,20 +94,22 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
             }
             
             if let imageURLs = getImagesURLs(for: publication) {
+                self.imagesOfPublication.removeAll()
                     for i in imageURLs.indices {
+                        print(imageURLs[i])
                         ImageAPIController.shared.getImage(withURL: imageURLs[i]) { result in
                             DispatchQueue.main.async {
                             switch result {
                                         case .success(let image):
                                             self.imagesOfPublication.append(image)
-                                            self.collectionView.reloadData()
-                                            print("image appended")
                                         case .failure(let error):
                                             print(error)
                                         }
+                            self.collectionView.reloadData()
                             }
                         }
                     }
+                
             }
         }
     }

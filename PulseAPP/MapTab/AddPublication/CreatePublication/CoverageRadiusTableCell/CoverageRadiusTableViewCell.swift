@@ -21,6 +21,7 @@ class CoverageRadiusTableViewCell: UITableViewCell {
     @IBOutlet weak var sliderStartingPointLabel: UILabel!
     @IBOutlet weak var sliderCurrentValueLabel: UILabel!
     @IBOutlet weak var sliderEndingPointLabel: UILabel!
+    @IBOutlet weak var coverageRadiusLabel: UILabel!
     
     static func nib() -> UINib {
         return UINib(nibName: "CoverageRadiusTableViewCell", bundle: nil)
@@ -28,9 +29,10 @@ class CoverageRadiusTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        sliderStartingPointLabel.text = "0 m"
-        sliderEndingPointLabel.text = "1000 m"
-        sliderCurrentValueLabel.text = String(Int(round(coverageRadiusSlider.value * 1000))) + " m"
+        coverageRadiusLabel.text = NSLocalizedString("Coverage radius", comment: "")
+        sliderStartingPointLabel.text = "0 \(NSLocalizedString("m", comment: ""))"
+        sliderEndingPointLabel.text = "1000 \(NSLocalizedString("m", comment: ""))"
+        sliderCurrentValueLabel.text = String(Int(round(coverageRadiusSlider.value * 1000))) + " \(NSLocalizedString("m", comment: ""))"
         // Initialization code
     }
 
@@ -41,7 +43,7 @@ class CoverageRadiusTableViewCell: UITableViewCell {
     }
     @IBAction func sliderValueChanged(_ sender: Any) {
         let value = Int(round(coverageRadiusSlider.value * 1000))
-        sliderCurrentValueLabel.text = String(value) + " m"
+        sliderCurrentValueLabel.text = String(value) + " \(NSLocalizedString("m", comment: ""))"
         delegate?.sliderDidChange(with: value)
     }
     

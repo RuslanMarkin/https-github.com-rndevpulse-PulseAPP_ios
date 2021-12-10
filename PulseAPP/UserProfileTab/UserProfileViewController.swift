@@ -14,6 +14,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var table: UITableView!
     
     var publications = [UserPublication]()
+    var lastId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
 //                }
 //        }
 //
-        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0) { result in
+        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: "", pagination: false) { result in
             DispatchQueue.main.async {
             switch result {
                         case .success(let userPublications):
@@ -61,14 +62,23 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @objc private func refreshListData(_ sender: Any) {
-        self.table.reloadData()
+        publications.removeAll()
+        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: "", pagination: false) { result in
+            DispatchQueue.main.async {
+            switch result {
+                        case .success(let userPublications):
+                            self.updateUI(with: userPublications!)
+                        case .failure(let error):
+                            print(error)
+                        }
+            }
+        }
+        //self.table.reloadData()
         self.pullControl.endRefreshing() // You can stop after API Call
             // Call API
+        
     }
-    
-    func position(for bar: UIBarPositioning) -> UIBarPosition {
-        return UIBarPosition.topAttached
-    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -77,12 +87,12 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     
     func updateUI(with userPublications: [UserPublication]) {
         DispatchQueue.main.async {
-            self.publications = userPublications
+            self.publications.append(contentsOf: userPublications)
+            self.lastId = self.publications.last?.publication?.id
             self.table.reloadData()
+            
         }
     }
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.publications.count
@@ -97,6 +107,40 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 350
         
+    }
+    
+    func createSpinner() -> UIView {
+        let spinner = UIActivityIndicatorView()
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.table.frame.width, height: 80))
+        footerView.addSubview(spinner)
+        spinner.center = footerView.center
+        spinner.startAnimating()
+        
+        return footerView
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffY = scrollView.contentOffset.y
+        if contentOffY > abs(table.frame.size.height - scrollView.contentSize.height - 80) {
+            guard !PublicationAPIController.shared.isPaginating else {
+                return // we already fetched more data
+            }
+
+            self.table.tableFooterView = createSpinner()
+
+            PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: ((self.lastId != nil) ? self.lastId! : ""), pagination: true) { result in
+                DispatchQueue.main.async {
+                    self.table.tableFooterView = nil
+                }
+                switch result {
+                case .success(let userPublications):
+                    self.updateUI(with: userPublications!)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            print("fetch more")
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

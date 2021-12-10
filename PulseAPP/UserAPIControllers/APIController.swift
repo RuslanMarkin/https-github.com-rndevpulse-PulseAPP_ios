@@ -14,7 +14,7 @@ class APIController {
     
     let baseURL = URL(string: "http://192.168.1.100:/api/v1/")!
     
-    func authentication(withlogin: String, password: String, completion: @escaping (Result<AuthUserData, ErrorData>) -> Void){
+    func authentication(withlogin: String, password: String, completion: @escaping (Result<AuthUserData, ServerErrorData>) -> Void){
         let authURL = baseURL.appendingPathComponent("auth")
         
         var request = URLRequest(url: authURL)
@@ -36,7 +36,7 @@ class APIController {
                     if let userData = try? jsonDecoder.decode(AuthUserData.self, from: data) {
                         completion(.success(userData))
                     } else {
-                        if let errorData = try? jsonDecoder.decode(ErrorData.self, from: data) {
+                        if let errorData = try? jsonDecoder.decode(ServerErrorData.self, from: data) {
                             completion(.failure(errorData))
                         }
                         //Here should be else statement in case ErrorData wasn't parsed right
