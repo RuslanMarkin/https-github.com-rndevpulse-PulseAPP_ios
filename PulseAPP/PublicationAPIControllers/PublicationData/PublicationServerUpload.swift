@@ -15,8 +15,13 @@ struct PublicationServerUpload: Codable {
     var publicationTypeId: String
     var files: [String]
     var regionCode: String
+    var attachTo: AttachTo? = nil
 }
 
+struct AttachTo: Codable {
+    var id: String? = nil
+    var typeId: String? = nil
+}
 
 struct PublicationServerResponse: Codable {
     var userId: String

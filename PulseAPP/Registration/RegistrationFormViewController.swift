@@ -19,13 +19,66 @@ class RegistrationFormViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var invalidInputLabel: UILabel!
     var loginPassword = LoginPassword(telNumber: "", password: "")
     var countryReceivedCode: String? = nil
+    var activeTextField: UITextField? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Dismissing keyboard by tapping outside its area
+        //Looks for single or multiple taps.
+             let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+
+            //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+            tap.cancelsTouchesInView = false
+
+            view.addGestureRecognizer(tap)
+        
+        //Checking if e-mail textfied is used to move view up, because it is overlapped by keyboard
+        // call the 'keyboardWillShow' function when the view controller receive the notification that a keyboard is going to be shown
+            NotificationCenter.default.addObserver(self, selector: #selector(RegistrationFormViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+          
+              // call the 'keyboardWillHide' function when the view controlelr receive notification that keyboard is going to be hidden
+            NotificationCenter.default.addObserver(self, selector: #selector(RegistrationFormViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         invalidInputLabel.isHidden = true
         countryButton.addTarget(self, action: #selector(countryButtonTapped), for: .touchUpInside)
         
         // Do any additional setup after loading the view.
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.activeTextField = textField
+    }
+
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        self.activeTextField = textField
+//    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+            
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+           // if keyboard size is not available for some reason, dont do anything
+           return
+        }
+      
+      // move the root view up by the distance of keyboard height
+        if activeTextField == emailTextField {
+            self.view.frame.origin.y = 0 - keyboardSize.height
+        }
+//       activeTextField = nil
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+      // move back the root view origin to zero
+        if activeTextField == emailTextField {
+            self.view.frame.origin.y = 0
+        }
+        activeTextField = nil
     }
     
     @IBAction func unwindToRegistration(unwindSegue: UIStoryboardSegue) {

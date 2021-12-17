@@ -173,8 +173,13 @@ class PublicationAPIController {
         let config = URLSessionConfiguration.default
         config.httpAdditionalHeaders = headers
         let session = URLSession.init(configuration: config)
+        var data = [String: Any]()
         
-        let data: [String: Any] = ["userId": publication.userId, "description": publication.description, "geoposition": publication.geoposition, "publicationCategories": publication.publicationCategories, "publicationTypeId": publication.publicationTypeId, "files": publication.files, "regionCode": publication.regionCode]
+        if let attachId = publication.attachTo?.id, let attachTypeId = publication.attachTo?.typeId {
+            data = ["userId": publication.userId, "description": publication.description, "geoposition": publication.geoposition, "publicationCategories": publication.publicationCategories, "publicationTypeId": publication.publicationTypeId, "files": publication.files, "regionCode": publication.regionCode, "attachTo": ["id": attachId, "typeId": attachTypeId]]
+        } else {
+            data = ["userId": publication.userId, "description": publication.description, "geoposition": publication.geoposition, "publicationCategories": publication.publicationCategories, "publicationTypeId": publication.publicationTypeId, "files": publication.files, "regionCode": publication.regionCode]
+        }
 
         let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
         if let jsonData = jsonData {

@@ -27,6 +27,8 @@
 		4B4210F52715953B00D5E809 /* RegistrationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */; };
 		4B4210F72715A9D500D5E809 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F62715A9D500D5E809 /* APIController.swift */; };
 		4B4210F92715C59F00D5E809 /* VerificationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */; };
+		4B42949D276B2F4000F23C29 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B42949C276B2F4000F23C29 /* Metadata.swift */; };
+		4B42949F276B30A800F23C29 /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B42949E276B30A800F23C29 /* Points.swift */; };
 		4B480484274FB1A70055C62B /* UploadImageResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B480483274FB1A70055C62B /* UploadImageResponseData.swift */; };
 		4B480486275117800055C62B /* PublicationServerUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B480485275117800055C62B /* PublicationServerUpload.swift */; };
 		4B5510D0274B9D3800DE47BF /* CreatePublicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */; };
@@ -66,6 +68,9 @@
 		4BC35706274E59E80075896F /* CategoryCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC35704274E59E80075896F /* CategoryCollectionTableViewCell.xib */; };
 		4BC3570B274E5A9F0075896F /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC35709274E5A9F0075896F /* CategoryCollectionViewCell.swift */; };
 		4BC3570C274E5A9F0075896F /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BC3570A274E5A9F0075896F /* CategoryCollectionViewCell.xib */; };
+		4BCC3CB72769E87A0058973B /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCC3CB62769E87A0058973B /* LocationSearchTable.swift */; };
+		4BCC3CDA276A29AC0058973B /* MarkerAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCC3CD9276A29AC0058973B /* MarkerAPIController.swift */; };
+		4BCC3CDC276A2D430058973B /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCC3CDB276A2D430058973B /* MapPoint.swift */; };
 		4BE2E4E6276348B000A5D215 /* ImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE2E4E4276348B000A5D215 /* ImagesTableViewCell.swift */; };
 		4BE2E4E7276348B000A5D215 /* ImagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BE2E4E5276348B000A5D215 /* ImagesTableViewCell.xib */; };
 		4BE2E4EA27634E5F00A5D215 /* OrgData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE2E4E927634E5F00A5D215 /* OrgData.swift */; };
@@ -96,6 +101,8 @@
 		4B4210F42715953B00D5E809 /* RegistrationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFormViewController.swift; sourceTree = "<group>"; };
 		4B4210F62715A9D500D5E809 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		4B4210F82715C59F00D5E809 /* VerificationFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationFormViewController.swift; sourceTree = "<group>"; };
+		4B42949C276B2F4000F23C29 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
+		4B42949E276B30A800F23C29 /* Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
 		4B480483274FB1A70055C62B /* UploadImageResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageResponseData.swift; sourceTree = "<group>"; };
 		4B480485275117800055C62B /* PublicationServerUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationServerUpload.swift; sourceTree = "<group>"; };
 		4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePublicationViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +145,9 @@
 		4BC35704274E59E80075896F /* CategoryCollectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionTableViewCell.xib; sourceTree = "<group>"; };
 		4BC35709274E5A9F0075896F /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		4BC3570A274E5A9F0075896F /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
+		4BCC3CB62769E87A0058973B /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
+		4BCC3CD9276A29AC0058973B /* MarkerAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerAPIController.swift; sourceTree = "<group>"; };
+		4BCC3CDB276A2D430058973B /* MapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPoint.swift; sourceTree = "<group>"; };
 		4BE2E4E4276348B000A5D215 /* ImagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesTableViewCell.swift; sourceTree = "<group>"; };
 		4BE2E4E5276348B000A5D215 /* ImagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagesTableViewCell.xib; sourceTree = "<group>"; };
 		4BE2E4E927634E5F00A5D215 /* OrgData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrgData.swift; sourceTree = "<group>"; };
@@ -237,6 +247,7 @@
 		4B4210DF27157C4700D5E809 /* PulseAPP */ = {
 			isa = PBXGroup;
 			children = (
+				4BCC3CD8276A29750058973B /* GeoRequestsControllers */,
 				4B4210E627157C4700D5E809 /* Main.storyboard */,
 				4B4210E027157C4700D5E809 /* AppDelegate.swift */,
 				4B4210E227157C4700D5E809 /* SceneDelegate.swift */,
@@ -283,7 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */,
-				4BC356E1274E31550075896F /* GeoDataViewController.swift */,
+				4BCC3CB52769E8150058973B /* GeopositionControllers */,
 				4BE2E4E32763488700A5D215 /* ImagesTableCell */,
 				4B3D81C42758F75D009CA0F6 /* NameTableCell */,
 				4B480481274F84180055C62B /* ImageAndDescriptionTableCell */,
@@ -435,6 +446,26 @@
 			path = CategoryCollectionCell;
 			sourceTree = "<group>";
 		};
+		4BCC3CB52769E8150058973B /* GeopositionControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4BC356E1274E31550075896F /* GeoDataViewController.swift */,
+				4BCC3CB62769E87A0058973B /* LocationSearchTable.swift */,
+			);
+			path = GeopositionControllers;
+			sourceTree = "<group>";
+		};
+		4BCC3CD8276A29750058973B /* GeoRequestsControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4BCC3CD9276A29AC0058973B /* MarkerAPIController.swift */,
+				4BCC3CDB276A2D430058973B /* MapPoint.swift */,
+				4B42949C276B2F4000F23C29 /* Metadata.swift */,
+				4B42949E276B30A800F23C29 /* Points.swift */,
+			);
+			path = GeoRequestsControllers;
+			sourceTree = "<group>";
+		};
 		4BE2E4E32763488700A5D215 /* ImagesTableCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -581,10 +612,12 @@
 				4B7C8AB8275A16920068AE19 /* CoverageRadiusTableViewCell.swift in Sources */,
 				4B4210F52715953B00D5E809 /* RegistrationFormViewController.swift in Sources */,
 				4B480486275117800055C62B /* PublicationServerUpload.swift in Sources */,
+				4B42949D276B2F4000F23C29 /* Metadata.swift in Sources */,
 				4B36CDC0271DAC1C0091D229 /* CollectionViewCell.swift in Sources */,
 				4B9113FD27171A7500841927 /* SubscriptionsViewController.swift in Sources */,
 				4B9113F32716B24800841927 /* UserData.swift in Sources */,
 				4BF7453F275E355F009B22A8 /* EventServerUpload.swift in Sources */,
+				4BCC3CDC276A2D430058973B /* MapPoint.swift in Sources */,
 				4B6F32362727DE6F008A8838 /* CountryViewController.swift in Sources */,
 				4B9113F72717153B00841927 /* MapViewController.swift in Sources */,
 				4B4210E127157C4700D5E809 /* AppDelegate.swift in Sources */,
@@ -593,11 +626,14 @@
 				4B3D81CA2758F9E1009CA0F6 /* BeginEndEventTableViewCell.swift in Sources */,
 				4B4210F92715C59F00D5E809 /* VerificationFormViewController.swift in Sources */,
 				4B1B00632746310300D03BF2 /* Database.swift in Sources */,
+				4BCC3CB72769E87A0058973B /* LocationSearchTable.swift in Sources */,
 				4B1B00672747CF6C00D03BF2 /* AddPublicationViewController.swift in Sources */,
 				4B91140527196A5E00841927 /* PublicationData.swift in Sources */,
 				4BE2E4EA27634E5F00A5D215 /* OrgData.swift in Sources */,
 				4B6F32332726CC09008A8838 /* ErrorData.swift in Sources */,
 				4B4210E327157C4700D5E809 /* SceneDelegate.swift in Sources */,
+				4BCC3CDA276A29AC0058973B /* MarkerAPIController.swift in Sources */,
+				4B42949F276B30A800F23C29 /* Points.swift in Sources */,
 				4B55111E274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift in Sources */,
 				4BC356E2274E31550075896F /* GeoDataViewController.swift in Sources */,
 				4B4210F72715A9D500D5E809 /* APIController.swift in Sources */,

@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "checked_box.png",
+      "filename" : "30*30car.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "60*60car.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "90*90car.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

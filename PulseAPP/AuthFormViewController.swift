@@ -17,6 +17,16 @@ class AuthFormViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Dismissing keyboard by tapping outside its area
+        //Looks for single or multiple taps.
+             let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+
+            //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+            //tap.cancelsTouchesInView = false
+
+            view.addGestureRecognizer(tap)
+        
         invalidLoginLabel.isHidden = true
         let (login, password) = Database.shared.queryLoginPassword()
             APIController.shared.authentication(withlogin: login, password: password) {
@@ -33,6 +43,11 @@ class AuthFormViewController: UIViewController {
                     }
                 }
             }
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 
 //User authorization

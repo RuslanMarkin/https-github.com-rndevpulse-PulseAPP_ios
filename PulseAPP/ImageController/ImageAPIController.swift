@@ -106,6 +106,38 @@ class ImageAPIController {
            }
         }).resume()
     }
+    
+    func deleteImage(id: String, token: String, completion: @escaping (Result<ImageDeleteId, ServerErrorData>) -> Void) {
+        let url = baseURL.appendingPathComponent("files/images/remove")
+        
+        var request = URLRequest(url: url)
+        let headers = ["authorization": "Bearer \(token)"]
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.allHTTPHeaderFields = headers
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = headers
+        let session = URLSession.init(configuration: config)
+        
+        let data: [String: Any] = ["id": id]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
+        request.httpBody = jsonData
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data {
+                if let imageDelete = try? jsonDecoder.decode(ImageDeleteId.self, from: data) {
+                    completion(.success(imageDelete))
+                } else {
+                    if let errorData = try? jsonDecoder.decode(ServerErrorData.self, from: data) {
+                        completion(.failure(errorData))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
 }
 
 

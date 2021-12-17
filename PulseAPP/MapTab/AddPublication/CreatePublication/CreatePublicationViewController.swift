@@ -66,6 +66,11 @@ extension CreatePublicationViewController: GeoDataViewControllerDelegate {
     func sendGeoposition(geo: String) {
         self.geoposition = geo
     }
+    
+    func sendAttachedToInfo(id: String, typeId: String) {
+        self.attachedOrgId = id
+        self.attachedOrgTypeId = typeId
+    }
 }
 
 class CreatePublicationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -100,6 +105,9 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
             self.tableView.reloadData()
         }
     }
+    
+    var attachedOrgId: String?
+    var attachedOrgTypeId: String?
     var publicationCategories: [String]?
     var publicationType: PublicationType!
     var userId: String?
@@ -114,6 +122,16 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Dismissing keyboard by tapping outside its area
+        //Looks for single or multiple taps.
+             let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+
+            //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+            tap.cancelsTouchesInView = false
+
+            view.addGestureRecognizer(tap)
+        
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -127,11 +145,44 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         // Do any additional setup after loading the view.
     }
     
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        if parent == nil {
+            if !fileIds.isEmpty {
+                print("back was clicked")
+                print(fileIds)
+                for fileId in fileIds {
+                    ImageAPIController.shared.deleteImage(id: fileId, token: AuthUserData.shared.accessToken) {
+                        result in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let imageDeleteId):
+                                print(imageDeleteId)
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }
+                    }
+                }
+                
+            }
+            
+            
+        }
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
     @IBAction func sharePublicationButtonTapped(_ sender: Any) {
         switch publicationType.name {
             case "PUBLICATIONTYPE.Post": //Publication
-            if let userId = userId, let geoposition = geoposition, let publicationCategories = publicationCategories, let publicationDescription = publicationDescription, let publicationTypeId = publicationType.id {
-                let publication = PublicationServerUpload(userId: userId, description: publicationDescription, geoposition: geoposition, publicationCategories: publicationCategories, publicationTypeId: publicationTypeId, files: fileIds, regionCode: regionCode)
+            if let userId = userId, let geoposition = geoposition, let publicationCategories = publicationCategories, let publicationDescription = publicationDescription, let publicationTypeId = publicationType.id, let attachedToId = attachedOrgId, let attachedToTypeId = attachedOrgTypeId {
+                let attachToOrg = AttachTo(id: attachedToId, typeId: attachedToTypeId)
+                let publication = PublicationServerUpload(userId: userId, description: publicationDescription, geoposition: geoposition, publicationCategories: publicationCategories, publicationTypeId: publicationTypeId, files: fileIds, regionCode: regionCode, attachTo: attachToOrg)
+                //print(publication)
                 PublicationAPIController.shared.upload(publication: publication, with: AuthUserData.shared.accessToken) { (result) in
                     DispatchQueue.main.async {
                         switch result {
