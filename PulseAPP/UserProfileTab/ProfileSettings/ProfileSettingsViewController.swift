@@ -14,6 +14,12 @@ extension ProfileSettingsViewController: LogOutTableViewCellDelegate {
     }
 }
 
+extension ProfileSettingsViewController: UserProfileTableViewCellDelegate {
+    func transitionToUserProfile() {
+        performSegue(withIdentifier: "", sender: nil)
+    }
+}
+
 class ProfileSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var table: UITableView!
@@ -29,14 +35,19 @@ class ProfileSettingsViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = table.dequeueReusableCell(withIdentifier: LogOutTableViewCell.identifier, for: indexPath) as! LogOutTableViewCell
-        cell.delegate = self
-        cell.logOutButton.setTitle(NSLocalizedString("Log out", comment: ""), for: .normal)
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = table.dequeueReusableCell(withIdentifier: LogOutTableViewCell.identifier, for: indexPath) as! LogOutTableViewCell
+            cell.delegate = self
+            cell.logOutButton.setTitle(NSLocalizedString("Log out", comment: ""), for: .normal)
+            return cell
+        case 1:
+            let cell = table.dequeueReusableCell(withIdentifier: , for: <#T##IndexPath#>)
+        }
     }
     /*
     // MARK: - Navigation

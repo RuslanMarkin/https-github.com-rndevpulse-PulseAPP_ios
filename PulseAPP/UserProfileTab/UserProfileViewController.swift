@@ -20,6 +20,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         table.register(PublicationTableViewCell.nib(), forCellReuseIdentifier: PublicationTableViewCell.identifier)
+        table.register(UserProfileTableViewCell.nib(), forCellReuseIdentifier: UserProfileTableViewCell.identifier)
         table.delegate = self
         table.dataSource = self
         
@@ -100,7 +101,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: PublicationTableViewCell.identifier, for: indexPath) as! PublicationTableViewCell
-        cell.configureTableCell(with: self.publications[indexPath.row])
+        cell.configureTableCell(with: self.publications[indexPath.row]) //Fatal error at refreshing data by pulling feed down
         return cell
     }
     

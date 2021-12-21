@@ -55,6 +55,7 @@ class BeginEndEventTableViewCell: UITableViewCell {
     
     @IBAction func eventStartPickerChanged(_ sender: UIDatePicker) {
         delegate?.sendEventStartDate(startDate: sender.date)
+        eventEndDatePicker.minimumDate = eventStartDatePicker.date
     }
     @IBAction func eventEndPickerChanged(_ sender: UIDatePicker) {
         delegate?.sendEventEndDate(endDate: sender.date)

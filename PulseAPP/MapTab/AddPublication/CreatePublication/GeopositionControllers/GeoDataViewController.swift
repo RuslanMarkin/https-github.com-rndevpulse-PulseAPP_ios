@@ -14,6 +14,8 @@ protocol GeoDataViewControllerDelegate {
     func sendGeoposition(geo: String)
     
     func sendAttachedToInfo(id: String, typeId: String)
+    
+    func sendGeoPointName(name: String)
 }
 
 protocol HandleMapSearch {
@@ -21,11 +23,19 @@ protocol HandleMapSearch {
 }
 
 //Subclassing MKPointAnnotation to show pins of org/events with red color
-class EventsPointAnnotation: MKPointAnnotation {
+class EventsAnnotation: NSObject, MKAnnotation {
+    var title: String?
+    var subtitle: String?
+    var coordinate: CLLocationCoordinate2D
     var pinTintColor: UIColor
+    var typeId: String?
     
-    init(pinTintColor: UIColor) {
+    init(title: String?, subtitle: String? = nil, coordinate: CLLocationCoordinate2D, pinTintColor: UIColor, typeId: String?) {
+        self.title = title
+        self.subtitle = subtitle
+        self.coordinate = coordinate
         self.pinTintColor = pinTintColor
+        self.typeId = typeId
     }
 }
 
@@ -51,10 +61,15 @@ class GeoDataViewController: UIViewController {
     var longDelta: CLLocationDegrees?
     var locationManager: CLLocationManager!
     var resultSearchController: UISearchController? = nil
+    
     var selectedPin: MKPlacemark? = nil
     var selectedPinId: String?
     var selectedPinTypeId: String?
+    var selectedAnnotation: EventsAnnotation?
     var visiblePins = [OrgOrEventPins]()
+    var userLocIsGreen: Bool = false
+    
+    var showAttachButton: Bool?
     
     let centerMapButton: UIButton = {
         let button = UIButton(type: .system)
@@ -178,18 +193,19 @@ class GeoDataViewController: UIViewController {
 //Fetching json with org/events data to pin them on map
 extension GeoDataViewController : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let view = view as? MKPinAnnotationView {
-            view.pinTintColor = UIColor.green
-            if let annotation = view.annotation {
+        if let annotation = view.annotation as? EventsAnnotation {
                 self.geoposition = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
-                //print(self.geoposition)
                 for point in visiblePins {
+                    // Cycle works too much
                     if point.name == annotation.title {
                         self.selectedPinId = point.id
                         self.selectedPinTypeId = point.typeId
-                        //print(point.id)
+                        self.selectedAnnotation = annotation
                     }
                 }
+        } else {
+            if let annotation = view.annotation {
+                self.geoposition = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
             }
         }
     }
@@ -201,20 +217,35 @@ extension GeoDataViewController : MKMapViewDelegate {
         }
         self.latDelta = mapView.region.span.latitudeDelta
         self.longDelta = mapView.region.span.longitudeDelta
+//        print(self.latDelta)
+//        print(self.longDelta)
         if let geoposition = geoposition {
-            //print(geoposition)
-            MarkerAPIController.shared.getObjectsOrgsEvents(with: self.mapCenterString ?? geoposition, precision: 4, token: AuthUserData.shared.accessToken) {
-                result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let points):
-                        self.setPinsOnMap(for: points.points!)
-                    case .failure(let error):
-                        print(error.title)
+            if ((self.latDelta! < CLLocationDegrees(0.15)) && (self.longDelta! < CLLocationDegrees(0.15))) {
+                MarkerAPIController.shared.getObjectsOrgsEvents(with: self.mapCenterString ?? geoposition, precision: 4, token: AuthUserData.shared.accessToken) {
+                    result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let points):
+                            self.setPinsOnMap(for: points.points!)
+                            print(points)
+                        case .failure(let error):
+                            print(error.title)
+                        }
                     }
                 }
             }
         }
+        let visRect = mapView.visibleMapRect
+        let inRectAnnotations = mapView.annotations(in: visRect)
+        for anno: MKAnnotation in mapView.annotations {
+            if let anno = anno as? EventsAnnotation {
+                 if !(inRectAnnotations.contains(anno)) {
+                     mapView.removeAnnotation(anno)
+                 }
+            }
+        }
+        print(mapView.annotations.count)
+        print(visiblePins.count)
     }
     
     //Function sets pins fetched from server only if they are in visible area of device screen
@@ -228,31 +259,34 @@ extension GeoDataViewController : MKMapViewDelegate {
             //print("\(mapCenter.latitude), \(mapCenter.longitude)")
             for point in points {
                     if rangeLat.contains(point.geoposition!.first!) && rangeLong.contains(point.geoposition!.last!) {
-                        let pin = EventsPointAnnotation(pinTintColor: .red)
-                            pin.coordinate = CLLocationCoordinate2D(latitude: point.geoposition?.first ?? 0.0, longitude: point.geoposition?.last ?? 0.0)
-                            pin.title = point.name
-                            pin.subtitle = point.description
+                        let coordinate = CLLocationCoordinate2D(latitude: point.geoposition?.first ?? 0.0, longitude: point.geoposition?.last ?? 0.0)
+                        let title = point.name
+                        let subtitle = point.description
+                        let pin = EventsAnnotation(title: title, subtitle: subtitle, coordinate: coordinate, pinTintColor: .red, typeId: point.publicationType?.name)
                         self.visiblePins.append(OrgOrEventPins(id: point.id!, typeId: point.publicationType!.id!, name: point.name!))
-                            self.mapView.addAnnotation(pin)
+                        self.mapView.addAnnotation(pin)
                     }
             }
         }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "myAnnotation") as? MKPinAnnotationView
+//        guard !(annotation is MKUserLocation) else { return nil }
 //
-//                if annotationView == nil {
-//                    annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myAnnotation")
-//                } else {
-//                    annotationView?.annotation = annotation
-//                }
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "custom")
+//        if annotationView == nil {
+//            //create a view
+//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
+//            annotationView?.canShowCallout = true
+//        } else {
+//            annotationView?.annotation = annotation
+//        }
 //
-//                if let annotation = annotation as? EventsPointAnnotation {
-//                    annotationView?.pinTintColor = annotation.pinTintColor
-//                }
+//        annotationView?.image = UIImage(named: "pokeball")
 //
 //        return annotationView
+        
+        
         if annotation is MKUserLocation {
             //return nil so map view draws "blue dot" for standard user location
             return nil
@@ -266,23 +300,50 @@ extension GeoDataViewController : MKMapViewDelegate {
             pinView?.annotation = annotation
         }
         //pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-        if let annotation = annotation as? EventsPointAnnotation {
-            pinView?.pinTintColor = annotation.pinTintColor
+        if let annotation = annotation as? EventsAnnotation {
+            //pinView?.pinTintColor = annotation.pinTintColor
+            switch annotation.typeId {
+            case "PUBLICATIONTYPE.Event":
+                pinView?.image = UIImage(named: "event")
+            case "PUBLICATIONTYPE.Organization":
+                pinView?.image = UIImage(named: "organization")
+            case "PUBLICATIONTYPE.MapObject":
+                pinView?.image = UIImage(named: "mapObject")
+            default:
+                break
+            }
         }
-//        pinView?.pinTintColor = UIColor.orange
+        
         pinView?.canShowCallout = true
-        let smallSquare = CGSize(width: 30, height: 30)
-        let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
-        button.setBackgroundImage(UIImage(named: "car"), for: .normal)
-        button.addTarget(self, action: #selector(getDirections), for: .touchUpInside)
-        pinView?.leftCalloutAccessoryView = button
+        if self.showAttachButton! {
+            let smallSquare = CGSize(width: 30, height: 30)
+            let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
+            button.setBackgroundImage(UIImage(named: "car"), for: .normal)
+            //button.setTitle("add post to this", for: .normal)
+            button.addTarget(self, action: #selector(attach(sender: )), for: .touchUpInside)
+            pinView?.leftCalloutAccessoryView = button
+        }
         return pinView
     }
-    
-    @objc func getDirections() {
-        if let id = self.selectedPinId, let typeId = self.selectedPinTypeId {
-            self.delegate?.sendAttachedToInfo(id: id, typeId: typeId)
+        
+    @objc func attach(sender: UIButton) {
+        UIView.animate(withDuration: 0.3) {
+            sender.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+            sender.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }
+        let alert = UIAlertController(title: "Attachment", message: "You are about to attach publication to this point", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Attach", style: .default) {
+            action in
+            if let id = self.selectedPinId, let typeId = self.selectedPinTypeId, let selectedAnno = self.selectedAnnotation, let geo = self.geoposition {
+                self.delegate?.sendAttachedToInfo(id: id, typeId: typeId)
+                self.delegate?.sendGeoPointName(name: selectedAnno.title ?? "")
+                self.delegate?.sendGeoposition(geo: geo)
+            }
+            self.navigationController?.popViewController(animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+        
     }
 }
 
@@ -322,10 +383,9 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
                 mapView.setRegion(region, animated: true)
                 
                 //User Location Pin
-                let myPin = MKPointAnnotation()
-                myPin.coordinate = userCoordinates
-                myPin.title = "Pin"
-                myPin.subtitle = "My Location"
+                
+                let myPin = EventsAnnotation(title: "You are here", subtitle: "My Location", coordinate: userCoordinates, pinTintColor: .green, typeId: nil)
+                self.selectedAnnotation = myPin
                 mapView.addAnnotation(myPin)
                 self.geoposition = "\(userCoordinates.latitude), \(userCoordinates.longitude)"
                 if let geo = geoposition {
@@ -370,14 +430,13 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
         let locationCoordinate = mapView.convert(touchLocation,toCoordinateFrom: mapView)
         self.geoposition = "\(locationCoordinate.latitude), \(locationCoordinate.longitude)"
             self.mapView.removeAnnotations(self.mapView.annotations)
-            print("Annotation Removed")
+      //      print("Annotation Removed")
         let locationCoordinates = CLLocationCoordinate2D(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
             self.selectedPin = MKPlacemark(coordinate: locationCoordinates)
-            let pin = MKPointAnnotation()
-            pin.coordinate = locationCoordinates
-            pin.title = "New Publication"
-            pin.subtitle = "Subtitle"
+            let pin = EventsAnnotation(title: "Publication", subtitle: "Use this location", coordinate: locationCoordinates, pinTintColor: .green, typeId: nil)
             mapView.addAnnotation(pin)
+            self.selectedAnnotation = pin
+            self.mapView.selectAnnotation(pin, animated: true)
         return
       }
         if gestureReconizer.state != UIGestureRecognizer.State.began {

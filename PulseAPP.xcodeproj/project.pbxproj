@@ -31,6 +31,8 @@
 		4B42949F276B30A800F23C29 /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B42949E276B30A800F23C29 /* Points.swift */; };
 		4B480484274FB1A70055C62B /* UploadImageResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B480483274FB1A70055C62B /* UploadImageResponseData.swift */; };
 		4B480486275117800055C62B /* PublicationServerUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B480485275117800055C62B /* PublicationServerUpload.swift */; };
+		4B48705B2771DF1C00D7B401 /* UserProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4870592771DF1C00D7B401 /* UserProfileTableViewCell.swift */; };
+		4B48705C2771DF1C00D7B401 /* UserProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B48705A2771DF1C00D7B401 /* UserProfileTableViewCell.xib */; };
 		4B5510D0274B9D3800DE47BF /* CreatePublicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */; };
 		4B55111E274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B55111C274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift */; };
 		4B55111F274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B55111D274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib */; };
@@ -105,6 +107,8 @@
 		4B42949E276B30A800F23C29 /* Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
 		4B480483274FB1A70055C62B /* UploadImageResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageResponseData.swift; sourceTree = "<group>"; };
 		4B480485275117800055C62B /* PublicationServerUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationServerUpload.swift; sourceTree = "<group>"; };
+		4B4870592771DF1C00D7B401 /* UserProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTableViewCell.swift; sourceTree = "<group>"; };
+		4B48705A2771DF1C00D7B401 /* UserProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileTableViewCell.xib; sourceTree = "<group>"; };
 		4B5510CF274B9D3800DE47BF /* CreatePublicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePublicationViewController.swift; sourceTree = "<group>"; };
 		4B55111C274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		4B55111D274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageAndDescriptionTableViewCell.xib; sourceTree = "<group>"; };
@@ -281,6 +285,15 @@
 			path = ImageAndDescriptionTableCell;
 			sourceTree = "<group>";
 		};
+		4B4870582771DEEE00D7B401 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				4B4870592771DF1C00D7B401 /* UserProfileTableViewCell.swift */,
+				4B48705A2771DF1C00D7B401 /* UserProfileTableViewCell.xib */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
 		4B5510A6274B6FA300DE47BF /* AddPublication */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				4B55CE952743EE78007152B3 /* ProfileSettingsViewController.swift */,
+				4B4870582771DEEE00D7B401 /* UserProfile */,
 				4B95D4B727609BDA003473B3 /* LogOutTableCell */,
 			);
 			path = ProfileSettings;
@@ -558,6 +572,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B48705C2771DF1C00D7B401 /* UserProfileTableViewCell.xib in Resources */,
 				4B36CDC9271EEB830091D229 /* PublicationTableViewCell.xib in Resources */,
 				4B4210ED27157C4900D5E809 /* LaunchScreen.storyboard in Resources */,
 				4B55111F274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib in Resources */,
@@ -602,6 +617,7 @@
 				4B6F3268272835A1008A8838 /* PublicationType.swift in Sources */,
 				4B9114122719B65F00841927 /* ImageAPIController.swift in Sources */,
 				4B4210E527157C4700D5E809 /* AuthFormViewController.swift in Sources */,
+				4B48705B2771DF1C00D7B401 /* UserProfileTableViewCell.swift in Sources */,
 				4BE2E4E6276348B000A5D215 /* ImagesTableViewCell.swift in Sources */,
 				4BC35705274E59E80075896F /* CategoryCollectionTableViewCell.swift in Sources */,
 				4B9113FF27171BD900841927 /* ToolMenuViewController.swift in Sources */,
