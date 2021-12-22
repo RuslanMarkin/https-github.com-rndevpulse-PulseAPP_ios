@@ -11,7 +11,7 @@ class MarkerAPIController {
     
     static let shared = MarkerAPIController()
     
-    let baseURL = URL(string: "http://192.168.1.100:/api/v1/")!
+    let baseURL = networkURL
     
     func getObjectsOrgsEvents(with centerCoordinates: String, precision: Int, token: String, completion: @escaping (Result<Points, ErrorData>) -> Void) {
         let url = baseURL.appendingPathComponent("publications/near")

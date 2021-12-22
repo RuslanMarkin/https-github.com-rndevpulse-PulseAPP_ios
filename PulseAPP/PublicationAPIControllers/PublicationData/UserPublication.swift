@@ -6,6 +6,7 @@ struct UserPublication : Codable {
 	let publication : Publication?
 	let publicationType : PublicationType?
 	let files : [String]?
+    let userAbility: UserAbility?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -13,6 +14,7 @@ struct UserPublication : Codable {
 		case publication = "publication"
 		case publicationType = "publicationType"
 		case files = "files"
+        case userAbility = "userAbility"
 	}
 
 	init(from decoder: Decoder) throws {
@@ -21,6 +23,7 @@ struct UserPublication : Codable {
 		publication = try values.decodeIfPresent(Publication.self, forKey: .publication)
 		publicationType = try values.decodeIfPresent(PublicationType.self, forKey: .publicationType)
 		files = try values.decodeIfPresent([String].self, forKey: .files)
+        userAbility = try values.decodeIfPresent(UserAbility.self, forKey: .userAbility)
 	}
 
 }

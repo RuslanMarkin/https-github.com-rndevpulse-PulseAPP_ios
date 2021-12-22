@@ -12,6 +12,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     private var pullControl = UIRefreshControl()
     
     @IBOutlet weak var table: UITableView!
+    @IBOutlet weak var publicationTypesSegmentedControl: UISegmentedControl!
     
     var publications = [UserPublication]()
     var lastId: String?
@@ -35,31 +36,39 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 }
         
         
-//        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Publication", ofCategories: [
-//            "PUBLICATIONCATEGORY.Food",
-//            "PUBLICATIONCATEGORY.Monument",
-//            "PUBLICATIONCATEGORY.Design"
-//        ], afterPublicationWithLastId: "2713c5ae-a94d-4a9d-ac84-b58d08fd90b7", with: 0) { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                            case .success(let userPublications):
-//                                self.updateUI(with: userPublications!)
-//                            case .failure(let error):
-//                                print(error)
-//                            }
-//                }
-//        }
-//
-        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: "", pagination: false) { result in
+        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: [
+                "PUBLICATIONCATEGORY.Food",
+                "PUBLICATIONCATEGORY.Transport",
+                "PUBLICATIONCATEGORY.Interior",
+                "PUBLICATIONCATEGORY.Nature",
+                "PUBLICATIONCATEGORY.Excursion",
+                "PUBLICATIONCATEGORY.Monument",
+                "PUBLICATIONCATEGORY.Design",
+                "PUBLICATIONCATEGORY.Music",
+                "PUBLICATIONCATEGORY.Dances",
+                "PUBLICATIONCATEGORY.Interior",
+                "PUBLICATIONCATEGORY.People",
+                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: 0) { result in
             DispatchQueue.main.async {
-            switch result {
-                        case .success(let userPublications):
-                            self.updateUI(with: userPublications!)
-                        case .failure(let error):
-                            print(error)
-                        }
-            }
+                switch result {
+                            case .success(let userPublications):
+                                self.updateUI(with: userPublications!)
+                            case .failure(let error):
+                                print(error)
+                            }
+                }
         }
+
+//        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: "", pagination: false) { result in
+//            DispatchQueue.main.async {
+//            switch result {
+//                        case .success(let userPublications):
+//                            self.updateUI(with: userPublications!)
+//                        case .failure(let error):
+//                            print(error)
+//                        }
+//            }
+//        }
     }
     
     @objc private func refreshListData(_ sender: Any) {
@@ -80,6 +89,64 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
 
+    @IBAction func segmentedControlDidChange(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: [
+                    "PUBLICATIONCATEGORY.Food",
+                    "PUBLICATIONCATEGORY.Transport",
+                    "PUBLICATIONCATEGORY.Interior",
+                    "PUBLICATIONCATEGORY.Nature",
+                    "PUBLICATIONCATEGORY.Excursion",
+                    "PUBLICATIONCATEGORY.Monument",
+                    "PUBLICATIONCATEGORY.Design",
+                    "PUBLICATIONCATEGORY.Music",
+                    "PUBLICATIONCATEGORY.Dances",
+                    "PUBLICATIONCATEGORY.Interior",
+                    "PUBLICATIONCATEGORY.People",
+                    "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: 0) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                                case .success(let userPublications):
+                                    self.updateUI(with: userPublications!)
+                                case .failure(let error):
+                                    print(error)
+                                }
+                    }
+            }
+        case 1:
+            break
+        case 2:
+            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Publication", ofCategories: [
+                    "PUBLICATIONCATEGORY.Food",
+                    "PUBLICATIONCATEGORY.Transport",
+                    "PUBLICATIONCATEGORY.Interior",
+                    "PUBLICATIONCATEGORY.Nature",
+                    "PUBLICATIONCATEGORY.Excursion",
+                    "PUBLICATIONCATEGORY.Monument",
+                    "PUBLICATIONCATEGORY.Design",
+                    "PUBLICATIONCATEGORY.Music",
+                    "PUBLICATIONCATEGORY.Dances",
+                    "PUBLICATIONCATEGORY.Interior",
+                    "PUBLICATIONCATEGORY.People",
+                    "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: 0) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                                case .success(let userPublications):
+                                    self.updateUI(with: userPublications!)
+                                case .failure(let error):
+                                    print(error)
+                                }
+                    }
+            }
+        case 3:
+            break
+        case 4:
+            break
+        default:
+            break
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -144,51 +211,51 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = HeaderView.instantiate()
-    
-        let userId = AuthUserData.shared.userId
-        let userToken = AuthUserData.shared.accessToken
-        APIController.shared.getUserPreview(withid: userId) {
-            (result) in DispatchQueue.main.async {
-                switch result {
-                case .success(let userPreviewData):
-                    view.publicNameLabel.text = userPreviewData.publicName
-                    view.userNameLabel.text = userPreviewData.name
-                    view.countPublicationsLabel.text = "\(NSLocalizedString("Publications: ", comment: "")) \(userPreviewData.countPublications)"
-                    view.countPublicationsLabel.adjustsFontSizeToFitWidth = true
-                    view.countSubscriptionsLabel.text = "\(NSLocalizedString("Subscriptions: ", comment: ""))  \(userPreviewData.countUsersSubscription)"
-                    view.countSubscriptionsLabel.adjustsFontSizeToFitWidth = true
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-        APIController.shared.getUserAvatarURL(withToken: userToken) {
-            (result) in DispatchQueue.main.async {
-                switch result {
-                case .success(let userPhoto):
-                    ImageAPIController.shared.getUserAvatarImage(withUrl: userPhoto.url) {
-                        (result) in DispatchQueue.main.async {
-                            switch result {
-                            case .success(let image):
-                                view.avatarImage.image = image
-                            case .failure(let error):
-                                print(error)
-                            }
-                        }
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 130
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let view = HeaderView.instantiate()
+//    
+//        let userId = AuthUserData.shared.userId
+//        let userToken = AuthUserData.shared.accessToken
+//        APIController.shared.getUserPreview(withid: userId) {
+//            (result) in DispatchQueue.main.async {
+//                switch result {
+//                case .success(let userPreviewData):
+//                    view.publicNameLabel.text = userPreviewData.publicName
+//                    view.userNameLabel.text = userPreviewData.name
+//                    view.countPublicationsLabel.text = "\(NSLocalizedString("Publications: ", comment: "")) \(userPreviewData.countPublications)"
+//                    view.countPublicationsLabel.adjustsFontSizeToFitWidth = true
+//                    view.countSubscriptionsLabel.text = "\(NSLocalizedString("Subscriptions: ", comment: ""))  \(userPreviewData.countUsersSubscription)"
+//                    view.countSubscriptionsLabel.adjustsFontSizeToFitWidth = true
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            }
+//        }
+//        APIController.shared.getUserAvatarURL(withToken: userToken) {
+//            (result) in DispatchQueue.main.async {
+//                switch result {
+//                case .success(let userPhoto):
+//                    ImageAPIController.shared.getUserAvatarImage(withUrl: userPhoto.url) {
+//                        (result) in DispatchQueue.main.async {
+//                            switch result {
+//                            case .success(let image):
+//                                view.avatarImage.image = image
+//                            case .failure(let error):
+//                                print(error)
+//                            }
+//                        }
+//                    }
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            }
+//        }
+//        return view
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 130
+//    }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()

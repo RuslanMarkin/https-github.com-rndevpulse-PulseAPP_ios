@@ -13,7 +13,7 @@ class PublicationAPIController {
     
     var isPaginating = false
     
-    let baseURL = URL(string: "http://192.168.1.100/api/v1/")!
+    let baseURL = networkURL
     
     //Retrieves a pile of user's publications (20) with multiplier (with coef)
     //User's id is passed in body of POST request
@@ -97,6 +97,8 @@ class PublicationAPIController {
             self.isPaginating = true
         }
         
+        var data: [String: Any]
+        
         let url = baseURL.appendingPathComponent("publications/\(coef)")
         
         var request = URLRequest(url: url)
@@ -105,7 +107,12 @@ class PublicationAPIController {
         let config = URLSessionConfiguration.default
         let session = URLSession.init(configuration: config)
         
-        let data: [String: Any] = ["lastid": afterPublicationWithLastId, "name": ofType, "category": ofCategories]
+        if afterPublicationWithLastId == "" {
+            data = ["name": ofType, "category": ofCategories]
+        } else {
+            data = ["lastid": afterPublicationWithLastId, "name": ofType, "category": ofCategories]
+        }
+        
 
         let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
         request.httpBody = jsonData

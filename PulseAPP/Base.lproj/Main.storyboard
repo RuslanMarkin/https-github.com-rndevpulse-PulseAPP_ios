@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g3z-xH-mLk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g3z-xH-mLk">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -111,32 +111,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="100" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kuc-P3-4rh">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="118" width="414" height="695"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="ngq-L2-y0V" id="Kxy-lw-0s4"/>
                                     <outlet property="delegate" destination="ngq-L2-y0V" id="iL3-2h-HaW"/>
                                 </connections>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NNs-SA-ZQ7">
+                                <rect key="frame" x="0.0" y="88" width="414" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="F5Z-Ad-Ug6"/>
+                                    <constraint firstAttribute="height" constant="30" id="GGG-IO-bJb"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Events"/>
+                                    <segment title="Organizations"/>
+                                    <segment title="Publications"/>
+                                    <segment title="MapObjects"/>
+                                    <segment title="Routes"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedControlDidChange:" destination="ngq-L2-y0V" eventType="valueChanged" id="EHU-d7-k1b"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7jb-14-vJv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Kuc-P3-4rh" firstAttribute="leading" secondItem="7jb-14-vJv" secondAttribute="leading" id="6NV-88-i8S"/>
-                            <constraint firstItem="Kuc-P3-4rh" firstAttribute="top" secondItem="7jb-14-vJv" secondAttribute="top" id="7x5-7o-Hf6"/>
+                            <constraint firstItem="Kuc-P3-4rh" firstAttribute="top" secondItem="NNs-SA-ZQ7" secondAttribute="bottom" id="9Wo-St-RGG"/>
                             <constraint firstItem="Kuc-P3-4rh" firstAttribute="trailing" secondItem="7jb-14-vJv" secondAttribute="trailing" id="9xk-40-JqG"/>
+                            <constraint firstItem="NNs-SA-ZQ7" firstAttribute="trailing" secondItem="7jb-14-vJv" secondAttribute="trailing" id="EJP-Rn-VD6"/>
                             <constraint firstItem="Kuc-P3-4rh" firstAttribute="bottom" secondItem="7jb-14-vJv" secondAttribute="bottom" id="HYl-f4-diN"/>
+                            <constraint firstItem="NNs-SA-ZQ7" firstAttribute="leading" secondItem="7jb-14-vJv" secondAttribute="leading" id="d3u-Ak-UEY"/>
+                            <constraint firstItem="NNs-SA-ZQ7" firstAttribute="top" secondItem="7jb-14-vJv" secondAttribute="top" id="ohn-Eg-vg7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fQf-0b-Q8a">
-                        <barButtonItem key="leftBarButtonItem" title="Organizations" id="uUg-t3-CPu"/>
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="Organizations" id="uUg-t3-CPu"/>
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="mI3-p0-NDs">
                             <connections>
-                                <segue destination="WnI-ph-VFf" kind="presentation" id="jdz-TP-FfA"/>
+                                <segue destination="WnI-ph-VFf" kind="show" id="jdz-TP-FfA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="publicationTypesSegmentedControl" destination="NNs-SA-ZQ7" id="Wqx-wD-OEQ"/>
                         <outlet property="table" destination="Kuc-P3-4rh" id="mf7-Hx-JBD"/>
                     </connections>
                 </viewController>
@@ -144,16 +165,47 @@
             </objects>
             <point key="canvasLocation" x="3618.840579710145" y="68.973214285714278"/>
         </scene>
+        <!--User Feed View Controller-->
+        <scene sceneID="a7Y-gM-gN8">
+            <objects>
+                <viewController id="02j-SW-TN7" customClass="UserFeedViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cuc-E1-MjT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oJI-4C-Awv">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="r5X-3M-Dyb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oJI-4C-Awv" firstAttribute="top" secondItem="r5X-3M-Dyb" secondAttribute="top" id="4ug-Ya-orV"/>
+                            <constraint firstItem="oJI-4C-Awv" firstAttribute="leading" secondItem="r5X-3M-Dyb" secondAttribute="leading" id="ZaV-fl-28y"/>
+                            <constraint firstItem="r5X-3M-Dyb" firstAttribute="bottom" secondItem="oJI-4C-Awv" secondAttribute="bottom" id="fa8-4I-u7Z"/>
+                            <constraint firstItem="r5X-3M-Dyb" firstAttribute="trailing" secondItem="oJI-4C-Awv" secondAttribute="trailing" id="yce-iK-GdU"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="eXc-47-Hpl"/>
+                    <connections>
+                        <outlet property="table" destination="oJI-4C-Awv" id="PJH-9d-dD5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jqj-gw-pGk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5365" y="-620"/>
+        </scene>
         <!--Profile Settings View Controller-->
         <scene sceneID="7TX-mR-CWf">
             <objects>
                 <viewController id="WnI-ph-VFf" customClass="ProfileSettingsViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mwx-ci-IIW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="u0b-1a-lvc">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="7M3-bx-JOD">
@@ -177,9 +229,11 @@
                             <constraint firstItem="u0b-1a-lvc" firstAttribute="top" secondItem="iWq-kB-qgK" secondAttribute="top" id="nqS-D3-Hbd"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="6KB-e3-Lcb"/>
                     <connections>
                         <outlet property="table" destination="u0b-1a-lvc" id="Zej-df-ala"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="LogOutSegue" modalPresentationStyle="fullScreen" id="PGS-Pd-Bka"/>
+                        <segue destination="02j-SW-TN7" kind="show" identifier="UserFeedSegue" id="hPf-FN-HSp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HTb-nH-SAW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -691,7 +745,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="o95-la-2fb"/>
         <segue reference="agX-EJ-Haa"/>
         <segue reference="PGS-Pd-Bka"/>
     </inferredMetricsTieBreakers>

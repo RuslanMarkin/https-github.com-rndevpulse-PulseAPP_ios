@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E2AB11B277303360047215B /* UserFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AB11A277303360047215B /* UserFeedViewController.swift */; };
+		3E85E8FB277317E300F1E781 /* UserAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85E8FA277317E300F1E781 /* UserAbility.swift */; };
+		3E85E8FD27731D5800F1E781 /* network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85E8FC27731D5800F1E781 /* network.swift */; };
 		4B1B00612744FB7600D03BF2 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B00602744FB7600D03BF2 /* DateExtension.swift */; };
 		4B1B00632746310300D03BF2 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B00622746310300D03BF2 /* Database.swift */; };
 		4B1B00672747CF6C00D03BF2 /* AddPublicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B00662747CF6C00D03BF2 /* AddPublicationViewController.swift */; };
@@ -81,6 +84,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E2AB11A277303360047215B /* UserFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedViewController.swift; sourceTree = "<group>"; };
+		3E85E8FA277317E300F1E781 /* UserAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAbility.swift; sourceTree = "<group>"; };
+		3E85E8FC27731D5800F1E781 /* network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = network.swift; sourceTree = "<group>"; };
 		4B1B00602744FB7600D03BF2 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		4B1B00622746310300D03BF2 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		4B1B00662747CF6C00D03BF2 /* AddPublicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPublicationViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +176,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E2AB119277303060047215B /* UserFeed */ = {
+			isa = PBXGroup;
+			children = (
+				3E2AB11A277303360047215B /* UserFeedViewController.swift */,
+				4B36CDBD271DABDE0091D229 /* CollectionViewCell */,
+				4B36CDC5271EEB490091D229 /* PublicationTableViewCell */,
+				4B91140927196F9900841927 /* Header */,
+			);
+			path = UserFeed;
+			sourceTree = "<group>";
+		};
 		4B034916271FF0AE0004BD0B /* ErrorHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +289,7 @@
 				4B4210E927157C4900D5E809 /* Assets.xcassets */,
 				4B4210EE27157C4900D5E809 /* Info.plist */,
 				4B1B00602744FB7600D03BF2 /* DateExtension.swift */,
+				3E85E8FC27731D5800F1E781 /* network.swift */,
 			);
 			path = PulseAPP;
 			sourceTree = "<group>";
@@ -348,6 +366,7 @@
 				4B6F3262272835A0008A8838 /* User.swift */,
 				4B91140427196A5E00841927 /* PublicationData.swift */,
 				4B480485275117800055C62B /* PublicationServerUpload.swift */,
+				3E85E8FA277317E300F1E781 /* UserAbility.swift */,
 			);
 			path = PublicationData;
 			sourceTree = "<group>";
@@ -394,11 +413,9 @@
 		4B91140627196EC600841927 /* UserProfileTab */ = {
 			isa = PBXGroup;
 			children = (
+				3E2AB119277303060047215B /* UserFeed */,
 				4B9113F82717157500841927 /* UserProfileViewController.swift */,
 				4B95D4B227609B1E003473B3 /* ProfileSettings */,
-				4B91140927196F9900841927 /* Header */,
-				4B36CDC5271EEB490091D229 /* PublicationTableViewCell */,
-				4B36CDBD271DABDE0091D229 /* CollectionViewCell */,
 			);
 			path = UserProfileTab;
 			sourceTree = "<group>";
@@ -609,15 +626,18 @@
 				4BE2E4ED2763739300A5D215 /* MapObjectData.swift in Sources */,
 				4B36CDC3271EC3D10091D229 /* PublicationAPIController.swift in Sources */,
 				4B6F3269272835A1008A8838 /* User.swift in Sources */,
+				3E85E8FB277317E300F1E781 /* UserAbility.swift in Sources */,
 				4B55CE962743EE78007152B3 /* ProfileSettingsViewController.swift in Sources */,
 				4BC3570B274E5A9F0075896F /* CategoryCollectionViewCell.swift in Sources */,
 				4B566EF12760B1B400452AD7 /* DescriptionTableViewCell.swift in Sources */,
 				4B3D81C62758F7E3009CA0F6 /* NameTableViewCell.swift in Sources */,
 				4B6F3266272835A1008A8838 /* UserPublication.swift in Sources */,
 				4B6F3268272835A1008A8838 /* PublicationType.swift in Sources */,
+				3E2AB11B277303360047215B /* UserFeedViewController.swift in Sources */,
 				4B9114122719B65F00841927 /* ImageAPIController.swift in Sources */,
 				4B4210E527157C4700D5E809 /* AuthFormViewController.swift in Sources */,
 				4B48705B2771DF1C00D7B401 /* UserProfileTableViewCell.swift in Sources */,
+				3E85E8FD27731D5800F1E781 /* network.swift in Sources */,
 				4BE2E4E6276348B000A5D215 /* ImagesTableViewCell.swift in Sources */,
 				4BC35705274E59E80075896F /* CategoryCollectionTableViewCell.swift in Sources */,
 				4B9113FF27171BD900841927 /* ToolMenuViewController.swift in Sources */,

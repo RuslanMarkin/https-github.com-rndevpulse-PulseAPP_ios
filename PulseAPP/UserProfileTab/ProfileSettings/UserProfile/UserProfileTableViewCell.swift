@@ -15,7 +15,7 @@ class UserProfileTableViewCell: UITableViewCell {
     
     weak var delegate: UserProfileTableViewCellDelegate?
     
-    let identifier = "UserProfileTableViewCell"
+    static let identifier = "UserProfileTableViewCell"
     
     @IBOutlet var userProfileButton: UIButton!
     
@@ -39,7 +39,7 @@ class UserProfileTableViewCell: UITableViewCell {
             self.userProfileButton.transform = CGAffineTransform(scaleX: 4.0, y: 4.0)
             self.userProfileButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }
-        
+        delegate?.transitionToUserProfile()
     }
     
 }

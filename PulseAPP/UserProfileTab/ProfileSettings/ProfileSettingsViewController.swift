@@ -16,7 +16,7 @@ extension ProfileSettingsViewController: LogOutTableViewCellDelegate {
 
 extension ProfileSettingsViewController: UserProfileTableViewCellDelegate {
     func transitionToUserProfile() {
-        performSegue(withIdentifier: "", sender: nil)
+        performSegue(withIdentifier: "UserFeedSegue", sender: nil)
     }
 }
 
@@ -29,6 +29,7 @@ class ProfileSettingsViewController: UIViewController, UITableViewDelegate, UITa
         table.delegate = self
         table.dataSource = self
         table.register(LogOutTableViewCell.nib(), forCellReuseIdentifier: LogOutTableViewCell.identifier)
+        table.register(UserProfileTableViewCell.nib(), forCellReuseIdentifier: UserProfileTableViewCell.identifier)
 //        Database.shared.delete()
 //        table.reloadData()
         // Do any additional setup after loading the view.
@@ -46,7 +47,12 @@ class ProfileSettingsViewController: UIViewController, UITableViewDelegate, UITa
             cell.logOutButton.setTitle(NSLocalizedString("Log out", comment: ""), for: .normal)
             return cell
         case 1:
-            let cell = table.dequeueReusableCell(withIdentifier: , for: <#T##IndexPath#>)
+            let cell = table.dequeueReusableCell(withIdentifier: UserProfileTableViewCell.identifier, for: indexPath) as! UserProfileTableViewCell
+            cell.delegate = self
+            cell.userProfileButton.setTitle("User Profile", for: .normal)
+            return cell
+        default:
+            return UITableViewCell()
         }
     }
     /*

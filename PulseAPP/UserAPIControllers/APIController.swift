@@ -12,7 +12,7 @@ class APIController {
     
     static let shared = APIController()
     
-    let baseURL = URL(string: "http://192.168.1.100:/api/v1/")!
+    let baseURL = networkURL
     
     func authentication(withlogin: String, password: String, completion: @escaping (Result<AuthUserData, ServerErrorData>) -> Void){
         let authURL = baseURL.appendingPathComponent("auth")

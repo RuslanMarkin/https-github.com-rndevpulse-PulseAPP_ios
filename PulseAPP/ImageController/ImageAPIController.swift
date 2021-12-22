@@ -12,7 +12,7 @@ class ImageAPIController {
     
     static let shared = ImageAPIController()
     
-    let baseURL = URL(string: "http://192.168.1.100/api/v1/")!
+    let baseURL = networkURL
     
     func getUserAvatarImage(withUrl: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
         let avatarPhotoURL = baseURL.appendingPathComponent("files/\(withUrl)")
