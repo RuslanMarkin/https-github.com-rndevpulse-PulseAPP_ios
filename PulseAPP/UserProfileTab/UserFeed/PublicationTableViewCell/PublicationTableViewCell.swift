@@ -92,22 +92,13 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
                 self.commentsCounterLabel.text = "📃 " + String(counter)
             }
             
-            APIController.shared.getUserAvatarURL(withToken: AuthUserData.shared.accessToken) {
+            ImageAPIController.shared.getImage(withURL: publication.user!.data!) {
                 (result) in DispatchQueue.main.async {
                     switch result {
                     case .success(let userPhoto):
-                        ImageAPIController.shared.getUserAvatarImage(withUrl: userPhoto.url) {
-                            (result) in DispatchQueue.main.async {
-                                switch result {
-                                case .success(let image):
-                                    self.publicationUserAvatar.image = image
-                                case .failure(let error):
-                                    print(error)
-                                }
-                            }
-                        }
+                            self.publicationUserAvatar.image = userPhoto
                     case .failure(let error):
-                        print(error)
+                            print(error)
                     }
                 }
             }
@@ -115,7 +106,7 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
             if let imageURLs = getImagesURLs(for: publication) {
                 self.imagesOfPublication.removeAll()
                     for i in imageURLs.indices {
-                        print(imageURLs[i])
+                        //print(imageURLs[i])
                         ImageAPIController.shared.getImage(withURL: imageURLs[i]) { result in
                             DispatchQueue.main.async {
                             switch result {

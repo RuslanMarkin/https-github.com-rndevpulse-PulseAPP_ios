@@ -12,7 +12,6 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     private var pullControl = UIRefreshControl()
     
     @IBOutlet weak var table: UITableView!
-    @IBOutlet weak var publicationTypesSegmentedControl: UISegmentedControl!
     
     var publications = [UserPublication]()
     var lastId: String?
@@ -22,6 +21,8 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         
         table.register(PublicationTableViewCell.nib(), forCellReuseIdentifier: PublicationTableViewCell.identifier)
         table.register(UserProfileTableViewCell.nib(), forCellReuseIdentifier: UserProfileTableViewCell.identifier)
+        
+        table.register
         table.delegate = self
         table.dataSource = self
         
@@ -48,7 +49,34 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 "PUBLICATIONCATEGORY.Dances",
                 "PUBLICATIONCATEGORY.Interior",
                 "PUBLICATIONCATEGORY.People",
-                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: 0) { result in
+                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: 0, pagination: false) { result in
+            DispatchQueue.main.async {
+                switch result {
+                            case .success(let userPublications):
+                                self.updateUI(with: userPublications!)
+                                //print(userPublications)
+                            case .failure(let error):
+                                print(error)
+                            }
+                }
+        }
+    }
+    
+    @objc private func refreshListData(_ sender: Any) {
+        publications.removeAll()
+        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: [
+                "PUBLICATIONCATEGORY.Food",
+                "PUBLICATIONCATEGORY.Transport",
+                "PUBLICATIONCATEGORY.Interior",
+                "PUBLICATIONCATEGORY.Nature",
+                "PUBLICATIONCATEGORY.Excursion",
+                "PUBLICATIONCATEGORY.Monument",
+                "PUBLICATIONCATEGORY.Design",
+                "PUBLICATIONCATEGORY.Music",
+                "PUBLICATIONCATEGORY.Dances",
+                "PUBLICATIONCATEGORY.Interior",
+                "PUBLICATIONCATEGORY.People",
+                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: 0, pagination: false) { result in
             DispatchQueue.main.async {
                 switch result {
                             case .success(let userPublications):
@@ -58,94 +86,10 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                             }
                 }
         }
-
-//        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: "", pagination: false) { result in
-//            DispatchQueue.main.async {
-//            switch result {
-//                        case .success(let userPublications):
-//                            self.updateUI(with: userPublications!)
-//                        case .failure(let error):
-//                            print(error)
-//                        }
-//            }
-//        }
-    }
-    
-    @objc private func refreshListData(_ sender: Any) {
-        publications.removeAll()
-        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: "", pagination: false) { result in
-            DispatchQueue.main.async {
-            switch result {
-                        case .success(let userPublications):
-                            self.updateUI(with: userPublications!)
-                        case .failure(let error):
-                            print(error)
-                        }
-            }
-        }
         //self.table.reloadData()
         self.pullControl.endRefreshing() // You can stop after API Call
             // Call API
         
-    }
-
-    @IBAction func segmentedControlDidChange(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: [
-                    "PUBLICATIONCATEGORY.Food",
-                    "PUBLICATIONCATEGORY.Transport",
-                    "PUBLICATIONCATEGORY.Interior",
-                    "PUBLICATIONCATEGORY.Nature",
-                    "PUBLICATIONCATEGORY.Excursion",
-                    "PUBLICATIONCATEGORY.Monument",
-                    "PUBLICATIONCATEGORY.Design",
-                    "PUBLICATIONCATEGORY.Music",
-                    "PUBLICATIONCATEGORY.Dances",
-                    "PUBLICATIONCATEGORY.Interior",
-                    "PUBLICATIONCATEGORY.People",
-                    "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: 0) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                                case .success(let userPublications):
-                                    self.updateUI(with: userPublications!)
-                                case .failure(let error):
-                                    print(error)
-                                }
-                    }
-            }
-        case 1:
-            break
-        case 2:
-            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Publication", ofCategories: [
-                    "PUBLICATIONCATEGORY.Food",
-                    "PUBLICATIONCATEGORY.Transport",
-                    "PUBLICATIONCATEGORY.Interior",
-                    "PUBLICATIONCATEGORY.Nature",
-                    "PUBLICATIONCATEGORY.Excursion",
-                    "PUBLICATIONCATEGORY.Monument",
-                    "PUBLICATIONCATEGORY.Design",
-                    "PUBLICATIONCATEGORY.Music",
-                    "PUBLICATIONCATEGORY.Dances",
-                    "PUBLICATIONCATEGORY.Interior",
-                    "PUBLICATIONCATEGORY.People",
-                    "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: 0) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                                case .success(let userPublications):
-                                    self.updateUI(with: userPublications!)
-                                case .failure(let error):
-                                    print(error)
-                                }
-                    }
-            }
-        case 3:
-            break
-        case 4:
-            break
-        default:
-            break
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -195,18 +139,41 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             }
 
             self.table.tableFooterView = createSpinner()
-
-            PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: ((self.lastId != nil) ? self.lastId! : ""), pagination: true) { result in
+            
+            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: [
+                    "PUBLICATIONCATEGORY.Food",
+                    "PUBLICATIONCATEGORY.Transport",
+                    "PUBLICATIONCATEGORY.Interior",
+                    "PUBLICATIONCATEGORY.Nature",
+                    "PUBLICATIONCATEGORY.Excursion",
+                    "PUBLICATIONCATEGORY.Monument",
+                    "PUBLICATIONCATEGORY.Design",
+                    "PUBLICATIONCATEGORY.Music",
+                    "PUBLICATIONCATEGORY.Dances",
+                    "PUBLICATIONCATEGORY.Interior",
+                    "PUBLICATIONCATEGORY.People",
+                    "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: ((self.lastId != nil) ? self.lastId! : ""), with: 0, pagination: true) { result in
                 DispatchQueue.main.async {
-                    self.table.tableFooterView = nil
-                }
-                switch result {
-                case .success(let userPublications):
-                    self.updateUI(with: userPublications!)
-                case .failure(let error):
-                    print(error)
-                }
+                    switch result {
+                                case .success(let userPublications):
+                                    self.updateUI(with: userPublications!)
+                                case .failure(let error):
+                                    print(error)
+                                }
+                    }
             }
+
+//            PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: ((self.lastId != nil) ? self.lastId! : ""), pagination: true) { result in
+//                DispatchQueue.main.async {
+//                    self.table.tableFooterView = nil
+//                }
+//                switch result {
+//                case .success(let userPublications):
+//                    self.updateUI(with: userPublications!)
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            }
             print("fetch more")
         }
     }

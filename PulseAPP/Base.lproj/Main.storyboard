@@ -111,41 +111,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="100" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kuc-P3-4rh">
-                                <rect key="frame" x="0.0" y="118" width="414" height="695"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="ngq-L2-y0V" id="Kxy-lw-0s4"/>
                                     <outlet property="delegate" destination="ngq-L2-y0V" id="iL3-2h-HaW"/>
                                 </connections>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NNs-SA-ZQ7">
-                                <rect key="frame" x="0.0" y="88" width="414" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="F5Z-Ad-Ug6"/>
-                                    <constraint firstAttribute="height" constant="30" id="GGG-IO-bJb"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Events"/>
-                                    <segment title="Organizations"/>
-                                    <segment title="Publications"/>
-                                    <segment title="MapObjects"/>
-                                    <segment title="Routes"/>
-                                </segments>
-                                <connections>
-                                    <action selector="segmentedControlDidChange:" destination="ngq-L2-y0V" eventType="valueChanged" id="EHU-d7-k1b"/>
-                                </connections>
-                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7jb-14-vJv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Kuc-P3-4rh" firstAttribute="leading" secondItem="7jb-14-vJv" secondAttribute="leading" id="6NV-88-i8S"/>
-                            <constraint firstItem="Kuc-P3-4rh" firstAttribute="top" secondItem="NNs-SA-ZQ7" secondAttribute="bottom" id="9Wo-St-RGG"/>
                             <constraint firstItem="Kuc-P3-4rh" firstAttribute="trailing" secondItem="7jb-14-vJv" secondAttribute="trailing" id="9xk-40-JqG"/>
-                            <constraint firstItem="NNs-SA-ZQ7" firstAttribute="trailing" secondItem="7jb-14-vJv" secondAttribute="trailing" id="EJP-Rn-VD6"/>
                             <constraint firstItem="Kuc-P3-4rh" firstAttribute="bottom" secondItem="7jb-14-vJv" secondAttribute="bottom" id="HYl-f4-diN"/>
-                            <constraint firstItem="NNs-SA-ZQ7" firstAttribute="leading" secondItem="7jb-14-vJv" secondAttribute="leading" id="d3u-Ak-UEY"/>
-                            <constraint firstItem="NNs-SA-ZQ7" firstAttribute="top" secondItem="7jb-14-vJv" secondAttribute="top" id="ohn-Eg-vg7"/>
+                            <constraint firstItem="Kuc-P3-4rh" firstAttribute="top" secondItem="7jb-14-vJv" secondAttribute="top" id="uYk-9X-efO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fQf-0b-Q8a">
@@ -157,7 +137,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="publicationTypesSegmentedControl" destination="NNs-SA-ZQ7" id="Wqx-wD-OEQ"/>
                         <outlet property="table" destination="Kuc-P3-4rh" id="mf7-Hx-JBD"/>
                     </connections>
                 </viewController>
@@ -170,11 +149,11 @@
             <objects>
                 <viewController id="02j-SW-TN7" customClass="UserFeedViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cuc-E1-MjT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oJI-4C-Awv">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -201,11 +180,11 @@
             <objects>
                 <viewController id="WnI-ph-VFf" customClass="ProfileSettingsViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mwx-ci-IIW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="u0b-1a-lvc">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="7M3-bx-JOD">
@@ -745,6 +724,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="jdz-TP-FfA"/>
         <segue reference="agX-EJ-Haa"/>
         <segue reference="PGS-Pd-Bka"/>
     </inferredMetricsTieBreakers>
