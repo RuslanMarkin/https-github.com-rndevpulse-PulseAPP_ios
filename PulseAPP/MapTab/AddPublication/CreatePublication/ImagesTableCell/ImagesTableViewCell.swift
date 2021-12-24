@@ -11,7 +11,7 @@ class ImagesTableViewCell: UITableViewCell {
     
     static let identifier = "ImagesTableViewCell"
 
-    @IBOutlet weak var publicationImageView: UIImageView!
+    @IBOutlet weak var publicationImageView: ScaledHeightImageView!
     @IBOutlet weak var imageDescriptionLabel: UILabel!
     
     static func nib() -> UINib {
@@ -32,10 +32,10 @@ class ImagesTableViewCell: UITableViewCell {
     func configure(for item: String, with image: UIImage) {
         if item == "PUBLICATIONTYPE.Organization" {
             imageDescriptionLabel.text = NSLocalizedString("Org. logo:", comment: "")
-            publicationImageView.image = image.resizeImage(to: CGSize(width: 80, height: 80))
+            publicationImageView.image = image.resizeImage(to: CGSize(width: 120, height: 80))
         } else {
             imageDescriptionLabel.text = NSLocalizedString("Photo:", comment: "")
-            publicationImageView.image = image.resizeImage(to: CGSize(width: 80, height: 80))
+            publicationImageView.image = image.resizeImage(to: CGSize(width: 120, height: 80))
         }
         
     }

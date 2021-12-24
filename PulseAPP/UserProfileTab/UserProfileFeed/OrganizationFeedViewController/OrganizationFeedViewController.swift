@@ -1,33 +1,31 @@
 //
-//  UserProfileViewController.swift
+//  OrganizationFeedViewController.swift
 //  PulseAPP
 //
-//  Created by Алексей Поддубный on 13.10.2021.
+//  Created by Михаил Иванов on 24.12.2021.
 //
 
 import UIKit
 
-class UserProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationBarDelegate {
+class OrganizationFeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    @IBOutlet var table: UITableView!
     
     private var pullControl = UIRefreshControl()
     
-    @IBOutlet weak var table: UITableView!
-    
     var publications = [UserPublication]()
     var lastId: String?
-    
+    var pageCoef: Int = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        table.register(PublicationTableViewCell.nib(), forCellReuseIdentifier: PublicationTableViewCell.identifier)
-        table.register(UserProfileTableViewCell.nib(), forCellReuseIdentifier: UserProfileTableViewCell.identifier)
+        table.register(OrgTableViewCell.nib(), forCellReuseIdentifier: OrgTableViewCell.identifier)
         
-        table.register
+        //table.register
         table.delegate = self
         table.dataSource = self
         
-        
-
         pullControl.attributedTitle = NSAttributedString(string: "Reload data")
                 pullControl.addTarget(self, action: #selector(refreshListData(_:)), for: .valueChanged)
                 if #available(iOS 10.0, *) {
@@ -37,7 +35,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 }
         
         
-        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: [
+        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Organization", ofCategories: [
                 "PUBLICATIONCATEGORY.Food",
                 "PUBLICATIONCATEGORY.Transport",
                 "PUBLICATIONCATEGORY.Interior",
@@ -49,12 +47,13 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 "PUBLICATIONCATEGORY.Dances",
                 "PUBLICATIONCATEGORY.Interior",
                 "PUBLICATIONCATEGORY.People",
-                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: 0, pagination: false) { result in
+                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
             DispatchQueue.main.async {
                 switch result {
                             case .success(let userPublications):
                                 self.updateUI(with: userPublications!)
-                                //print(userPublications)
+                                print(userPublications)
+                                self.pageCoef += 1
                             case .failure(let error):
                                 print(error)
                             }
@@ -64,7 +63,8 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     
     @objc private func refreshListData(_ sender: Any) {
         publications.removeAll()
-        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: [
+        self.pageCoef = 0
+        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Organization", ofCategories: [
                 "PUBLICATIONCATEGORY.Food",
                 "PUBLICATIONCATEGORY.Transport",
                 "PUBLICATIONCATEGORY.Interior",
@@ -76,11 +76,12 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 "PUBLICATIONCATEGORY.Dances",
                 "PUBLICATIONCATEGORY.Interior",
                 "PUBLICATIONCATEGORY.People",
-                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: 0, pagination: false) { result in
+                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
             DispatchQueue.main.async {
                 switch result {
                             case .success(let userPublications):
                                 self.updateUI(with: userPublications!)
+                                self.pageCoef += 1
                             case .failure(let error):
                                 print(error)
                             }
@@ -111,14 +112,13 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = table.dequeueReusableCell(withIdentifier: PublicationTableViewCell.identifier, for: indexPath) as! PublicationTableViewCell
-        cell.configureTableCell(with: self.publications[indexPath.row]) //Fatal error at refreshing data by pulling feed down
+        let cell = table.dequeueReusableCell(withIdentifier: OrgTableViewCell.identifier, for: indexPath) as! OrgTableViewCell
+        cell.configureCell(with: self.publications[indexPath.row]) //Fatal error at refreshing data by pulling feed down
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400
-        
+        return UITableView.automaticDimension
     }
     
     func createSpinner() -> UIView {
@@ -140,7 +140,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
 
             self.table.tableFooterView = createSpinner()
             
-            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: [
+            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Organization", ofCategories: [
                     "PUBLICATIONCATEGORY.Food",
                     "PUBLICATIONCATEGORY.Transport",
                     "PUBLICATIONCATEGORY.Interior",
@@ -152,90 +152,19 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                     "PUBLICATIONCATEGORY.Dances",
                     "PUBLICATIONCATEGORY.Interior",
                     "PUBLICATIONCATEGORY.People",
-                    "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: ((self.lastId != nil) ? self.lastId! : ""), with: 0, pagination: true) { result in
+                    "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: ((self.lastId != nil) ? self.lastId! : ""), with: self.pageCoef, pagination: true) { result in
                 DispatchQueue.main.async {
                     switch result {
                                 case .success(let userPublications):
                                     self.updateUI(with: userPublications!)
+                                    self.pageCoef += 1
                                 case .failure(let error):
                                     print(error)
                                 }
                     }
             }
-
-//            PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: ((self.lastId != nil) ? self.lastId! : ""), pagination: true) { result in
-//                DispatchQueue.main.async {
-//                    self.table.tableFooterView = nil
-//                }
-//                switch result {
-//                case .success(let userPublications):
-//                    self.updateUI(with: userPublications!)
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-            print("fetch more")
         }
     }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let view = HeaderView.instantiate()
-//    
-//        let userId = AuthUserData.shared.userId
-//        let userToken = AuthUserData.shared.accessToken
-//        APIController.shared.getUserPreview(withid: userId) {
-//            (result) in DispatchQueue.main.async {
-//                switch result {
-//                case .success(let userPreviewData):
-//                    view.publicNameLabel.text = userPreviewData.publicName
-//                    view.userNameLabel.text = userPreviewData.name
-//                    view.countPublicationsLabel.text = "\(NSLocalizedString("Publications: ", comment: "")) \(userPreviewData.countPublications)"
-//                    view.countPublicationsLabel.adjustsFontSizeToFitWidth = true
-//                    view.countSubscriptionsLabel.text = "\(NSLocalizedString("Subscriptions: ", comment: ""))  \(userPreviewData.countUsersSubscription)"
-//                    view.countSubscriptionsLabel.adjustsFontSizeToFitWidth = true
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-//        }
-//        APIController.shared.getUserAvatarURL(withToken: userToken) {
-//            (result) in DispatchQueue.main.async {
-//                switch result {
-//                case .success(let userPhoto):
-//                    ImageAPIController.shared.getUserAvatarImage(withUrl: userPhoto.url) {
-//                        (result) in DispatchQueue.main.async {
-//                            switch result {
-//                            case .success(let image):
-//                                view.avatarImage.image = image
-//                            case .failure(let error):
-//                                print(error)
-//                            }
-//                        }
-//                    }
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-//        }
-//        return view
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 130
-//    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

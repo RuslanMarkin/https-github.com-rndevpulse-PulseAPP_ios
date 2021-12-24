@@ -17,6 +17,9 @@ struct Publication : Codable {
 	let caption : String?
 	let begin : String?
 	let end : String?
+    let website: String?
+    let phone: String?
+    let address: String?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -35,6 +38,9 @@ struct Publication : Codable {
 		case caption = "caption"
 		case begin = "begin"
 		case end = "end"
+        case website = "website"
+        case phone = "phone"
+        case address = "address"
 	}
 
 	init(from decoder: Decoder) throws {
@@ -54,6 +60,9 @@ struct Publication : Codable {
 		caption = try values.decodeIfPresent(String.self, forKey: .caption)
 		begin = try values.decodeIfPresent(String.self, forKey: .begin)
 		end = try values.decodeIfPresent(String.self, forKey: .end)
+        website = try values.decodeIfPresent(String.self, forKey: .website)
+        phone = try values.decodeIfPresent(String.self, forKey: .phone)
+        address = try values.decodeIfPresent(String.self, forKey: .address)
 	}
 
 }

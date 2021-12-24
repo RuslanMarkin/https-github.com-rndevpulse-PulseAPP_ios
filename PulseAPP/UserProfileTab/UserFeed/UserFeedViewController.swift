@@ -106,8 +106,11 @@ class UserFeedViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400
-        
+        return 400 //UITableView.automaticDimension
+    }
+    
+    private func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 400 //UITableView.automaticDimension
     }
     
     func createSpinner() -> UIView {

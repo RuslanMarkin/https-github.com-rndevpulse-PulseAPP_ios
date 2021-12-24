@@ -120,6 +120,8 @@ class PublicationAPIController {
         let task = session.dataTask(with: request) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
             if let data = data {
+                let str = String(decoding: data, as: UTF8.self)
+                print(str)
                 if let myPublications = try? jsonDecoder.decode([UserPublication].self, from: data) {
                     completion(.success(myPublications))
                     if pagination {

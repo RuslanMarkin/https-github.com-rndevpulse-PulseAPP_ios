@@ -32,13 +32,10 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        collectionView.register(CollectionViewCell.nib(), forCellWithReuseIdentifier: CollectionViewCell.identifier)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.contentInsetAdjustmentBehavior = .never
-        
-        
+            collectionView.register(CollectionViewCell.nib(), forCellWithReuseIdentifier: CollectionViewCell.identifier)
+            collectionView.delegate = self
+            collectionView.dataSource = self
+            collectionView.contentInsetAdjustmentBehavior = .never
         // Initialization code
     }
 
@@ -59,7 +56,7 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 270)
+        return CGSize(width: UIScreen.main.bounds.width, height: 228)
     }
     
     func configureTableCell(with publicationForCell: UserPublication?) {
@@ -80,33 +77,36 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
             self.publicationDescriptionLabel.text = publication.publication!.description
             
             if let counter = publication.publication!.countLikes {
-                self.likesCounterLabel.text = "♥️ " + String(counter)
+                self.likesCounterLabel.text = "♥️" + String(counter)
             }
             if let counter = publication.publication!.countViews {
-                self.viewsCounterLabel.text = "👀 " + String(counter)
+                self.viewsCounterLabel.text = "👀" + String(counter)
             }
             if let counter = publication.publication!.countPulse {
                 self.pulseCounterLabel.text = "🔴" + String(counter)
             }
             if let counter = publication.publication!.countComments {
-                self.commentsCounterLabel.text = "📃 " + String(counter)
+                self.commentsCounterLabel.text = "📃" + String(counter)
             }
             
-            ImageAPIController.shared.getImage(withURL: publication.user!.data!) {
-                (result) in DispatchQueue.main.async {
-                    switch result {
-                    case .success(let userPhoto):
-                            self.publicationUserAvatar.image = userPhoto
-                    case .failure(let error):
-                            print(error)
+            if let publicationUser = publication.user, let imageURL = publicationUser.data {
+                ImageAPIController.shared.getImage(withURL: imageURL) {
+                    (result) in DispatchQueue.main.async {
+                        switch result {
+                        case .success(let userPhoto):
+                                self.publicationUserAvatar.image = userPhoto
+                        case .failure(let error):
+                                print(error)
+                        }
                     }
                 }
             }
             
             if let imageURLs = getImagesURLs(for: publication) {
+                let dispatchGroup = DispatchGroup()
                 self.imagesOfPublication.removeAll()
                     for i in imageURLs.indices {
-                        //print(imageURLs[i])
+                        dispatchGroup.enter()
                         ImageAPIController.shared.getImage(withURL: imageURLs[i]) { result in
                             DispatchQueue.main.async {
                             switch result {
@@ -118,8 +118,15 @@ class PublicationTableViewCell: UITableViewCell, UICollectionViewDelegate, UICol
                             self.collectionView.reloadData()
                             }
                         }
+                        dispatchGroup.leave()
                     }
-                
+                dispatchGroup.notify(queue: .main) {
+                    if self.imagesOfPublication.isEmpty {
+                        //print("no images")
+                    } else {
+                        //print("images appended")
+                    }
+                }
             }
         }
     }

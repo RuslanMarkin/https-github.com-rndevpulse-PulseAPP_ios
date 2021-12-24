@@ -261,7 +261,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch publicationType.name {
         case "PUBLICATIONTYPE.Post": //Publication
-            return 3
+            return 4
         case "PUBLICATIONTYPE.Event": //Event
             return 6
         case "PUBLICATIONTYPE.Organization": //Organization
@@ -278,14 +278,24 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         case "PUBLICATIONTYPE.Post": //Publication creation
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: ImageAndDescriptionTableViewCell.identifier, for: indexPath) as! ImageAndDescriptionTableViewCell
-                cell.publicationImageView.image = nil
-                if let selectedImage = selectedImages.first {
-                    cell.configure(with: selectedImage)
-                }
+                let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionTableViewCell.identifier, for: indexPath) as! DescriptionTableViewCell
                 cell.descriptionTextView.delegate = self
                 return cell
+//                let cell = tableView.dequeueReusableCell(withIdentifier: ImageAndDescriptionTableViewCell.identifier, for: indexPath) as! ImageAndDescriptionTableViewCell
+//                cell.publicationImageView.image = nil
+//                if let selectedImage = selectedImages.first {
+//                    cell.configure(with: selectedImage)
+//                }
+//                cell.descriptionTextView.delegate = self
+//                return cell
             case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: ImagesTableViewCell.identifier, for: indexPath) as! ImagesTableViewCell
+                cell.publicationImageView.image = nil
+                if let selectedImage = selectedImages.first {
+                    cell.configure(for: publicationType.name!, with: selectedImage)
+                }
+                return cell
+            case 2:
                 guard let geoPointName = self.geoPointName else {
                     let cell = UITableViewCell()
                     cell.accessoryType = .disclosureIndicator
@@ -300,7 +310,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                 cell.accessoryType = .disclosureIndicator
                 cell.textLabel?.text = geoPointName
                 return cell
-            case 2:
+            case 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCollectionTableViewCell.identifier, for: indexPath) as! CategoryCollectionTableViewCell
                 cell.delegate = self
                 return cell
@@ -431,10 +441,12 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         case "PUBLICATIONTYPE.Post": //Publication creation
             switch indexPath.row {
             case 0:
-                return 100 //Image and description
+                return 120 //Description
             case 1:
-                return 50 //Geoposition
+                return 100 //Image
             case 2:
+                return 50 //Geoposition
+            case 3:
                 return 65 //Categories
             default:
                 return 0
@@ -459,7 +471,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         case "PUBLICATIONTYPE.Organization": //Organization
             switch indexPath.row {
             case 0:
-                return 80 //Logo Image
+                return 100 //Logo Image
             case 1:
                 return 50 //Name
             case 2:
@@ -474,7 +486,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         case "PUBLICATIONTYPE.MapObject": //MapObject
             switch indexPath.row {
             case 0:
-                return 80 //Image
+                return 100 //Image
             case 1:
                 return 50 //Name
             case 2:
@@ -496,7 +508,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         switch publicationType.name {
         case "PUBLICATIONTYPE.Post": //Publication creation
             switch indexPath.row {
-            case 1:
+            case 2:
                 geoposition = nil
                 self.geoPointName = nil
                 self.showAttachButton = true
