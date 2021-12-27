@@ -226,8 +226,9 @@ extension GeoDataViewController : MKMapViewDelegate {
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let points):
-                            self.setPinsOnMap(for: points.points!) //Be careful with force-unwrapping
-                            print(points)
+                            if let points = points.points {
+                                self.setPinsOnMap(for: points) //Be careful with force-unwrapping
+                            }
                         case .failure(let error):
                             print(error.title)
                         }
@@ -310,10 +311,8 @@ extension GeoDataViewController : MKMapViewDelegate {
             case "PUBLICATIONTYPE.MapObject":
                 pinView?.image = UIImage(named: "mapObject")
             default:
-                break
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             }
-        } else {
-            pinView?.image = nil
         }
         
         pinView?.canShowCallout = true
@@ -440,7 +439,7 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
             let geoCoder = CLGeocoder()
             
             geoCoder.reverseGeocodeLocation(CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)) { [weak self] (placemarks, error) in
-                guard self != nil else { return }
+                guard let self = self else { return }
                 if let _ = error {
                     return
                 }
@@ -451,13 +450,16 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
                 let street = placemark.thoroughfare ?? ""
                 let houseNumber = placemark.subThoroughfare ?? ""
                 subtitle = "\(street) \(houseNumber)"
+                
+                DispatchQueue.main.async {
+                    let pin = EventsAnnotation(title: "Publication", subtitle: subtitle ?? "", coordinate: locationCoordinate, pinTintColor: .green, typeId: nil)
+                    self.mapView.addAnnotation(pin)
+                    self.selectedAnnotation = pin
+                    self.mapView.selectAnnotation(pin, animated: true)
+                }
             }
 
-            DispatchQueue.main.async {
-                let pin = EventsAnnotation(title: "Publication", subtitle: subtitle ?? "", coordinate: locationCoordinate, pinTintColor: .green, typeId: nil)
-                self.selectedAnnotation = pin
-                self.mapView.selectAnnotation(pin, animated: true)
-            }
+            
         return
       }
         if gestureReconizer.state != UIGestureRecognizer.State.began {
