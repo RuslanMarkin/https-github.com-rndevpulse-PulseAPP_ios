@@ -11,7 +11,7 @@ struct Publication : Codable {
 	let countViews : Int?
 	let countLikes : Int?
 	let countComments : Int?
-	let countPublications : String?
+	let countPublications : Int?
 	let countPulse : Int?
 	let moderation : String?
 	let caption : String?
@@ -54,7 +54,7 @@ struct Publication : Codable {
 		countViews = try values.decodeIfPresent(Int.self, forKey: .countViews)
 		countLikes = try values.decodeIfPresent(Int.self, forKey: .countLikes)
 		countComments = try values.decodeIfPresent(Int.self, forKey: .countComments)
-		countPublications = try values.decodeIfPresent(String.self, forKey: .countPublications)
+		countPublications = try values.decodeIfPresent(Int.self, forKey: .countPublications)
 		countPulse = try values.decodeIfPresent(Int.self, forKey: .countPulse)
 		moderation = try values.decodeIfPresent(String.self, forKey: .moderation)
 		caption = try values.decodeIfPresent(String.self, forKey: .caption)

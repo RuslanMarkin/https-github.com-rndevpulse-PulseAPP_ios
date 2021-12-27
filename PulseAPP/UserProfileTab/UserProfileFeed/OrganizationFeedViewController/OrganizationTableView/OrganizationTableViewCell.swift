@@ -7,9 +7,9 @@
 
 import UIKit
 
-class OrgTableViewCell: UITableViewCell {
+class OrganizationTableViewCell: UITableViewCell {
     
-    static let identifier = "OrgTableViewCell"
+    static let identifier = "OrganizationTableViewCell"
     
     @IBOutlet weak var orgLogoImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -35,7 +35,7 @@ class OrgTableViewCell: UITableViewCell {
     }
     
     static func nib() -> UINib {
-        return UINib(nibName: "OrgTableViewCell", bundle: nil)
+        return UINib(nibName: "OrganizationTableViewCell", bundle: nil)
     }
     
     func configureCell(with publication: UserPublication?) {
@@ -61,6 +61,8 @@ class OrgTableViewCell: UITableViewCell {
             }
             if let counter = publication.countViews {
                 self.viewsCounterLabel.text = "👀" + String(counter)
+            } else {
+                self.viewsCounterLabel.text = "👀0"
             }
             if let counter = publication.countPulse {
                 self.pulseCounterLabel.text = "🔴" + String(counter)

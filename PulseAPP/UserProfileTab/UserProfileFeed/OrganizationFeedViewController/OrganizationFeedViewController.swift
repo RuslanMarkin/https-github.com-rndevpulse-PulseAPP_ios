@@ -20,7 +20,7 @@ class OrganizationFeedViewController: UIViewController, UITableViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        table.register(OrgTableViewCell.nib(), forCellReuseIdentifier: OrgTableViewCell.identifier)
+        table.register(OrganizationTableViewCell.nib(), forCellReuseIdentifier: OrganizationTableViewCell.identifier)
         
         //table.register
         table.delegate = self
@@ -50,9 +50,9 @@ class OrganizationFeedViewController: UIViewController, UITableViewDataSource, U
                 "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
             DispatchQueue.main.async {
                 switch result {
-                            case .success(let userPublications):
-                                self.updateUI(with: userPublications!)
-                                print(userPublications)
+                            case .success(let userPublics):
+                                self.updateUI(with: userPublics!)
+                                print(userPublics)
                                 self.pageCoef += 1
                             case .failure(let error):
                                 print(error)
@@ -112,13 +112,17 @@ class OrganizationFeedViewController: UIViewController, UITableViewDataSource, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = table.dequeueReusableCell(withIdentifier: OrgTableViewCell.identifier, for: indexPath) as! OrgTableViewCell
+        let cell = table.dequeueReusableCell(withIdentifier: OrganizationTableViewCell.identifier, for: indexPath) as! OrganizationTableViewCell
         cell.configureCell(with: self.publications[indexPath.row]) //Fatal error at refreshing data by pulling feed down
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 231
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func createSpinner() -> UIView {

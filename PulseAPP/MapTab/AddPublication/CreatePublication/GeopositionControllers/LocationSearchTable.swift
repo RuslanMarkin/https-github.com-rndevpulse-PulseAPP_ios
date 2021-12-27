@@ -54,6 +54,24 @@ class LocationSearchTable: UITableViewController {
 extension LocationSearchTable : UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let mapView = mapView, let searchBarText = searchController.searchBar.text else { return }
+        
+//        let request = MKLocalSearch.Request()
+//        request.region = MKCoordinateRegion(center: currentCoordinate, latitudinalMeters: 10_000, longitudinalMeters: 10_000)
+//        request.naturalLanguageQuery = "300 S Pumpkin"
+
+        //let formatter = CNPostalAddressFormatter()
+        //formatter.style = .mailingAddress
+
+//        let search = MKLocalSearch(request: request)
+//        search.start { response, error in
+//            let addresses = response?.mapItems.compactMap { item -> String? in
+//                return item.placemark.locality
+//            }
+//            print(addresses)
+//            self.matchingItems = addresses
+//            self.tableView.reloadData()
+//        }
+        
             let request = MKLocalSearch.Request()
             request.naturalLanguageQuery = searchBarText
             request.region = mapView.region

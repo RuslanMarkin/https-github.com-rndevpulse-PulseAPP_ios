@@ -419,9 +419,9 @@
 				4B6F3264272835A1008A8838 /* PublicationCategories.swift */,
 				4B6F3261272835A0008A8838 /* PublicationType.swift */,
 				4B6F3262272835A0008A8838 /* User.swift */,
+				3E85E8FA277317E300F1E781 /* UserAbility.swift */,
 				4B91140427196A5E00841927 /* PublicationData.swift */,
 				4B480485275117800055C62B /* PublicationServerUpload.swift */,
-				3E85E8FA277317E300F1E781 /* UserAbility.swift */,
 			);
 			path = PublicationData;
 			sourceTree = "<group>";

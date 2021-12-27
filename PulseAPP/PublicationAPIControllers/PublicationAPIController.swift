@@ -91,6 +91,61 @@ class PublicationAPIController {
         task.resume()
     }
     
+    func getOrganizations(ofType: String, ofCategories: [String], afterPublicationWithLastId: String, with coef: Int, pagination: Bool = false, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
+        if pagination {
+            self.isPaginating = true
+        }
+        
+        var data: [String: Any]
+        
+        let url = baseURL.appendingPathComponent("publications/\(coef)")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let config = URLSessionConfiguration.default
+        let session = URLSession.init(configuration: config)
+        
+        if afterPublicationWithLastId == "" {
+            data = ["name": ofType, "category": ofCategories]
+        } else {
+            data = ["lastid": afterPublicationWithLastId, "name": ofType, "category": ofCategories]
+        }
+        
+
+        let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [])
+        request.httpBody = jsonData
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            
+            if let data = data {
+                let str = String(decoding: data, as: UTF8.self)
+                print(str)
+                
+                do {
+                    let response = try jsonDecoder.decode([UserPublication].self, from: data)
+                    print(response)
+                } catch {
+                    print(error) //here.....
+                }
+                
+                if let myPublications = try? jsonDecoder.decode([UserPublication].self, from: data) {
+                    completion(.success(myPublications))
+                    print(myPublications)
+                    if pagination {
+                        self.isPaginating = false
+                    }
+                } else {
+                    if let errorData = try? jsonDecoder.decode(ErrorData.self, from: data) {
+                        completion(.failure(errorData))
+                    }
+                }
+            }
+        }
+        task.resume()
+    }
+    
     //Fetch publications filtered by categories and type
     func getPublications(ofType: String, ofCategories: [String], afterPublicationWithLastId: String, with coef: Int, pagination: Bool = false, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
         if pagination {
@@ -119,9 +174,8 @@ class PublicationAPIController {
         
         let task = session.dataTask(with: request) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
+            
             if let data = data {
-                let str = String(decoding: data, as: UTF8.self)
-                print(str)
                 if let myPublications = try? jsonDecoder.decode([UserPublication].self, from: data) {
                     completion(.success(myPublications))
                     if pagination {

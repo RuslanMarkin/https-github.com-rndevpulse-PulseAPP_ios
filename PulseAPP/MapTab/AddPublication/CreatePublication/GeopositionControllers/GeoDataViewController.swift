@@ -226,7 +226,7 @@ extension GeoDataViewController : MKMapViewDelegate {
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let points):
-                            self.setPinsOnMap(for: points.points!)
+                            self.setPinsOnMap(for: points.points!) //Be careful with force-unwrapping
                             print(points)
                         case .failure(let error):
                             print(error.title)
@@ -312,6 +312,8 @@ extension GeoDataViewController : MKMapViewDelegate {
             default:
                 break
             }
+        } else {
+            pinView?.image = nil
         }
         
         pinView?.canShowCallout = true
@@ -356,13 +358,13 @@ extension GeoDataViewController: HandleMapSearch {
         selectedPin = placemark
         // clear existing pins
         mapView.removeAnnotations(mapView.annotations)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = placemark.coordinate
-        annotation.title = placemark.name
+        var subtitle: String = ""
         if let city = placemark.locality,
         let state = placemark.administrativeArea {
-            annotation.subtitle = "\(city) \(state)"
+            subtitle = "\(city) \(state)"
         }
+        let annotation = EventsAnnotation(title: placemark.name, subtitle: subtitle, coordinate: placemark.coordinate, pinTintColor: .red, typeId: "")
+        
         mapView.addAnnotation(annotation)
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
@@ -431,12 +433,31 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
         self.geoposition = "\(locationCoordinate.latitude), \(locationCoordinate.longitude)"
             self.mapView.removeAnnotations(self.mapView.annotations)
       //      print("Annotation Removed")
-        let locationCoordinates = CLLocationCoordinate2D(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
-            self.selectedPin = MKPlacemark(coordinate: locationCoordinates)
-            let pin = EventsAnnotation(title: "Publication", subtitle: "Use this location", coordinate: locationCoordinates, pinTintColor: .green, typeId: nil)
-            mapView.addAnnotation(pin)
-            self.selectedAnnotation = pin
-            self.mapView.selectAnnotation(pin, animated: true)
+        //let locationCoordinates = CLLocationCoordinate2D(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+            self.selectedPin = MKPlacemark(coordinate: locationCoordinate)
+            
+            var subtitle: String?
+            let geoCoder = CLGeocoder()
+            
+            geoCoder.reverseGeocodeLocation(CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)) { [weak self] (placemarks, error) in
+                guard self != nil else { return }
+                if let _ = error {
+                    return
+                }
+                guard let placemark = placemarks?.first else {
+                    return
+                }
+                
+                let street = placemark.thoroughfare ?? ""
+                let houseNumber = placemark.subThoroughfare ?? ""
+                subtitle = "\(street) \(houseNumber)"
+            }
+
+            DispatchQueue.main.async {
+                let pin = EventsAnnotation(title: "Publication", subtitle: subtitle ?? "", coordinate: locationCoordinate, pinTintColor: .green, typeId: nil)
+                self.selectedAnnotation = pin
+                self.mapView.selectAnnotation(pin, animated: true)
+            }
         return
       }
         if gestureReconizer.state != UIGestureRecognizer.State.began {
