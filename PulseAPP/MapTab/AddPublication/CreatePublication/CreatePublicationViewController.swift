@@ -156,8 +156,8 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         super.didMove(toParent: parent)
         if parent == nil {
             if !fileIds.isEmpty {
-                print("back was clicked")
-                print(fileIds)
+                //print("back was clicked")
+                //print(fileIds)
                 for fileId in fileIds {
                     ImageAPIController.shared.deleteImage(id: fileId, token: AuthUserData.shared.accessToken) {
                         result in
@@ -333,15 +333,19 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                 cell.descriptionTextView.delegate = self
                 return cell
             case 2:
-                guard let _ = geoposition else {
+                guard let geoPointName = self.geoPointName else {
                     let cell = UITableViewCell()
                     cell.accessoryType = .disclosureIndicator
-                    cell.textLabel?.text = NSLocalizedString("Add geoposition", comment: "")
+                    if let _ = self.geoposition {
+                        cell.textLabel?.text = "Custom geoposition"
+                    } else {
+                        cell.textLabel?.text = NSLocalizedString("Add geoposition", comment: "")
+                    }
                     return cell
                 }
                 let cell = UITableViewCell()
                 cell.accessoryType = .disclosureIndicator
-                cell.textLabel?.text = "geoposition is set"
+                cell.textLabel?.text = geoPointName
                 return cell
             case 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCollectionTableViewCell.identifier, for: indexPath) as! CategoryCollectionTableViewCell
@@ -378,15 +382,19 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                 cell.descriptionTextView.delegate = self
                 return cell
             case 3:
-                guard let _ = geoposition else {
+                guard let geoPointName = self.geoPointName else {
                     let cell = UITableViewCell()
                     cell.accessoryType = .disclosureIndicator
-                    cell.textLabel?.text = NSLocalizedString("Add geoposition", comment: "")
+                    if let _ = self.geoposition {
+                        cell.textLabel?.text = "Custom geoposition"
+                    } else {
+                        cell.textLabel?.text = NSLocalizedString("Add geoposition", comment: "")
+                    }
                     return cell
                 }
                 let cell = UITableViewCell()
                 cell.accessoryType = .disclosureIndicator
-                cell.textLabel?.text = "geoposition is set"
+                cell.textLabel?.text = geoPointName
                 return cell
             case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCollectionTableViewCell.identifier, for: indexPath) as! CategoryCollectionTableViewCell
@@ -414,15 +422,19 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                 cell.descriptionTextView.delegate = self
                 return cell
             case 3:
-                guard let _ = geoposition else {
+                guard let geoPointName = self.geoPointName else {
                     let cell = UITableViewCell()
                     cell.accessoryType = .disclosureIndicator
-                    cell.textLabel?.text = NSLocalizedString("Add geoposition", comment: "")
+                    if let _ = self.geoposition {
+                        cell.textLabel?.text = "Custom geoposition"
+                    } else {
+                        cell.textLabel?.text = NSLocalizedString("Add geoposition", comment: "")
+                    }
                     return cell
                 }
                 let cell = UITableViewCell()
                 cell.accessoryType = .disclosureIndicator
-                cell.textLabel?.text = "geoposition is set"
+                cell.textLabel?.text = geoPointName
                 return cell
             case 4:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCollectionTableViewCell.identifier, for: indexPath) as! CategoryCollectionTableViewCell
@@ -575,6 +587,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
             let secondVC: GeoDataViewController = segue.destination as! GeoDataViewController
             secondVC.delegate = self
             secondVC.showAttachButton = self.showAttachButton
+            secondVC.publicationType = publicationType
         }
     }
 

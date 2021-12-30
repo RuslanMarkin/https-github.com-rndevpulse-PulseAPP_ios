@@ -50,7 +50,7 @@ class UserFeedViewController: UIViewController, UITableViewDelegate, UITableView
 //                }
 //        }
 //
-        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: "", pagination: false) { result in
+        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, type: "All", postLastId: "", pagination: false) { result in
             DispatchQueue.main.async {
             switch result {
                         case .success(let userPublications):
@@ -64,7 +64,7 @@ class UserFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc private func refreshListData(_ sender: Any) {
         publications.removeAll()
-        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: "", pagination: false) { result in
+        PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, type: "All", postLastId: "", pagination: false) { result in
             DispatchQueue.main.async {
             switch result {
                         case .success(let userPublications):
@@ -132,7 +132,7 @@ class UserFeedViewController: UIViewController, UITableViewDelegate, UITableView
 
             self.table.tableFooterView = createSpinner()
 
-            PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, postLastId: ((self.lastId != nil) ? self.lastId! : ""), pagination: true) { result in
+            PublicationAPIController.shared.getMyPublications(withUserId: AuthUserData.shared.userId, withToken: AuthUserData.shared.accessToken, withCoef: 0, type: "All", postLastId: ((self.lastId != nil) ? self.lastId! : ""), pagination: true) { result in
                 DispatchQueue.main.async {
                     self.table.tableFooterView = nil
                 }

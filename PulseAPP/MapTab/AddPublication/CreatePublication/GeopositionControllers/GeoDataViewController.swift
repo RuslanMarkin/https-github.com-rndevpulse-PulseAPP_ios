@@ -8,7 +8,8 @@
 import UIKit
 import MapKit
 import CoreLocation
-import AVFAudio
+//import AVFAudio
+//import simd
 
 protocol GeoDataViewControllerDelegate {
     func sendGeoposition(geo: String)
@@ -19,7 +20,7 @@ protocol GeoDataViewControllerDelegate {
 }
 
 protocol HandleMapSearch {
-    func dropPinZoomIn(placemark: MKPlacemark)
+    func dropPinZoomIn(placemark: MKPlacemark, organization: OrgOrEventPins?, placeName: String?)
 }
 
 //Subclassing MKPointAnnotation to show pins of org/events with red color
@@ -40,14 +41,16 @@ class EventsAnnotation: NSObject, MKAnnotation {
 }
 
 class OrgOrEventPins {
-    var id: String
-    var typeId: String
+    var id: String?
+    var typeId: String?
     var name: String?
+    var location: CLLocationCoordinate2D
     
-    init(id: String, typeId: String, name: String) {
+    init(id: String?, typeId: String?, name: String, location: CLLocationCoordinate2D) {
         self.id = id
         self.typeId = typeId
         self.name = name
+        self.location = location
     }
 }
 
@@ -71,6 +74,8 @@ class GeoDataViewController: UIViewController {
     
     var showAttachButton: Bool?
     
+    var locationSearchTable: LocationSearchTable?
+    
     let centerMapButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "location-arrow-flat")?.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -78,6 +83,8 @@ class GeoDataViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    var publicationType: PublicationType?
     //---------------------------------------------------------------------------------------------------
     
     
@@ -87,9 +94,14 @@ class GeoDataViewController: UIViewController {
     var matchingItems: [MKMapItem] = []
     
     @IBOutlet weak var getGeopositionButton: UIBarButtonItem!
+    @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var infoLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        infoView.isHidden = true
+        infoLabel.isHidden = true
         
         configureMapView()
         configureLocationManager()
@@ -105,7 +117,7 @@ class GeoDataViewController: UIViewController {
         centerMapButton.alpha = 1
         
         //Setting up searchController
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        locationSearchTable = (storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable)
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController?.searchResultsUpdater = locationSearchTable
         
@@ -117,8 +129,8 @@ class GeoDataViewController: UIViewController {
 
         searchBar.placeholder = "Search"
 //            searchBar.frame = CGRect(x: 0, y: statusBarHeight + naviBarHeight, width: (navigationController?.view.bounds.size.width)!, height: 64)
-            searchBar.barStyle = .default
-            searchBar.isTranslucent = false
+        searchBar.barStyle = .default
+        searchBar.isTranslucent = false
         //view.addSubview(searchBar)
         navigationItem.titleView = resultSearchController?.searchBar
         
@@ -127,10 +139,13 @@ class GeoDataViewController: UIViewController {
         definesPresentationContext = true
         
 //        This passes along a handle of the mapView from the main View Controller onto the locationSearchTable.
-        locationSearchTable.mapView = mapView
-        locationSearchTable.handleMapSearchDelegate = self
+        locationSearchTable!.mapView = mapView
+        locationSearchTable!.handleMapSearchDelegate = self
+        locationSearchTable!.publicationType = publicationType
         
         mapView.delegate = self
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -142,6 +157,10 @@ class GeoDataViewController: UIViewController {
             }
         }
     }
+    
+//    override func didMove(toParent parent: UIViewController?) {
+//        super.didMove(toParent: parent)
+//    }
     
     @objc func handleCenterOnUserLocation() {
         centerMapOnUserLocation()
@@ -169,12 +188,34 @@ class GeoDataViewController: UIViewController {
         let naviBarHeight = navigationController?.navigationBar.frame.height ?? 0
         let tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
         mapView.frame = CGRect(x: 0, y: statusBarHeight+naviBarHeight, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height-(statusBarHeight+naviBarHeight+tabBarHeight))
+        
+        self.latDelta = mapView.region.span.latitudeDelta
+        self.longDelta = mapView.region.span.longitudeDelta
+        self.mapCenter = mapView.centerCoordinate
+        if let mapCenter = self.mapCenter {
+            self.mapCenterString = "\(mapCenter.latitude), \(mapCenter.longitude)"
+        }
     }
     
     func centerMapOnUserLocation() {
         guard let coordinate = locationManager.location?.coordinate else { return }
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 100, longitudinalMeters: 100)
         mapView.setRegion(region, animated: true)
+    }
+    
+    func showAttachedInfo() {
+        infoView.backgroundColor = .systemGray
+        infoView.layer.cornerRadius = 5
+        infoLabel.text = "Publication was attached to selected location"
+        infoView.alpha = 1
+        infoLabel.alpha = 1
+        infoView.isHidden = false
+        infoLabel.isHidden = false
+        UIView.animate(withDuration: 1.0, animations: { () -> Void in
+            self.infoView.alpha = 0
+            self.infoLabel.alpha = 0
+            self.infoView.backgroundColor = .systemBackground
+        })
     }
     
     /*
@@ -211,6 +252,7 @@ extension GeoDataViewController : MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        visiblePins.removeAll()
         self.mapCenter = mapView.centerCoordinate
         if let mapCenter = self.mapCenter {
             self.mapCenterString = "\(mapCenter.latitude), \(mapCenter.longitude)"
@@ -220,22 +262,30 @@ extension GeoDataViewController : MKMapViewDelegate {
 //        print(self.latDelta)
 //        print(self.longDelta)
         if let geoposition = geoposition {
-            if ((self.latDelta! < CLLocationDegrees(0.15)) && (self.longDelta! < CLLocationDegrees(0.15))) {
-                MarkerAPIController.shared.getObjectsOrgsEvents(with: self.mapCenterString ?? geoposition, precision: 4, token: AuthUserData.shared.accessToken) {
+            if ((self.latDelta! < CLLocationDegrees(0.19)) && (self.longDelta! < CLLocationDegrees(0.19))) {
+                MarkerAPIController.shared.getObjectsOrgsEvents(with: self.mapCenterString ?? geoposition, precision: 3, token: AuthUserData.shared.accessToken) {
                     result in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let points):
                             if let points = points.points {
                                 self.setPinsOnMap(for: points) //Be careful with force-unwrapping
+                                for point in points {
+                                    let pointLocation = CLLocationCoordinate2D(latitude: point.geoposition!.first ?? 0.0, longitude: point.geoposition!.last ?? 0.0)
+                                    self.visiblePins.append(OrgOrEventPins(id: point.id!, typeId: point.publicationType!.id!, name: point.name!, location: pointLocation))
+                                }
+                                self.locationSearchTable!.visiblePins = self.visiblePins
                             }
                         case .failure(let error):
                             print(error.title)
                         }
                     }
                 }
+            } else {
+                self.mapView.removeAnnotations(mapView.annotations)
             }
         }
+        
         let visRect = mapView.visibleMapRect
         let inRectAnnotations = mapView.annotations(in: visRect)
         for anno: MKAnnotation in mapView.annotations {
@@ -245,28 +295,32 @@ extension GeoDataViewController : MKMapViewDelegate {
                  }
             }
         }
-        print(mapView.annotations.count)
-        print(visiblePins.count)
     }
     
     //Function sets pins fetched from server only if they are in visible area of device screen
     //Check of belonging to rangeLat and rangeLong is responsible for that
     func setPinsOnMap(for points: [MapPoint]) {
+        //visiblePins.removeAll()
         if let mapCenter = mapCenter {
             let rangeLat = ((mapCenter.latitude - self.latDelta!)...(mapCenter.latitude + self.latDelta!))
             let rangeLong = ((mapCenter.longitude - self.longDelta!)...(mapCenter.longitude + self.longDelta!))
-            //print(rangeLat)
-            //print(rangeLong)
-            //print("\(mapCenter.latitude), \(mapCenter.longitude)")
             for point in points {
+                
                     if rangeLat.contains(point.geoposition!.first!) && rangeLong.contains(point.geoposition!.last!) {
+                        
                         let coordinate = CLLocationCoordinate2D(latitude: point.geoposition?.first ?? 0.0, longitude: point.geoposition?.last ?? 0.0)
                         let title = point.name
                         let subtitle = point.description
                         let pin = EventsAnnotation(title: title, subtitle: subtitle, coordinate: coordinate, pinTintColor: .red, typeId: point.publicationType?.name)
-                        self.visiblePins.append(OrgOrEventPins(id: point.id!, typeId: point.publicationType!.id!, name: point.name!))
                         self.mapView.addAnnotation(pin)
                     }
+            }
+            if let selectedPin = self.selectedPin {
+                let locationCoordinate = selectedPin.coordinate
+                let pin = EventsAnnotation(title: "Publication attached ✔️", subtitle: "", coordinate: locationCoordinate, pinTintColor: .red, typeId: nil)
+                self.mapView.addAnnotation(pin)
+                self.selectedAnnotation = pin
+                //self.mapView.selectAnnotation(pin, animated: true)
             }
         }
     }
@@ -352,23 +406,53 @@ extension GeoDataViewController : MKMapViewDelegate {
 //This extension is for search
 //Drops pin to selected item in search
 extension GeoDataViewController: HandleMapSearch {
-    func dropPinZoomIn(placemark: MKPlacemark){
-        // cache the pin
-        selectedPin = placemark
-        // clear existing pins
-        mapView.removeAnnotations(mapView.annotations)
-        var subtitle: String = ""
-        if let city = placemark.locality,
-        let state = placemark.administrativeArea {
-            subtitle = "\(city) \(state)"
-        }
-        let annotation = EventsAnnotation(title: placemark.name, subtitle: subtitle, coordinate: placemark.coordinate, pinTintColor: .red, typeId: "")
+    func dropPinZoomIn(placemark: MKPlacemark, organization: OrgOrEventPins?, placeName: String?){
         
-        mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
-        mapView.setRegion(region, animated: true)
-        self.geoposition = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
+        if let organization = organization {
+            
+            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+            mapView.setRegion(region, animated: true)
+            self.geoposition = "\(organization.location.latitude), \(organization.location.longitude)"
+            
+            self.selectedPinId = organization.id
+            self.selectedPinTypeId = organization.typeId
+            
+            let alert = UIAlertController(title: "Attachment", message: "You are about to attach publication to this point", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Attach", style: .default) {
+                action in
+                if let id = self.selectedPinId, let typeId = self.selectedPinTypeId, let geo = self.geoposition, let name = organization.name {
+                    self.delegate?.sendAttachedToInfo(id: id, typeId: typeId)
+                    self.delegate?.sendGeoPointName(name: name)
+                    self.delegate?.sendGeoposition(geo: geo)
+                }
+                self.navigationController?.popViewController(animated: true)
+            })
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+        } else {
+            // cache the pin
+            selectedPin = placemark
+            // clear existing pins
+            mapView.removeAnnotations(mapView.annotations)
+            var subtitle: String = ""
+            if let city = placemark.locality,
+            let state = placemark.administrativeArea {
+                subtitle = "\(city) \(state)"
+            }
+            let annotation = EventsAnnotation(title: placemark.name, subtitle: subtitle, coordinate: placemark.coordinate, pinTintColor: .red, typeId: "")
+            
+            mapView.addAnnotation(annotation)
+            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+            mapView.setRegion(region, animated: true)
+            self.geoposition = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
+            if let placeName = placeName {
+                self.delegate?.sendGeoPointName(name: placeName)
+            } else {
+                self.delegate?.sendGeoPointName(name: placemark.subThoroughfare ?? "")
+            }
+        }
     }
 }
 
@@ -379,18 +463,44 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
             if let userLocation = locations.first {
                 manager.stopUpdatingLocation()
                 let userCoordinates = CLLocationCoordinate2D(latitude: locationManager.location?.coordinate.latitude ?? 0.0, longitude: locationManager.location?.coordinate.longitude ?? 0.0)
+                
+                self.selectedPin = MKPlacemark(coordinate: userCoordinates)
+                print(self.selectedPin)
                 let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                 let region = MKCoordinateRegion(center: userCoordinates, span: span)
                 mapView.setRegion(region, animated: true)
                 
-                //User Location Pin
                 
-                let myPin = EventsAnnotation(title: "You are here", subtitle: "My Location", coordinate: userCoordinates, pinTintColor: .green, typeId: nil)
-                self.selectedAnnotation = myPin
-                mapView.addAnnotation(myPin)
-                self.geoposition = "\(userCoordinates.latitude), \(userCoordinates.longitude)"
-                if let geo = geoposition {
-                    self.delegate?.sendGeoposition(geo: geo)
+                //Wrap the following code into func, because it is used twice
+                var subtitle: String?
+                let geoCoder = CLGeocoder()
+                
+                geoCoder.reverseGeocodeLocation(CLLocation(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude)) { [weak self] (placemarks, error) in
+                    guard let self = self else { return }
+                    if let _ = error {
+                        return
+                    }
+                    guard let placemark = placemarks?.first else {
+                        return
+                    }
+                    
+                    let street = placemark.thoroughfare ?? ""
+                    let houseNumber = placemark.subThoroughfare ?? ""
+                    subtitle = "\(street) \(houseNumber)"
+                    
+                    DispatchQueue.main.async {
+                        self.delegate?.sendGeoPointName(name: subtitle ?? "")
+                        //User Location Pin
+                        
+                        let myPin = EventsAnnotation(title: "Publication attached ✔️", subtitle: "You are here 😃", coordinate: userCoordinates, pinTintColor: .green, typeId: nil)
+                        self.selectedAnnotation = myPin
+                        //self.mapView.selectAnnotation(myPin, animated: true)
+                        self.mapView.addAnnotation(myPin)
+                        self.geoposition = "\(userCoordinates.latitude), \(userCoordinates.longitude)"
+                        if let geo = self.geoposition {
+                            self.delegate?.sendGeoposition(geo: geo)
+                        }
+                    }
                 }
             }
         }
@@ -434,6 +544,7 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
       //      print("Annotation Removed")
         //let locationCoordinates = CLLocationCoordinate2D(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
             self.selectedPin = MKPlacemark(coordinate: locationCoordinate)
+            print(self.selectedPin)
             
             var subtitle: String?
             let geoCoder = CLGeocoder()
@@ -447,15 +558,20 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
                     return
                 }
                 
-                let street = placemark.thoroughfare ?? ""
-                let houseNumber = placemark.subThoroughfare ?? ""
-                subtitle = "\(street) \(houseNumber)"
+                if let street = placemark.thoroughfare, let houseNumber = placemark.subThoroughfare {
+                    subtitle = "\(street) \(houseNumber)"
+                } else {
+                    subtitle = "Somewhere"
+                }
+                
                 
                 DispatchQueue.main.async {
-                    let pin = EventsAnnotation(title: "Publication", subtitle: subtitle ?? "", coordinate: locationCoordinate, pinTintColor: .green, typeId: nil)
+                    let pin = EventsAnnotation(title: "Publication attached ✔️", subtitle: subtitle ?? "", coordinate: locationCoordinate, pinTintColor: .green, typeId: nil)
                     self.mapView.addAnnotation(pin)
                     self.selectedAnnotation = pin
                     self.mapView.selectAnnotation(pin, animated: true)
+                    self.delegate?.sendGeoPointName(name: subtitle ?? "")
+                    //self.showAttachedInfo()
                 }
             }
 

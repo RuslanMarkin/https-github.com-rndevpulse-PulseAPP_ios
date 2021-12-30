@@ -46,7 +46,7 @@ class PublicationAPIController {
     }
     
     //Fetch user's publications with counter 'withCoef'
-    func getMyPublications(withUserId: String, withToken: String, withCoef: Int, postLastId: String, pagination: Bool = false, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
+    func getMyPublications(withUserId: String, withToken: String, withCoef: Int, type: String, postLastId: String, pagination: Bool = false, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
         if pagination {
             self.isPaginating = true
         }
@@ -62,9 +62,9 @@ class PublicationAPIController {
         config.httpAdditionalHeaders = headers
         let session = URLSession.init(configuration: config)
         
-        var data: [String: String] = ["id": withUserId]
+        var data: [String: String] = ["id": withUserId, "type": type]
         if !postLastId.isEmpty {
-            data = ["id": withUserId, "lastid": postLastId]
+            data = ["id": withUserId, "type": type, "lastid": postLastId]
         }
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(data)

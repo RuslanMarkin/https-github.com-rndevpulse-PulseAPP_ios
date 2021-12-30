@@ -123,10 +123,13 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
         switch selectedType {
         case "PUBLICATIONTYPE.Post":
             config.selectionLimit = 10
+            //publicationTypeMark = "PUBLICATIONTYPE.Post"
         case "PUBLICATIONTYPE.Event":
             config.selectionLimit = 10
+            //publicationTypeMark = "PUBLICATIONTYPE.Event"
         case "PUBLICATIONTYPE.Organization":
             config.selectionLimit = 1
+            //publicationTypeMark = "PUBLICATIONTYPE.Organization"
         default:
             config.selectionLimit = 1
         }
