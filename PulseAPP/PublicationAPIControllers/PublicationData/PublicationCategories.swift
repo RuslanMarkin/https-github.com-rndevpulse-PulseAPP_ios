@@ -16,5 +16,10 @@ struct PublicationCategories : Codable {
 		id = try values.decodeIfPresent(String.self, forKey: .id)
 		name = try values.decodeIfPresent(String.self, forKey: .name)
 	}
+    
+    init(id: String?, name: String?) {
+        self.id = id
+        self.name = name
+    }
 
 }

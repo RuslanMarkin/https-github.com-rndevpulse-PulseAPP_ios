@@ -281,13 +281,6 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
                 let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionTableViewCell.identifier, for: indexPath) as! DescriptionTableViewCell
                 cell.descriptionTextView.delegate = self
                 return cell
-//                let cell = tableView.dequeueReusableCell(withIdentifier: ImageAndDescriptionTableViewCell.identifier, for: indexPath) as! ImageAndDescriptionTableViewCell
-//                cell.publicationImageView.image = nil
-//                if let selectedImage = selectedImages.first {
-//                    cell.configure(with: selectedImage)
-//                }
-//                cell.descriptionTextView.delegate = self
-//                return cell
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: ImagesTableViewCell.identifier, for: indexPath) as! ImagesTableViewCell
                 cell.publicationImageView.image = nil

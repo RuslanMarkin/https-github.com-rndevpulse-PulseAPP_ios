@@ -15,6 +15,8 @@
 		3E3D2EB52775DCFB0099E4EC /* OrganizationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3D2EB32775DCFB0099E4EC /* OrganizationTableViewCell.xib */; };
 		3E85E8FB277317E300F1E781 /* UserAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85E8FA277317E300F1E781 /* UserAbility.swift */; };
 		3E85E8FD27731D5800F1E781 /* network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85E8FC27731D5800F1E781 /* network.swift */; };
+		3E98387B27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98387927954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift */; };
+		3E98387C27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E98387A27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib */; };
 		4B1B00612744FB7600D03BF2 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B00602744FB7600D03BF2 /* DateExtension.swift */; };
 		4B1B00632746310300D03BF2 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B00622746310300D03BF2 /* Database.swift */; };
 		4B1B00672747CF6C00D03BF2 /* AddPublicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B00662747CF6C00D03BF2 /* AddPublicationViewController.swift */; };
@@ -97,6 +99,8 @@
 		3E3D2EB32775DCFB0099E4EC /* OrganizationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrganizationTableViewCell.xib; sourceTree = "<group>"; };
 		3E85E8FA277317E300F1E781 /* UserAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAbility.swift; sourceTree = "<group>"; };
 		3E85E8FC27731D5800F1E781 /* network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = network.swift; sourceTree = "<group>"; };
+		3E98387927954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolMenuCategorySwitchTableViewCell.swift; sourceTree = "<group>"; };
+		3E98387A27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolMenuCategorySwitchTableViewCell.xib; sourceTree = "<group>"; };
 		4B1B00602744FB7600D03BF2 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		4B1B00622746310300D03BF2 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		4B1B00662747CF6C00D03BF2 /* AddPublicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPublicationViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +246,24 @@
 			path = OrganizationTableView;
 			sourceTree = "<group>";
 		};
+		3E98387727954F02009CC0C9 /* ToolMenuCategorySwitchCell */ = {
+			isa = PBXGroup;
+			children = (
+				3E98387927954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift */,
+				3E98387A27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib */,
+			);
+			path = ToolMenuCategorySwitchCell;
+			sourceTree = "<group>";
+		};
+		3E98387827954F3E009CC0C9 /* ToolMenuTab */ = {
+			isa = PBXGroup;
+			children = (
+				4B9113FE27171BD900841927 /* ToolMenuViewController.swift */,
+				3E98387727954F02009CC0C9 /* ToolMenuCategorySwitchCell */,
+			);
+			path = ToolMenuTab;
+			sourceTree = "<group>";
+		};
 		4B034916271FF0AE0004BD0B /* ErrorHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,7 +359,7 @@
 				4B91140627196EC600841927 /* UserProfileTab */,
 				4B4210E427157C4700D5E809 /* AuthFormViewController.swift */,
 				4B6F32342727DE29008A8838 /* Registration */,
-				4B9113FE27171BD900841927 /* ToolMenuViewController.swift */,
+				3E98387827954F3E009CC0C9 /* ToolMenuTab */,
 				4B9113FC27171A7500841927 /* SubscriptionsViewController.swift */,
 				4B9113FA271719AF00841927 /* CalendarViewController.swift */,
 				4B9113F42717086F00841927 /* MainGlobeTabBarController.swift */,
@@ -646,6 +668,7 @@
 			files = (
 				4B48705C2771DF1C00D7B401 /* UserProfileTableViewCell.xib in Resources */,
 				4B36CDC9271EEB830091D229 /* PublicationTableViewCell.xib in Resources */,
+				3E98387C27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib in Resources */,
 				4B4210ED27157C4900D5E809 /* LaunchScreen.storyboard in Resources */,
 				4B55111F274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.xib in Resources */,
 				4B4210EA27157C4900D5E809 /* Assets.xcassets in Resources */,
@@ -675,6 +698,7 @@
 				4B36CDC8271EEB830091D229 /* PublicationTableViewCell.swift in Sources */,
 				4B1B00612744FB7600D03BF2 /* DateExtension.swift in Sources */,
 				4B551121274CC3F400DE47BF /* ImageResizer.swift in Sources */,
+				3E98387B27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift in Sources */,
 				4B5510D0274B9D3800DE47BF /* CreatePublicationViewController.swift in Sources */,
 				4B9113F52717086F00841927 /* MainGlobeTabBarController.swift in Sources */,
 				3E3D2EB42775DCFB0099E4EC /* OrganizationTableViewCell.swift in Sources */,

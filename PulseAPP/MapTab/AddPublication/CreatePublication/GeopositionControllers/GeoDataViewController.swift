@@ -20,7 +20,7 @@ protocol GeoDataViewControllerDelegate {
 }
 
 protocol HandleMapSearch {
-    func dropPinZoomIn(placemark: MKPlacemark, organization: OrgOrEventPins?, placeName: String?)
+    func dropPinZoomIn(placemark: MKPlacemark, organization: SearchCompletionCustom?, placeName: String?)
 }
 
 //Subclassing MKPointAnnotation to show pins of org/events with red color
@@ -40,19 +40,19 @@ class EventsAnnotation: NSObject, MKAnnotation {
     }
 }
 
-class OrgOrEventPins {
-    var id: String?
-    var typeId: String?
-    var name: String?
-    var location: CLLocationCoordinate2D
-    
-    init(id: String?, typeId: String?, name: String, location: CLLocationCoordinate2D) {
-        self.id = id
-        self.typeId = typeId
-        self.name = name
-        self.location = location
-    }
-}
+//class OrgOrEventPins {
+//    var id: String?
+//    var typeId: String?
+//    var name: String?
+//    var location: CLLocationCoordinate2D?
+//
+//    init(id: String?, typeId: String?, name: String, location: CLLocationCoordinate2D?) {
+//        self.id = id
+//        self.typeId = typeId
+//        self.name = name
+//        self.location = location
+//    }
+//}
 
 class GeoDataViewController: UIViewController {
     
@@ -69,8 +69,8 @@ class GeoDataViewController: UIViewController {
     var selectedPinId: String?
     var selectedPinTypeId: String?
     var selectedAnnotation: EventsAnnotation?
-    var visiblePins = [OrgOrEventPins]()
-    var userLocIsGreen: Bool = false
+    var visiblePins = [SearchCompletionCustom]()
+    //var userLocIsGreen: Bool = false
     
     var showAttachButton: Bool?
     
@@ -93,7 +93,7 @@ class GeoDataViewController: UIViewController {
     var geoposition: String?
     var matchingItems: [MKMapItem] = []
     
-    @IBOutlet weak var getGeopositionButton: UIBarButtonItem!
+    //@IBOutlet weak var getGeopositionButton: UIBarButtonItem!
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var infoLabel: UILabel!
     
@@ -229,6 +229,7 @@ class GeoDataViewController: UIViewController {
     */
 }
 
+    // MARK: - MKMapViewDelegate
 //If visible on device region had changed, cache its current screen center on map
 //And remember latDelta and longDelta which corresponds to network request parameter presision
 //Fetching json with org/events data to pin them on map
@@ -271,8 +272,9 @@ extension GeoDataViewController : MKMapViewDelegate {
                             if let points = points.points {
                                 self.setPinsOnMap(for: points) //Be careful with force-unwrapping
                                 for point in points {
-                                    let pointLocation = CLLocationCoordinate2D(latitude: point.geoposition!.first ?? 0.0, longitude: point.geoposition!.last ?? 0.0)
-                                    self.visiblePins.append(OrgOrEventPins(id: point.id!, typeId: point.publicationType!.id!, name: point.name!, location: pointLocation))
+//                                    let pointLocation = CLLocationCoordinate2D(latitude: point.geoposition!.first ?? 0.0, longitude: point.geoposition!.last ?? 0.0)
+//                                    self.visiblePins.append(SearchCompletionCustom(location: pointLocation, id: point.id!, typeId: point.publicationType!.id!, name: point.name!, subname: point.description!))
+                                    self.visiblePins.append(SearchCompletionCustom(point: point))
                                 }
                                 self.locationSearchTable!.visiblePins = self.visiblePins
                             }
@@ -326,22 +328,6 @@ extension GeoDataViewController : MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        guard !(annotation is MKUserLocation) else { return nil }
-//
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "custom")
-//        if annotationView == nil {
-//            //create a view
-//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
-//            annotationView?.canShowCallout = true
-//        } else {
-//            annotationView?.annotation = annotation
-//        }
-//
-//        annotationView?.image = UIImage(named: "pokeball")
-//
-//        return annotationView
-        
-        
         if annotation is MKUserLocation {
             //return nil so map view draws "blue dot" for standard user location
             return nil
@@ -402,18 +388,18 @@ extension GeoDataViewController : MKMapViewDelegate {
     }
 }
 
-
+    // MARK: - HandleMapSearch
 //This extension is for search
 //Drops pin to selected item in search
 extension GeoDataViewController: HandleMapSearch {
-    func dropPinZoomIn(placemark: MKPlacemark, organization: OrgOrEventPins?, placeName: String?){
+    func dropPinZoomIn(placemark: MKPlacemark, organization: SearchCompletionCustom?, placeName: String?){
         
-        if let organization = organization {
+        if let organization = organization, let location = organization.location {
             
             let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
             mapView.setRegion(region, animated: true)
-            self.geoposition = "\(organization.location.latitude), \(organization.location.longitude)"
+            self.geoposition = "\(location.latitude), \(location.longitude)"
             
             self.selectedPinId = organization.id
             self.selectedPinTypeId = organization.typeId
@@ -421,9 +407,9 @@ extension GeoDataViewController: HandleMapSearch {
             let alert = UIAlertController(title: "Attachment", message: "You are about to attach publication to this point", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Attach", style: .default) {
                 action in
-                if let id = self.selectedPinId, let typeId = self.selectedPinTypeId, let geo = self.geoposition, let name = organization.name {
+                if let id = self.selectedPinId, let typeId = self.selectedPinTypeId, let geo = self.geoposition {
                     self.delegate?.sendAttachedToInfo(id: id, typeId: typeId)
-                    self.delegate?.sendGeoPointName(name: name)
+                    self.delegate?.sendGeoPointName(name: organization.name)
                     self.delegate?.sendGeoposition(geo: geo)
                 }
                 self.navigationController?.popViewController(animated: true)
@@ -435,6 +421,7 @@ extension GeoDataViewController: HandleMapSearch {
             selectedPin = placemark
             // clear existing pins
             mapView.removeAnnotations(mapView.annotations)
+            resultSearchController?.searchBar.text = ""
             var subtitle: String = ""
             if let city = placemark.locality,
             let state = placemark.administrativeArea {
@@ -456,6 +443,8 @@ extension GeoDataViewController: HandleMapSearch {
     }
 }
 
+
+    // MARK: - CLLocationManager
 extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerDelegate {
         
         //User Location
@@ -465,7 +454,6 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
                 let userCoordinates = CLLocationCoordinate2D(latitude: locationManager.location?.coordinate.latitude ?? 0.0, longitude: locationManager.location?.coordinate.longitude ?? 0.0)
                 
                 self.selectedPin = MKPlacemark(coordinate: userCoordinates)
-                print(self.selectedPin)
                 let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                 let region = MKCoordinateRegion(center: userCoordinates, span: span)
                 mapView.setRegion(region, animated: true)
@@ -534,7 +522,8 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
         lpgr.delegate = self
         self.mapView.addGestureRecognizer(lpgr)
     }
-
+    
+    //MARK: - Long press recongnizer
     @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state != UIGestureRecognizer.State.ended {
         let touchLocation = gestureReconizer.location(in: mapView)

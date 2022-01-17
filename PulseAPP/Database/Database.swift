@@ -17,6 +17,7 @@ class Database {
     init() {
         self.db = createDB()
         self.createTable()
+        self.createCategoryTable()
     }
 
     func createDB() -> OpaquePointer? {
@@ -50,6 +51,49 @@ class Database {
             }
         } else {
             print("Preparation fail")
+        }
+    }
+    
+    func createCategoryTable() {
+        //Composing string for query
+        let query = "CREATE TABLE IF NOT EXISTS category_data(id INTEGER PRIMARY KEY AUTOINCREMENT, category_id TEXT, category_name TEXT, is_checked INTEGER);"
+        var statement : OpaquePointer? = nil
+        
+        //checking if our query is ok or not
+        if sqlite3_prepare_v2(self.db, query, -1, &statement, nil) == SQLITE_OK {
+            //Actual creation of table
+            if sqlite3_step(statement) == SQLITE_DONE {
+                print("Category table creation success")
+            } else {
+                print("Table creation fail")
+            }
+        } else {
+            print("Preparation fail")
+        }
+    }
+    
+    func insertCategoryData(id: Int32, categoryId: String, categoryName: String, isChecked: Bool) {
+        let insertStatementString = "INSERT INTO category_data (id, category_id, category_name, is_checked) VALUES (?, ?, ?, ?);"
+        var insertStatement: OpaquePointer? = nil
+        
+        //Checking if prepared statement is ok or not
+        if sqlite3_prepare_v2(self.db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
+            let categoryId = NSString(string: categoryId)
+            let categoryName = NSString(string: categoryName)
+            let isChecked: Int32 = (isChecked) ? 1 : 0
+            
+            sqlite3_bind_int(insertStatement, 1, id)
+            sqlite3_bind_text(insertStatement, 2, categoryId.utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 3, categoryName.utf8String, -1, nil)
+            sqlite3_bind_int(insertStatement, 4, isChecked)
+            
+            if sqlite3_step(insertStatement) == SQLITE_DONE {
+                print("\nSuccessfully inserted row")
+            } else {
+                print("\nCould not insert row")
+            }
+        } else {
+            print("\nInsert statement is not prepared")
         }
     }
     
@@ -120,6 +164,45 @@ class Database {
           return ("", "")
       }
       // 7
+    }
+    
+    func queryCategory() -> [PublicationCategories]? {
+        let queryStatementString = "SELECT * FROM category_data;"
+        var queryStatement: OpaquePointer?
+        var categories: [PublicationCategories]? = nil
+        
+        //the following code snippet returns number of rows in db table
+//        let query = "select count(*) from category_data;"
+//        if sqlite3_prepare(self.db, query, -1, &queryStatement, nil) == SQLITE_OK {
+//              while(sqlite3_step(queryStatement) == SQLITE_ROW) {
+//                   let count = sqlite3_column_int(queryStatement, 0)
+//                   numberOfRows = count
+//              }
+//        }
+//        print(numberOfRows)
+        if sqlite3_prepare(self.db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            while (sqlite3_step(queryStatement) == SQLITE_ROW) {
+                  //let id = sqlite3_column_int(queryStatement, 0)
+                guard let queryResultCol1 = sqlite3_column_text(queryStatement, 1) else {
+                    print("Query result is nil.")
+                    return nil
+                }
+                let categoryId = String(cString: queryResultCol1)
+                guard let queryResultCol2 = sqlite3_column_text(queryStatement, 2) else {
+                    print("Query result is nil.")
+                    return nil
+                }
+                let categoryName = String(cString: queryResultCol2)
+                categories?.append(PublicationCategories(id: categoryId, name: categoryName))
+            }
+            sqlite3_finalize(queryStatement)
+            return categories
+        } else {
+            let errorMessage = String(cString: sqlite3_errmsg(db))
+            print("\nQuery is not prepared \(errorMessage)")
+            sqlite3_finalize(queryStatement)
+            return nil
+        }
     }
     
     func queryUserId() -> String {

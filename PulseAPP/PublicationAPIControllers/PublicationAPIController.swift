@@ -62,9 +62,9 @@ class PublicationAPIController {
         config.httpAdditionalHeaders = headers
         let session = URLSession.init(configuration: config)
         
-        var data: [String: String] = ["id": withUserId, "type": type]
+        var data: [String: String] = ["id": withUserId, "typename": type]
         if !postLastId.isEmpty {
-            data = ["id": withUserId, "type": type, "lastid": postLastId]
+            data = ["id": withUserId, "typename": type, "lastid": postLastId] // Probably here instead of type should be typeName
         }
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(data)
@@ -107,9 +107,9 @@ class PublicationAPIController {
         let session = URLSession.init(configuration: config)
         
         if afterPublicationWithLastId == "" {
-            data = ["name": ofType, "category": ofCategories]
+            data = ["typename": ofType, "category": ofCategories]
         } else {
-            data = ["lastid": afterPublicationWithLastId, "name": ofType, "category": ofCategories]
+            data = ["lastid": afterPublicationWithLastId, "typename": ofType, "category": ofCategories]
         }
         
 
@@ -163,9 +163,9 @@ class PublicationAPIController {
         let session = URLSession.init(configuration: config)
         
         if afterPublicationWithLastId == "" {
-            data = ["name": ofType, "category": ofCategories]
+            data = ["typename": ofType, "category": ofCategories]
         } else {
-            data = ["lastid": afterPublicationWithLastId, "name": ofType, "category": ofCategories]
+            data = ["lastid": afterPublicationWithLastId, "typename": ofType, "category": ofCategories]
         }
         
 
