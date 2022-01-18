@@ -10,6 +10,7 @@ import UIKit
 extension ProfileSettingsViewController: LogOutTableViewCellDelegate {
     func logOut() {
         Database.shared.delete()
+        Database.shared.deleteCategories()
         performSegue(withIdentifier: "LogOutSegue", sender: nil)
     }
 }

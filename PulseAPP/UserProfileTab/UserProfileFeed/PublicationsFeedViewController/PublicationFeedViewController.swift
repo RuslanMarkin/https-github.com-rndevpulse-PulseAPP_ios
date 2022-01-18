@@ -63,19 +63,9 @@ class PublicationFeedViewController: UIViewController, UITableViewDataSource, UI
     @objc private func refreshListData(_ sender: Any) {
         publications.removeAll()
         self.pageCoef = 0
-        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Post", ofCategories: [
-                "PUBLICATIONCATEGORY.Food",
-                "PUBLICATIONCATEGORY.Transport",
-                "PUBLICATIONCATEGORY.Interior",
-                "PUBLICATIONCATEGORY.Nature",
-                "PUBLICATIONCATEGORY.Excursion",
-                "PUBLICATIONCATEGORY.Monument",
-                "PUBLICATIONCATEGORY.Design",
-                "PUBLICATIONCATEGORY.Music",
-                "PUBLICATIONCATEGORY.Dances",
-                "PUBLICATIONCATEGORY.Interior",
-                "PUBLICATIONCATEGORY.People",
-                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
+        let selectedCategories: [String]? = Database.shared.queryCategoriesStatus()
+        
+        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Post", ofCategories: selectedCategories ?? [], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
             DispatchQueue.main.async {
                 switch result {
                             case .success(let userPublications):

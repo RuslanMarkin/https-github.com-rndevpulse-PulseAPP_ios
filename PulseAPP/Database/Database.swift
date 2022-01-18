@@ -167,42 +167,82 @@ class Database {
     }
     
     func queryCategory() -> [PublicationCategories]? {
+        var categories = [PublicationCategories]()
+        let queryStatementString = "SELECT * FROM category_data;"
+      var queryStatement: OpaquePointer?
+      if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+        print("\n")
+        while (sqlite3_step(queryStatement) == SQLITE_ROW) {
+            guard let queryResultCol1 = sqlite3_column_text(queryStatement, 1) else {
+              print("Query result is nil.")
+              return nil
+            }
+          guard let queryResultCol2 = sqlite3_column_text(queryStatement, 2) else {
+            print("Query result is nil.")
+            return nil
+          }
+          let id = String(cString: queryResultCol1)
+          let name = String(cString: queryResultCol2)
+            
+            let category = PublicationCategories(id: id, name: name)
+            categories.append(category)
+        }
+      } else {
+          let errorMessage = String(cString: sqlite3_errmsg(db))
+          print("\nQuery is not prepared \(errorMessage)")
+      }
+      sqlite3_finalize(queryStatement)
+        return categories
+    }
+    
+    
+    
+    func queryCategoriesStatus() -> [String]? {
+        var categories = [String]()
+        
         let queryStatementString = "SELECT * FROM category_data;"
         var queryStatement: OpaquePointer?
-        var categories: [PublicationCategories]? = nil
-        
-        //the following code snippet returns number of rows in db table
-//        let query = "select count(*) from category_data;"
-//        if sqlite3_prepare(self.db, query, -1, &queryStatement, nil) == SQLITE_OK {
-//              while(sqlite3_step(queryStatement) == SQLITE_ROW) {
-//                   let count = sqlite3_column_int(queryStatement, 0)
-//                   numberOfRows = count
-//              }
-//        }
-//        print(numberOfRows)
-        if sqlite3_prepare(self.db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            print("\n")
             while (sqlite3_step(queryStatement) == SQLITE_ROW) {
-                  //let id = sqlite3_column_int(queryStatement, 0)
-                guard let queryResultCol1 = sqlite3_column_text(queryStatement, 1) else {
-                    print("Query result is nil.")
-                    return nil
-                }
-                let categoryId = String(cString: queryResultCol1)
+                let status = sqlite3_column_int(queryStatement, 3)
                 guard let queryResultCol2 = sqlite3_column_text(queryStatement, 2) else {
                     print("Query result is nil.")
                     return nil
                 }
-                let categoryName = String(cString: queryResultCol2)
-                categories?.append(PublicationCategories(id: categoryId, name: categoryName))
+            let name = String(cString: queryResultCol2)
+            
+            //print("category: \(name) with status: \(status)")
+                if status == 1 {
+                    //print("ok\n")
+                    categories.append(name)
+                }
             }
-            sqlite3_finalize(queryStatement)
-            return categories
+            
         } else {
-            let errorMessage = String(cString: sqlite3_errmsg(db))
-            print("\nQuery is not prepared \(errorMessage)")
-            sqlite3_finalize(queryStatement)
-            return nil
+          let errorMessage = String(cString: sqlite3_errmsg(db))
+          print("\nQuery is not prepared \(errorMessage)")
         }
+        sqlite3_finalize(queryStatement)
+        return categories
+    }
+    
+    func update(isActive status: Bool, atCategory row: Int32)  {
+        let isChecked: Int32 = (status) ? 1 : 0
+        let queryStatementString = "UPDATE category_data SET is_checked = \(isChecked) WHERE id = \(row);"
+        
+        var queryStatement: OpaquePointer?
+          if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) ==
+              SQLITE_OK {
+            if sqlite3_step(queryStatement) == SQLITE_DONE {
+              print("\nSuccessfully updated row.")
+            } else {
+              print("\nCould not update row.")
+            }
+          } else {
+            print("\nUPDATE statement is not prepared")
+          }
+          sqlite3_finalize(queryStatement)
     }
     
     func queryUserId() -> String {
@@ -229,6 +269,23 @@ class Database {
             sqlite3_finalize(queryStatement)
             return ("")
         }
+    }
+    
+    func deleteCategories() {
+        let deleteStatementString = "DELETE FROM category_data;"
+        var deleteStatement: OpaquePointer?
+        if sqlite3_prepare_v2(db, deleteStatementString, -1, &deleteStatement, nil) ==
+            SQLITE_OK {
+          if sqlite3_step(deleteStatement) == SQLITE_DONE {
+            print("\nSuccessfully deleted row.")
+          } else {
+            print("\nCould not delete row.")
+          }
+        } else {
+          print("\nDELETE statement could not be prepared")
+        }
+        
+        sqlite3_finalize(deleteStatement)
     }
 
     func delete() {

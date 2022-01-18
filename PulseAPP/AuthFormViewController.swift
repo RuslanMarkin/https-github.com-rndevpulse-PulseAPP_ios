@@ -28,7 +28,6 @@ class AuthFormViewController: UIViewController {
             view.addGestureRecognizer(tap)
         
         invalidLoginLabel.isHidden = true
-        print(Database.shared.queryCategory())
         let (login, password) = Database.shared.queryLoginPassword()
             APIController.shared.authentication(withlogin: login, password: password) {
                 (result) in
@@ -75,7 +74,7 @@ class AuthFormViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let publicationCategories):
-                        var id: Int32 = 1
+                        var id: Int32 = 0
                         for category in publicationCategories {
                             Database.shared.insertCategoryData(id: id, categoryId: category.id!, categoryName: category.name!, isChecked: true)
                             id += 1

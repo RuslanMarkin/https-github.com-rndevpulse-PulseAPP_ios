@@ -7,11 +7,12 @@
 
 import UIKit
 
-class MainGlobeTabBarController: UITabBarController {
+class MainGlobeTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
+        self.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -19,6 +20,11 @@ class MainGlobeTabBarController: UITabBarController {
         super.viewWillAppear(animated)
         self.selectedIndex = 2
     }
+    
+//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        let tabBarIndex = tabBarController.selectedViewController
+//        print(
+//    }
 
     /*
     // MARK: - Navigation

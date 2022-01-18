@@ -18,7 +18,6 @@ class UserProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     @IBAction func PublicationTypeSegmentedControlTapped(_ sender: UISegmentedControl) {

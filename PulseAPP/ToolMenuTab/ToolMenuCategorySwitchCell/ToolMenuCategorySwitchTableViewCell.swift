@@ -34,9 +34,12 @@ class ToolMenuCategorySwitchTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    @IBAction func switchDidChange(_ sender: Any) {
+        delegate?.didSwitchChangedIn(cell: self)
+    }
     
-    func switchTapped() {
-        self.delegate?.didSwitchChangedIn(cell: self)
+    func configureCell(with category: String) {
+        categoryLabel.text = category
     }
     
 }

@@ -538,13 +538,19 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
             var subtitle: String?
             let geoCoder = CLGeocoder()
             
+            //ReverseGeocode is used to get street name and house number from (lat, long)
             geoCoder.reverseGeocodeLocation(CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)) { [weak self] (placemarks, error) in
+               
                 guard let self = self else { return }
                 if let _ = error {
                     return
                 }
                 guard let placemark = placemarks?.first else {
                     return
+                }
+                
+                if let country = placemark.country, let administrativeArea = placemark.administrativeArea, let subAdmin = placemark.subAdministrativeArea, let locality = placemark.locality, let subLocal = placemark.subLocality {
+                    print("\(country), ---\(administrativeArea), ---\(subAdmin), ---\(locality), ---\(subLocal), ---\n")
                 }
                 
                 if let street = placemark.thoroughfare, let houseNumber = placemark.subThoroughfare {

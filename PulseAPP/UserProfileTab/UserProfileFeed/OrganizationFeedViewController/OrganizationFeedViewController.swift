@@ -52,7 +52,6 @@ class OrganizationFeedViewController: UIViewController, UITableViewDataSource, U
                 switch result {
                             case .success(let userPublics):
                                 self.updateUI(with: userPublics!)
-                                print(userPublics)
                                 self.pageCoef += 1
                             case .failure(let error):
                                 print(error)
@@ -64,19 +63,9 @@ class OrganizationFeedViewController: UIViewController, UITableViewDataSource, U
     @objc private func refreshListData(_ sender: Any) {
         publications.removeAll()
         self.pageCoef = 0
-        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Organization", ofCategories: [
-                "PUBLICATIONCATEGORY.Food",
-                "PUBLICATIONCATEGORY.Transport",
-                "PUBLICATIONCATEGORY.Interior",
-                "PUBLICATIONCATEGORY.Nature",
-                "PUBLICATIONCATEGORY.Excursion",
-                "PUBLICATIONCATEGORY.Monument",
-                "PUBLICATIONCATEGORY.Design",
-                "PUBLICATIONCATEGORY.Music",
-                "PUBLICATIONCATEGORY.Dances",
-                "PUBLICATIONCATEGORY.Interior",
-                "PUBLICATIONCATEGORY.People",
-                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
+        let selectedCategories: [String]? = Database.shared.queryCategoriesStatus()
+        
+        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Organization", ofCategories: selectedCategories ?? [], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
             DispatchQueue.main.async {
                 switch result {
                             case .success(let userPublications):
