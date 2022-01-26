@@ -17,9 +17,14 @@ extension ToolMenuViewController: ToolMenuCategorySwitchTableViewCellDelegate {
             let switchState = cell.categorySwitch.isOn
             let categoryRow = Int32(indexPath.row)
             Database.shared.update(isActive: switchState, atCategory: categoryRow)
-            //delegate?.updateUsersFeed(with: <#T##[String]?#>)
-            //print("Switch state is \(cell.categorySwitch.isOn) at \(indexPath.row)")
         }
+    }
+}
+
+extension ToolMenuViewController: RegionCodeDelegate {
+    func sendToToolMenu(regions: [RegionData]) {
+        self.selectedRegions = regions
+        print(selectedRegions)
     }
 }
 
@@ -29,13 +34,30 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
         let table = UITableView()
         
         table.register(ToolMenuCategorySwitchTableViewCell.nib(), forCellReuseIdentifier: ToolMenuCategorySwitchTableViewCell.identifier)
+        table.register(RegionCodeTableViewCell.self, forCellReuseIdentifier: RegionCodeTableViewCell.identifier)
         
         return table
     }()
     
-    var categories: [PublicationCategories]?
+    var categories: [PublicationCategories]? {
+        didSet {
+            self.countInTable = categories!.count
+        }
+    }
+    var countInTable: Int = 1
     
-    weak var delegate: UpdateFeeds?
+    var selectedCodeRegion: String? {
+        didSet {
+            if let selectedCodeRegion = selectedCodeRegion {
+                Database.shared.update(regionCode: selectedCodeRegion, at: 0)
+            }
+        }
+    }
+    
+    var selectedRegions = [RegionData]()
+    
+    weak var feedDelegate: UpdateFeeds?
+    weak var delegate: RegionCodeDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,12 +69,10 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.dataSource = self
         
         categories = Database.shared.queryCategory()
-//        if let categories = Database.shared.queryCategory() {
-//            print(categories)
-//            self.categories?.append(contentsOf: categories)
-//        }
+        Database.shared.createRegionCodeTable()
+        Database.shared.insertRegionCodeData(id: 0, regionCode: "0001")
         
-        // Do any additional setup after loading the view.
+        delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -61,20 +81,53 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories?.count ?? 0
+//        if let categoriesCount = categories?.count {
+//            countInTable += categoriesCount
+//        }
+        return countInTable + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ToolMenuCategorySwitchTableViewCell.identifier, for: indexPath) as! ToolMenuCategorySwitchTableViewCell
-        cell.delegate = self
-        if let categories = categories, let categoryName = categories[indexPath.row].name {
-            cell.configureCell(with: NSLocalizedString(categoryName, comment: ""))
+        switch indexPath.row {
+        case 0...countInTable - 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ToolMenuCategorySwitchTableViewCell.identifier, for: indexPath) as! ToolMenuCategorySwitchTableViewCell
+            cell.delegate = self
+            if let categories = categories, let categoryName = categories[indexPath.row].name {
+                //print(indexPath.row)
+                cell.configureCell(with: NSLocalizedString(categoryName, comment: ""))
+            }
+            return cell
+        case countInTable:
+            let cell = tableView.dequeueReusableCell(withIdentifier: RegionCodeTableViewCell.identifier, for: indexPath)
+            cell.textLabel?.text = NSLocalizedString("Choose region", comment: "")
+            cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+            return cell
+        default:
+            return UITableViewCell()
         }
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.row {
+        case countInTable:
+            performSegue(withIdentifier: "RegionFilterSegue", sender: nil)
+        default:
+            return
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "RegionFilterSegue" {
+            let secondVC: RegionFilterTableViewController = segue.destination as! RegionFilterTableViewController
+            secondVC.delegate = self
+        }
+    }
+    
+    @IBAction func unwindToToolMenu(segue: UIStoryboardSegue) {
+        if let sourceVC = segue.source as? CityTableViewController {
+            selectedCodeRegion = sourceVC.selectedRegionCode
+        }
     }
     /*
     // MARK: - Navigation

@@ -17,6 +17,14 @@
 		3E85E8FD27731D5800F1E781 /* network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85E8FC27731D5800F1E781 /* network.swift */; };
 		3E98387B27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98387927954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift */; };
 		3E98387C27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E98387A27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib */; };
+		3E9CDB2A27A1222B004383C7 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CDB2927A1222B004383C7 /* CheckBox.swift */; };
+		3E9CDB2D27A13023004383C7 /* RegionCodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CDB2B27A13023004383C7 /* RegionCodeTableViewCell.swift */; };
+		3E9CDB2E27A13023004383C7 /* RegionCodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E9CDB2C27A13023004383C7 /* RegionCodeTableViewCell.xib */; };
+		3EA5692D279EC64A00F81632 /* RegionFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA5692C279EC64A00F81632 /* RegionFilterTableViewController.swift */; };
+		3EA56930279ECD8400F81632 /* RegionFilterAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA5692F279ECD8400F81632 /* RegionFilterAPIController.swift */; };
+		3EA56932279ED5E300F81632 /* RegionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA56931279ED5E300F81632 /* RegionData.swift */; };
+		3EA660B5279FCF59001620A8 /* AreaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA660B4279FCF59001620A8 /* AreaTableViewController.swift */; };
+		3EA660B7279FD944001620A8 /* CityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA660B6279FD944001620A8 /* CityTableViewController.swift */; };
 		4B1B00612744FB7600D03BF2 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B00602744FB7600D03BF2 /* DateExtension.swift */; };
 		4B1B00632746310300D03BF2 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B00622746310300D03BF2 /* Database.swift */; };
 		4B1B00672747CF6C00D03BF2 /* AddPublicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1B00662747CF6C00D03BF2 /* AddPublicationViewController.swift */; };
@@ -101,6 +109,14 @@
 		3E85E8FC27731D5800F1E781 /* network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = network.swift; sourceTree = "<group>"; };
 		3E98387927954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolMenuCategorySwitchTableViewCell.swift; sourceTree = "<group>"; };
 		3E98387A27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolMenuCategorySwitchTableViewCell.xib; sourceTree = "<group>"; };
+		3E9CDB2927A1222B004383C7 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		3E9CDB2B27A13023004383C7 /* RegionCodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionCodeTableViewCell.swift; sourceTree = "<group>"; };
+		3E9CDB2C27A13023004383C7 /* RegionCodeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegionCodeTableViewCell.xib; sourceTree = "<group>"; };
+		3EA5692C279EC64A00F81632 /* RegionFilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionFilterTableViewController.swift; sourceTree = "<group>"; };
+		3EA5692F279ECD8400F81632 /* RegionFilterAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionFilterAPIController.swift; sourceTree = "<group>"; };
+		3EA56931279ED5E300F81632 /* RegionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionData.swift; sourceTree = "<group>"; };
+		3EA660B4279FCF59001620A8 /* AreaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaTableViewController.swift; sourceTree = "<group>"; };
+		3EA660B6279FD944001620A8 /* CityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTableViewController.swift; sourceTree = "<group>"; };
 		4B1B00602744FB7600D03BF2 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		4B1B00622746310300D03BF2 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		4B1B00662747CF6C00D03BF2 /* AddPublicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPublicationViewController.swift; sourceTree = "<group>"; };
@@ -258,10 +274,34 @@
 		3E98387827954F3E009CC0C9 /* ToolMenuTab */ = {
 			isa = PBXGroup;
 			children = (
+				3EA5692E279ECD5200F81632 /* RegionFilterAPIController */,
 				4B9113FE27171BD900841927 /* ToolMenuViewController.swift */,
+				3EA5692C279EC64A00F81632 /* RegionFilterTableViewController.swift */,
+				3EA660B4279FCF59001620A8 /* AreaTableViewController.swift */,
+				3EA660B6279FD944001620A8 /* CityTableViewController.swift */,
+				3EA56929279EA56100F81632 /* RegionCodeTableViewCell */,
 				3E98387727954F02009CC0C9 /* ToolMenuCategorySwitchCell */,
 			);
 			path = ToolMenuTab;
+			sourceTree = "<group>";
+		};
+		3EA56929279EA56100F81632 /* RegionCodeTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3E9CDB2B27A13023004383C7 /* RegionCodeTableViewCell.swift */,
+				3E9CDB2C27A13023004383C7 /* RegionCodeTableViewCell.xib */,
+			);
+			path = RegionCodeTableViewCell;
+			sourceTree = "<group>";
+		};
+		3EA5692E279ECD5200F81632 /* RegionFilterAPIController */ = {
+			isa = PBXGroup;
+			children = (
+				3EA5692F279ECD8400F81632 /* RegionFilterAPIController.swift */,
+				3EA56931279ED5E300F81632 /* RegionData.swift */,
+				3E9CDB2927A1222B004383C7 /* CheckBox.swift */,
+			);
+			path = RegionFilterAPIController;
 			sourceTree = "<group>";
 		};
 		4B034916271FF0AE0004BD0B /* ErrorHandler */ = {
@@ -345,11 +385,11 @@
 		4B4210DF27157C4700D5E809 /* PulseAPP */ = {
 			isa = PBXGroup;
 			children = (
-				4BCC3CD8276A29750058973B /* GeoRequestsControllers */,
 				4B4210E627157C4700D5E809 /* Main.storyboard */,
 				4B4210E027157C4700D5E809 /* AppDelegate.swift */,
 				4B4210E227157C4700D5E809 /* SceneDelegate.swift */,
 				4B4210EB27157C4900D5E809 /* LaunchScreen.storyboard */,
+				4BCC3CD8276A29750058973B /* GeoRequestsControllers */,
 				4B1B00652747CF3600D03BF2 /* MapTab */,
 				4B1B00642746310C00D03BF2 /* Database */,
 				4B034916271FF0AE0004BD0B /* ErrorHandler */,
@@ -679,6 +719,7 @@
 				4BE2E4E7276348B000A5D215 /* ImagesTableViewCell.xib in Resources */,
 				4B4210E827157C4700D5E809 /* Main.storyboard in Resources */,
 				3E3D2EB52775DCFB0099E4EC /* OrganizationTableViewCell.xib in Resources */,
+				3E9CDB2E27A13023004383C7 /* RegionCodeTableViewCell.xib in Resources */,
 				4B95D4B627609B59003473B3 /* LogOutTableViewCell.xib in Resources */,
 				4B91140B271973FD00841927 /* HeaderView.xib in Resources */,
 				4B36CDC1271DAC1C0091D229 /* CollectionViewCell.xib in Resources */,
@@ -697,6 +738,7 @@
 				4B95D4B527609B59003473B3 /* LogOutTableViewCell.swift in Sources */,
 				4B36CDC8271EEB830091D229 /* PublicationTableViewCell.swift in Sources */,
 				4B1B00612744FB7600D03BF2 /* DateExtension.swift in Sources */,
+				3EA56932279ED5E300F81632 /* RegionData.swift in Sources */,
 				4B551121274CC3F400DE47BF /* ImageResizer.swift in Sources */,
 				3E98387B27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift in Sources */,
 				4B5510D0274B9D3800DE47BF /* CreatePublicationViewController.swift in Sources */,
@@ -704,6 +746,7 @@
 				3E3D2EB42775DCFB0099E4EC /* OrganizationTableViewCell.swift in Sources */,
 				4B91140227171E3B00841927 /* ErrorHandler.swift in Sources */,
 				4B9113F92717157500841927 /* UserProfileViewController.swift in Sources */,
+				3EA56930279ECD8400F81632 /* RegionFilterAPIController.swift in Sources */,
 				4BE2E4ED2763739300A5D215 /* MapObjectData.swift in Sources */,
 				4B36CDC3271EC3D10091D229 /* PublicationAPIController.swift in Sources */,
 				4B6F3269272835A1008A8838 /* User.swift in Sources */,
@@ -716,9 +759,11 @@
 				4B6F3268272835A1008A8838 /* PublicationType.swift in Sources */,
 				3E2AB11B277303360047215B /* UserFeedViewController.swift in Sources */,
 				4B9114122719B65F00841927 /* ImageAPIController.swift in Sources */,
+				3E9CDB2A27A1222B004383C7 /* CheckBox.swift in Sources */,
 				4B4210E527157C4700D5E809 /* AuthFormViewController.swift in Sources */,
 				4B48705B2771DF1C00D7B401 /* UserProfileTableViewCell.swift in Sources */,
 				3E85E8FD27731D5800F1E781 /* network.swift in Sources */,
+				3EA660B7279FD944001620A8 /* CityTableViewController.swift in Sources */,
 				4BE2E4E6276348B000A5D215 /* ImagesTableViewCell.swift in Sources */,
 				4BC35705274E59E80075896F /* CategoryCollectionTableViewCell.swift in Sources */,
 				4B9113FF27171BD900841927 /* ToolMenuViewController.swift in Sources */,
@@ -726,7 +771,10 @@
 				4B91140D2719742300841927 /* HeaderView.swift in Sources */,
 				4B6F3267272835A1008A8838 /* PublicationCategories.swift in Sources */,
 				4B6F326A272835A1008A8838 /* Publication.swift in Sources */,
+				3E9CDB2D27A13023004383C7 /* RegionCodeTableViewCell.swift in Sources */,
 				4B7C8AB8275A16920068AE19 /* CoverageRadiusTableViewCell.swift in Sources */,
+				3EA660B5279FCF59001620A8 /* AreaTableViewController.swift in Sources */,
+				3EA5692D279EC64A00F81632 /* RegionFilterTableViewController.swift in Sources */,
 				4B4210F52715953B00D5E809 /* RegistrationFormViewController.swift in Sources */,
 				4B480486275117800055C62B /* PublicationServerUpload.swift in Sources */,
 				4B42949D276B2F4000F23C29 /* Metadata.swift in Sources */,

@@ -16,6 +16,7 @@ class OrganizationFeedViewController: UIViewController, UITableViewDataSource, U
     var publications = [UserPublication]()
     var lastId: String?
     var pageCoef: Int = 0
+    var selectedCategories: [String]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,20 +35,8 @@ class OrganizationFeedViewController: UIViewController, UITableViewDataSource, U
                     self.table.addSubview(pullControl)
                 }
         
-        
-        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Organization", ofCategories: [
-                "PUBLICATIONCATEGORY.Food",
-                "PUBLICATIONCATEGORY.Transport",
-                "PUBLICATIONCATEGORY.Interior",
-                "PUBLICATIONCATEGORY.Nature",
-                "PUBLICATIONCATEGORY.Excursion",
-                "PUBLICATIONCATEGORY.Monument",
-                "PUBLICATIONCATEGORY.Design",
-                "PUBLICATIONCATEGORY.Music",
-                "PUBLICATIONCATEGORY.Dances",
-                "PUBLICATIONCATEGORY.Interior",
-                "PUBLICATIONCATEGORY.People",
-                "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
+        selectedCategories = Database.shared.queryCategoriesStatus()
+        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Organization", ofCategories: selectedCategories ?? [], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
             DispatchQueue.main.async {
                 switch result {
                             case .success(let userPublics):
@@ -63,8 +52,8 @@ class OrganizationFeedViewController: UIViewController, UITableViewDataSource, U
     @objc private func refreshListData(_ sender: Any) {
         publications.removeAll()
         self.pageCoef = 0
-        let selectedCategories: [String]? = Database.shared.queryCategoriesStatus()
         
+        selectedCategories = Database.shared.queryCategoriesStatus()
         PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Organization", ofCategories: selectedCategories ?? [], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -133,19 +122,7 @@ class OrganizationFeedViewController: UIViewController, UITableViewDataSource, U
 
             self.table.tableFooterView = createSpinner()
             
-            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Organization", ofCategories: [
-                    "PUBLICATIONCATEGORY.Food",
-                    "PUBLICATIONCATEGORY.Transport",
-                    "PUBLICATIONCATEGORY.Interior",
-                    "PUBLICATIONCATEGORY.Nature",
-                    "PUBLICATIONCATEGORY.Excursion",
-                    "PUBLICATIONCATEGORY.Monument",
-                    "PUBLICATIONCATEGORY.Design",
-                    "PUBLICATIONCATEGORY.Music",
-                    "PUBLICATIONCATEGORY.Dances",
-                    "PUBLICATIONCATEGORY.Interior",
-                    "PUBLICATIONCATEGORY.People",
-                    "PUBLICATIONCATEGORY.Concert"], afterPublicationWithLastId: ((self.lastId != nil) ? self.lastId! : ""), with: self.pageCoef, pagination: true) { result in
+            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Organization", ofCategories: selectedCategories ?? [], afterPublicationWithLastId: ((self.lastId != nil) ? self.lastId! : ""), with: self.pageCoef, pagination: true) { result in
                 DispatchQueue.main.async {
                     switch result {
                                 case .success(let userPublications):
@@ -156,6 +133,7 @@ class OrganizationFeedViewController: UIViewController, UITableViewDataSource, U
                                 }
                     }
             }
+            self.table.tableFooterView?.isHidden = true
         }
     }
 

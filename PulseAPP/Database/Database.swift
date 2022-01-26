@@ -72,6 +72,41 @@ class Database {
         }
     }
     
+    func createRegionCodeTable() {
+        let query = "CREATE TABLE IF NOT EXISTS region_code_data(id INTEGER PRIMARY KEY AUTOINCREMENT, region_code TEXT);"
+        var statement: OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(self.db, query, -1, &statement, nil) == SQLITE_OK {
+            if sqlite3_step(statement) == SQLITE_DONE {
+                print("region_code table creation success")
+            } else {
+                print("region_code table creation fails")
+            }
+        } else {
+            print("region_code preparation fails")
+        }
+    }
+    
+    func insertRegionCodeData(id: Int32, regionCode: String) {
+        let insertStatementString = "INSERT INTO region_code_data (id, region_code) VALUES (?, ?);"
+        var insertStatement: OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(self.db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
+            let regionCode = NSString(string: regionCode)
+            
+            sqlite3_bind_int(insertStatement, 1, id)
+            sqlite3_bind_text(insertStatement, 2, regionCode.utf8String, -1, nil)
+            
+            if sqlite3_step(insertStatement) == SQLITE_DONE {
+                print("\nSuccessfully inserted row in region_code")
+            } else {
+                print("\nCould not insert row in region_code")
+            }
+        } else {
+            print("\nInsert statement is not prepared")
+        }
+    }
+    
     func insertCategoryData(id: Int32, categoryId: String, categoryName: String, isChecked: Bool) {
         let insertStatementString = "INSERT INTO category_data (id, category_id, category_name, is_checked) VALUES (?, ?, ?, ?);"
         var insertStatement: OpaquePointer? = nil
@@ -166,6 +201,8 @@ class Database {
       // 7
     }
     
+    //Query categories' names from category_data table
+    //Returns array of standardized PublicationCategories
     func queryCategory() -> [PublicationCategories]? {
         var categories = [PublicationCategories]()
         let queryStatementString = "SELECT * FROM category_data;"
@@ -195,8 +232,8 @@ class Database {
         return categories
     }
     
-    
-    
+    //Query categories status(if user checked them to show in user's feed) from category_data table
+    //Returns array of 0-1 values corresponding to categories' array
     func queryCategoriesStatus() -> [String]? {
         var categories = [String]()
         
@@ -227,6 +264,21 @@ class Database {
         return categories
     }
     
+    func getCountOfRowsInTable() -> Int {
+        let query = "select count(*) from tableName;"
+        var queryStatement: OpaquePointer?
+        var cnt: Int32?
+        
+        if sqlite3_prepare(self.db, query, -1, &queryStatement, nil) == SQLITE_OK {
+              while(sqlite3_step(queryStatement) == SQLITE_ROW) {
+                   let count = sqlite3_column_int(queryStatement, 0)
+                   print("\(count)")
+                  cnt = count
+              }
+        }
+        return Int(cnt ?? 0)
+    }
+    
     func update(isActive status: Bool, atCategory row: Int32)  {
         let isChecked: Int32 = (status) ? 1 : 0
         let queryStatementString = "UPDATE category_data SET is_checked = \(isChecked) WHERE id = \(row);"
@@ -234,6 +286,23 @@ class Database {
         var queryStatement: OpaquePointer?
           if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) ==
               SQLITE_OK {
+            if sqlite3_step(queryStatement) == SQLITE_DONE {
+              print("\nSuccessfully updated row.")
+            } else {
+              print("\nCould not update row.")
+            }
+          } else {
+            print("\nUPDATE statement is not prepared")
+          }
+          sqlite3_finalize(queryStatement)
+    }
+    
+    func update(regionCode: String, at id: Int32) {
+        let nsCode: NSString = NSString(string: regionCode)
+        let queryStatementString = "UPDATE region_code_data SET region_code = \(nsCode) WHERE id = \(id);"
+        
+        var queryStatement: OpaquePointer?
+          if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
             if sqlite3_step(queryStatement) == SQLITE_DONE {
               print("\nSuccessfully updated row.")
             } else {
