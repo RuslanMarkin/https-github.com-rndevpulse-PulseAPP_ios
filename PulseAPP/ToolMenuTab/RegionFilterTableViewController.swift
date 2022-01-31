@@ -30,7 +30,8 @@ extension RegionFilterTableViewController: ToolMenuRadioButtonRegionCodeTableVie
 
 extension RegionFilterTableViewController: RegionCodeDelegate {
     func sendToToolMenu(regions: [RegionData]) {
-        selectedRegions = regions
+        selectedRegions.append(contentsOf: regions)
+        print(selectedRegions)
     }
 }
 
@@ -74,7 +75,7 @@ class RegionFilterTableViewController: UITableViewController {
         super.didMove(toParent: parent)
 
         if parent == nil {
-            print(selectedRegions)
+            //print(selectedRegions)
             delegate?.sendToToolMenu(regions: selectedRegions)
         }
     }
@@ -101,7 +102,7 @@ class RegionFilterTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RegionCodeTableViewCell.identifier, for: indexPath) as! RegionCodeTableViewCell
         if let countryName = regions?[indexPath.row].name {
-            cell.configure(with: countryName)
+            cell.configure(with: countryName, unavailable: false, isChecked: false)
             cell.delegate = self
         }
         return cell
@@ -110,22 +111,25 @@ class RegionFilterTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if let region = regions?[indexPath.row] {
-            selectedRegion = region
-            selectedRegionCode = region.code!
-            RegionFilterAPIController.shared.fetchRegionsToFilter(searchArea: region.code!, resultType: "area") { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let areas):
-                        self.areas = areas
-                        self.performSegue(withIdentifier: "AreaSegue", sender: nil)
-                    case .failure(let error):
-                        print(error)
+        if selectedRegions.isEmpty {
+            if let region = regions?[indexPath.row] {
+                selectedRegion = region
+                selectedRegionCode = region.code!
+                RegionFilterAPIController.shared.fetchRegionsToFilter(searchArea: region.code!, resultType: "area") { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let areas):
+                            self.areas = areas
+                            self.performSegue(withIdentifier: "AreaSegue", sender: nil)
+                        case .failure(let error):
+                            print(error)
+                        }
                     }
                 }
             }
+        } else {
+            print("Array is not empty")
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

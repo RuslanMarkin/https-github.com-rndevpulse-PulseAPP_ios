@@ -23,8 +23,9 @@ extension ToolMenuViewController: ToolMenuCategorySwitchTableViewCellDelegate {
 
 extension ToolMenuViewController: RegionCodeDelegate {
     func sendToToolMenu(regions: [RegionData]) {
-        self.selectedRegions = regions
-        print(selectedRegions)
+        selectedRegions?.append(contentsOf: regions)
+        //self.selectedRegionCodes = selectedRegionCodes
+        //print(selectedRegions)
     }
 }
 
@@ -46,15 +47,24 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
     }
     var countInTable: Int = 1
     
-    var selectedCodeRegion: String? {
+//    var selectedCodeRegion: String? {
+//        didSet {
+//            if let selectedCodeRegion = selectedCodeRegion {
+//                Database.shared.update(regionCode: selectedCodeRegion, at: 0)
+//            }
+//        }
+//    }
+    var selectedRegionCodes: [String]? {
         didSet {
-            if let selectedCodeRegion = selectedCodeRegion {
-                Database.shared.update(regionCode: selectedCodeRegion, at: 0)
-            }
+            print(selectedRegionCodes)
         }
     }
     
-    var selectedRegions = [RegionData]()
+    var selectedRegions: [RegionData]? {
+        didSet {
+            print(selectedRegions!)
+        }
+    }
     
     weak var feedDelegate: UpdateFeeds?
     weak var delegate: RegionCodeDelegate?
@@ -126,7 +136,7 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func unwindToToolMenu(segue: UIStoryboardSegue) {
         if let sourceVC = segue.source as? CityTableViewController {
-            selectedCodeRegion = sourceVC.selectedRegionCode
+            selectedRegionCodes = sourceVC.selectedRegionCodes
         }
     }
     /*

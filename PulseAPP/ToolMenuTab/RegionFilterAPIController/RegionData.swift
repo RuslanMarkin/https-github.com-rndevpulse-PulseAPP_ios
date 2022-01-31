@@ -11,6 +11,7 @@ struct RegionData: Codable, Equatable {
     var type: String?
     var name: String?
     var code: String?
+    var isChecked: Bool?
     
     enum Codingkeys: String, CodingKey {
         case type = "type"

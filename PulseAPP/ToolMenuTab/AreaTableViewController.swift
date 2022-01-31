@@ -1,55 +1,55 @@
 //
-//  CityTableViewController.swift
+//  AreaTableViewController.swift
 //  PulseAPP
 //
 //  Created by Михаил Иванов on 25.01.2022.
 //
 
 import UIKit
+import AVFoundation
 
-extension CityTableViewController: ToolMenuRadioButtonRegionCodeTableViewCellDelegate {
+extension AreaTableViewController: ToolMenuRadioButtonRegionCodeTableViewCellDelegate {
     func radioButtonChecked(in cell: RegionCodeTableViewCell) {
         if let indexPath = tableView.indexPath(for: cell) {
-            if let cityCode = cities?[indexPath.row].code {
-                selectedRegionCode! += cityCode
+            if let areaCode = areas?[indexPath.row].code {
+                selectedRegionCode! += areaCode
                 if selectedRegionCodes.contains(selectedRegionCode!) {
-                    selectedRegionCodes = selectedRegionCodes.filter({ code in
-                        code != selectedRegionCode!
+                    selectedRegionCodes = selectedRegionCodes.filter({ codeForArea in
+                        codeForArea != selectedRegionCode!
                     })
-                    selectedRegions = selectedRegions.filter { $0.code != cityCode }
+                    selectedRegions = selectedRegions.filter { $0.code != areaCode  }
                     selectedRegionCode?.removeLast(4)
-                    cities?[indexPath.row].isChecked = nil
-                    selectedCitiesCount -= 1
+                    areas?[indexPath.row].isChecked = nil
+                    isAllListShown = true
                 } else {
                     selectedRegionCodes.append(selectedRegionCode!)
-                    selectedRegions.append(cities![indexPath.row])
+                    selectedRegions.append(areas![indexPath.row])
                     selectedRegionCode?.removeLast(4)
-                    cities?[indexPath.row].isChecked = true
-                    selectedCitiesCount += 1
+                    areas?[indexPath.row].isChecked = true
+                    isAllListShown = false
                 }
+                print(selectedRegionCodes)
             }
-            print(selectedRegionCodes)
         }
         tableView.reloadData()
     }
 }
 
-class CityTableViewController: UITableViewController {
+extension AreaTableViewController: RegionCodeDelegate {
+    func sendToToolMenu(regions: [RegionData]) {
+        selectedRegions.append(contentsOf: regions)
+        //print(selectedRegions)
+    }
+}
+
+class AreaTableViewController: UITableViewController {
     
+    var areas: [RegionData]?
     var cities: [RegionData]?
+    //var selectedRegion: RegionData?
+    var selectedRegions = [RegionData]()
     var selectedRegionCode: String?
     var selectedRegionCodes = [String]()
-    var selectedRegions = [RegionData]()
-    
-    var selectedCitiesCount: Int = 0 {
-        didSet {
-            if selectedCitiesCount > 2 {
-                isAllListShown = false
-            } else {
-                isAllListShown = true
-            }
-        }
-    }
     
     var isAllListShown: Bool = true
     
@@ -59,6 +59,7 @@ class CityTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(RegionCodeTableViewCell.nib(), forCellReuseIdentifier: RegionCodeTableViewCell.identifier)
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -71,6 +72,7 @@ class CityTableViewController: UITableViewController {
         super.didMove(toParent: parent)
 
         if parent == nil {
+            //print(selectedRegions)
             delegate?.sendToToolMenu(regions: selectedRegions)
         }
     }
@@ -79,42 +81,68 @@ class CityTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return cities?.count ?? 0
+        return areas?.count ?? 0
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RegionCodeTableViewCell.identifier, for: indexPath) as! RegionCodeTableViewCell
         if isAllListShown {
-            if let cityName = cities?[indexPath.row].name {
-                if let cityIsChecked = cities?[indexPath.row].isChecked {
-                    cell.configure(with: cityName, unavailable: false, isChecked: true)
+            if let areaName = areas?[indexPath.row].name {
+                if let areaIsChecked = areas?[indexPath.row].isChecked {
+                    cell.configure(with: areaName, unavailable: false, isChecked: true)
                 } else {
-                    cell.configure(with: cityName, unavailable: false, isChecked: false)
+                    cell.configure(with: areaName, unavailable: false, isChecked: false)
                 }
             }
         } else {
-            if let cityName = cities?[indexPath.row].name {
-                if let cityIsChecked = cities?[indexPath.row].isChecked {
-                    cell.configure(with: cityName, unavailable: false, isChecked: true)
+            if let areaName = areas?[indexPath.row].name {
+                if let areaIsChecked = areas?[indexPath.row].isChecked {
+                    cell.configure(with: areaName, unavailable: false, isChecked: true)
                 } else {
-                    cell.configure(with: cityName, unavailable: true, isChecked: false)
+                    cell.configure(with: areaName, unavailable: true, isChecked: false)
                 }
             }
         }
-        cell.accessoryType = UITableViewCell.AccessoryType.none
         cell.delegate = self
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        if let cityCode = cities?[indexPath.row].code {
-//            self.selectedRegionCode? += cityCode
-//            self.performSegue(withIdentifier: "UnwindSegueToToolMenu", sender: nil)
-//        }
-//
+        
+        if selectedRegions.isEmpty {
+            if let areaCode = areas?[indexPath.row].code {
+                selectedRegionCode? += areaCode
+                RegionFilterAPIController.shared.fetchRegionsToFilter(searchArea: areaCode, resultType: "city") { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let cities):
+                            self.cities = cities
+                            self.performSegue(withIdentifier: "CitySegue", sender: nil)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+            }
+        } else {
+            print("You already selected area: \(selectedRegionCode)")
+        }
+        
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CitySegue" {
+            let secondVC: CityTableViewController = segue.destination as! CityTableViewController
+            secondVC.delegate = self
+            secondVC.cities = cities
+            secondVC.selectedRegionCode = selectedRegionCode
+            secondVC.selectedRegionCodes = selectedRegionCodes
+            secondVC.selectedRegions = selectedRegions
+        }
+    }
+    
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

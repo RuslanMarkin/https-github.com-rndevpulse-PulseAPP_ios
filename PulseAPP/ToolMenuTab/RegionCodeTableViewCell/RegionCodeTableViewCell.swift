@@ -38,8 +38,23 @@ class RegionCodeTableViewCell: UITableViewCell {
         delegate?.radioButtonChecked(in: self)
     }
     
-    func configure(with region: String) {
-        regionLabel.text = region
+    func configure(with region: String, unavailable: Bool, isChecked: Bool) {
+        if unavailable {
+            regionLabel.text = region
+            regionLabel.textColor = .systemGray
+            radioButton.setCheckBoxUnavailable()
+            self.isUserInteractionEnabled = false
+        } else {
+            regionLabel.text = region
+            regionLabel.textColor = .black
+            radioButton.setCheckBoxAvailable()
+            self.isUserInteractionEnabled = true
+        }
+        if isChecked {
+            radioButton.isChecked = true
+        } else {
+            radioButton.isChecked = false
+        }
     }
     
 }
