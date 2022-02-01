@@ -183,11 +183,11 @@
             <objects>
                 <viewController id="02j-SW-TN7" customClass="UserFeedViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cuc-E1-MjT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oJI-4C-Awv">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -684,13 +684,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="LWJ-1a-wxr">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Zpt-6o-FSt"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Zpt-6o-FSt">
+                            <connections>
+                                <action selector="doneButtonTapped:" destination="Ia6-B3-i0c" id="g6b-FE-5P0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="4NP-O9-PIX" kind="show" identifier="AreaSegue" id="qRQ-AX-9Nq"/>
+                        <segue destination="NTv-Az-twI" kind="unwind" identifier="UnwindFromRegionToToolMenu" unwindAction="unwindFromRegionToToolMenuWithSegue:" id="0sj-FR-Qjm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dDb-0O-1RJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="NTv-Az-twI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1816" y="2888"/>
         </scene>
@@ -765,7 +771,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="yK7-in-JtI" kind="unwind" identifier="UnwindSegueToToolMenu" unwindAction="unwindToToolMenuWithSegue:" id="hKY-ko-tUP"/>
+                        <segue destination="yK7-in-JtI" kind="unwind" identifier="UnwindToToolMenu" unwindAction="unwindToToolMenuWithSegue:" id="hKY-ko-tUP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7EA-9a-cEx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

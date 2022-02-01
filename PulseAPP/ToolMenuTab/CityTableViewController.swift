@@ -20,15 +20,20 @@ extension CityTableViewController: ToolMenuRadioButtonRegionCodeTableViewCellDel
                     selectedRegionCode?.removeLast(4)
                     cities?[indexPath.row].isChecked = nil
                     selectedCitiesCount -= 1
+                    
+                    selectedRegionNames = selectedRegionNames.filter { $0 != "\(selectedRegion!), \(cities![indexPath.row].name!)" }
                 } else {
                     selectedRegionCodes.append(selectedRegionCode!)
                     selectedRegions.append(cities![indexPath.row])
                     selectedRegionCode?.removeLast(4)
                     cities?[indexPath.row].isChecked = true
                     selectedCitiesCount += 1
+                    
+                    selectedRegion! += ", \(cities![indexPath.row].name!)"
+                    selectedRegionNames.append(selectedRegion!)
+                    selectedRegion! = selectedRegion!.replacingOccurrences(of: ", \(cities![indexPath.row].name!)", with: "")
                 }
             }
-            print(selectedRegions)
         }
         tableView.reloadData()
     }
@@ -40,6 +45,8 @@ class CityTableViewController: UITableViewController {
     var selectedRegionCode: String?
     var selectedRegionCodes = [String]()
     var selectedRegions = [RegionData]()
+    var selectedRegion: String?
+    var selectedRegionNames = [String]()
     
     var selectedCitiesCount: Int = 0 {
         didSet {

@@ -61,9 +61,11 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    var selectedRegions: [RegionData]? {
+    var selectedRegions: [RegionData]?
+    
+    var selectedRegionNames: [String]? {
         didSet {
-            if let regions = selectedRegions {
+            if let regions = selectedRegionNames {
                 tableView.reloadData()
             }
         }
@@ -110,12 +112,11 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
             return cell
         case countInTable:
             let cell = tableView.dequeueReusableCell(withIdentifier: RegionCodeTableViewCell.identifier, for: indexPath)
-            if let regions = selectedRegions, !regions.isEmpty {
+            cell.textLabel?.numberOfLines = 0 //It will make cell with row for each region
+            if let regions = selectedRegionNames, !regions.isEmpty {
                 var regionsString = String()
                 regions.forEach({ regionItem in
-                    if let name = regionItem.name {
-                        regionsString += "\(name), "
-                    }
+                regionsString += "\(regionItem),\n"
                 })
                 if regionsString.count > 2 {
                     regionsString.removeLast(2)
@@ -157,7 +158,7 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 selectedRegions = regions
             }
             selectedRegions = sourceVC.selectedRegions
-            print(selectedRegionCodes)
+            selectedRegionNames = sourceVC.selectedRegionNames
         }
     }
     
@@ -170,7 +171,20 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
                 selectedRegions = regions
             }
             selectedRegions = sourceVC.selectedRegions
-            print(selectedRegionCodes)
+            selectedRegionNames = sourceVC.selectedRegionNames
+        }
+    }
+    
+    @IBAction func unwindFromRegionToToolMenu(segue: UIStoryboardSegue) {
+        if let sourceVC = segue.source as? RegionFilterTableViewController {
+            selectedRegionCodes = sourceVC.selectedRegionCodes
+            selectedRegions = nil
+            let regions = sourceVC.selectedRegions
+            if (self.selectedRegions?.append(contentsOf: regions)) == nil {
+                selectedRegions = regions
+            }
+            selectedRegions = sourceVC.selectedRegions
+            selectedRegionNames = sourceVC.selectedRegionNames
         }
     }
     /*

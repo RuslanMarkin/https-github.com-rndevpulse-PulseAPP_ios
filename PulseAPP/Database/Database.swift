@@ -373,5 +373,23 @@ class Database {
       
       sqlite3_finalize(deleteStatement)
     }
+    
+    //func to clean region_code_data table
+    func cleanRegionFilterTable() {
+      let deleteStatementString = "DELETE FROM user_data WHERE id = 1;"
+      var deleteStatement: OpaquePointer?
+      if sqlite3_prepare_v2(db, deleteStatementString, -1, &deleteStatement, nil) ==
+          SQLITE_OK {
+        if sqlite3_step(deleteStatement) == SQLITE_DONE {
+          print("\nSuccessfully deleted row.")
+        } else {
+          print("\nCould not delete row.")
+        }
+      } else {
+        print("\nDELETE statement could not be prepared")
+      }
+      
+      sqlite3_finalize(deleteStatement)
+    }
 
 }

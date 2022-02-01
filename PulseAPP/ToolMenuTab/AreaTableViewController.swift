@@ -25,14 +25,17 @@ extension AreaTableViewController: ToolMenuRadioButtonRegionCodeTableViewCellDel
                     selectedRegionCode?.removeLast(4)
                     areas?[indexPath.row].isChecked = nil
                     selectedAreasCount -= 1
+                    selectedRegionNames = selectedRegionNames.filter { $0 != "\(selectedRegion!), \(areas![indexPath.row].name!)" }
                 } else {
                     selectedRegionCodes.append(selectedRegionCode!)
                     selectedRegions.append(areas![indexPath.row])
                     selectedRegionCode?.removeLast(4)
                     areas?[indexPath.row].isChecked = true
                     selectedAreasCount += 1
+                    selectedRegion! += ", " + areas![indexPath.row].name!
+                    selectedRegionNames.append(selectedRegion!)
+                    selectedRegion! = selectedRegion!.replacingOccurrences(of: ", \(areas![indexPath.row].name!)", with: "")
                 }
-                print(selectedRegions)
             }
         }
         tableView.reloadData()
@@ -51,10 +54,11 @@ class AreaTableViewController: UITableViewController {
     
     var areas: [RegionData]?
     var cities: [RegionData]?
-    //var selectedRegion: RegionData?
+    var selectedRegion: String?
     var selectedRegions = [RegionData]()
     var selectedRegionCode: String?
     var selectedRegionCodes = [String]()
+    var selectedRegionNames = [String]()
     
     var selectedAreasCount: Int = 0 {
         didSet {
@@ -133,6 +137,7 @@ class AreaTableViewController: UITableViewController {
         if selectedRegions.isEmpty {
             if let areaCode = areas?[indexPath.row].code {
                 selectedRegionCode? += areaCode
+                selectedRegion? += ", \(areas![indexPath.row].name!)"
                 RegionFilterAPIController.shared.fetchRegionsToFilter(searchArea: areaCode, resultType: "city") { result in
                     DispatchQueue.main.async {
                         switch result {
@@ -159,6 +164,7 @@ class AreaTableViewController: UITableViewController {
             secondVC.selectedRegionCode = selectedRegionCode
             secondVC.selectedRegionCodes = selectedRegionCodes
             secondVC.selectedRegions = selectedRegions
+            secondVC.selectedRegion = selectedRegion
         }
     }
     
