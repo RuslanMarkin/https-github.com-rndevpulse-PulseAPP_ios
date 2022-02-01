@@ -8,6 +8,10 @@
 import UIKit
 import AVFoundation
 
+protocol RegionCodeDelegate: AnyObject {
+    func sendToToolMenu(regions: [RegionData])
+}
+
 extension AreaTableViewController: ToolMenuRadioButtonRegionCodeTableViewCellDelegate {
     func radioButtonChecked(in cell: RegionCodeTableViewCell) {
         if let indexPath = tableView.indexPath(for: cell) {
@@ -20,15 +24,15 @@ extension AreaTableViewController: ToolMenuRadioButtonRegionCodeTableViewCellDel
                     selectedRegions = selectedRegions.filter { $0.code != areaCode  }
                     selectedRegionCode?.removeLast(4)
                     areas?[indexPath.row].isChecked = nil
-                    isAllListShown = true
+                    selectedAreasCount -= 1
                 } else {
                     selectedRegionCodes.append(selectedRegionCode!)
                     selectedRegions.append(areas![indexPath.row])
                     selectedRegionCode?.removeLast(4)
                     areas?[indexPath.row].isChecked = true
-                    isAllListShown = false
+                    selectedAreasCount += 1
                 }
-                print(selectedRegionCodes)
+                print(selectedRegions)
             }
         }
         tableView.reloadData()
@@ -37,6 +41,7 @@ extension AreaTableViewController: ToolMenuRadioButtonRegionCodeTableViewCellDel
 
 extension AreaTableViewController: RegionCodeDelegate {
     func sendToToolMenu(regions: [RegionData]) {
+        selectedRegionCode?.removeLast(4)
         selectedRegions.append(contentsOf: regions)
         //print(selectedRegions)
     }
@@ -51,12 +56,24 @@ class AreaTableViewController: UITableViewController {
     var selectedRegionCode: String?
     var selectedRegionCodes = [String]()
     
+    var selectedAreasCount: Int = 0 {
+        didSet {
+            if selectedAreasCount > 2 {
+                isAllListShown = false
+            } else {
+                isAllListShown = true
+            }
+        }
+    }
+    
     var isAllListShown: Bool = true
     
     weak var delegate: RegionCodeDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.setHidesBackButton(true, animated: true)
         
         tableView.register(RegionCodeTableViewCell.nib(), forCellReuseIdentifier: RegionCodeTableViewCell.identifier)
         
@@ -67,15 +84,18 @@ class AreaTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
-    override func didMove(toParent parent: UIViewController?) {
-        super.didMove(toParent: parent)
-
-        if parent == nil {
-            //print(selectedRegions)
-            delegate?.sendToToolMenu(regions: selectedRegions)
-        }
+    @IBAction func doneButtonTapped(_ sender: Any) {
+        self.performSegue(withIdentifier: "UnwindFromAreaToToolMenu", sender: nil)
     }
+    
+//    override func didMove(toParent parent: UIViewController?) {
+//        super.didMove(toParent: parent)
+//
+//        if parent == nil {
+//            self.performSegue(withIdentifier: "UnwindFromAreaToToolMenuSegue", sender: nil)
+//            //delegate?.sendToToolMenu(regions: selectedRegions)
+//        }
+//    }
 
     // MARK: - Table view data source
 

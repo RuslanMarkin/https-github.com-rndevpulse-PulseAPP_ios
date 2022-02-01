@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol RegionCodeDelegate: AnyObject {
-    func sendToToolMenu(regions: [RegionData])
-}
-
 extension RegionFilterTableViewController: ToolMenuRadioButtonRegionCodeTableViewCellDelegate {
     func radioButtonChecked(in cell: RegionCodeTableViewCell) {
         if let indexPath = tableView.indexPath(for: cell) {
@@ -22,7 +18,7 @@ extension RegionFilterTableViewController: ToolMenuRadioButtonRegionCodeTableVie
                     selectedRegions.append(country)
                     selectedRegionCodes.append(country.code!)
                 }
-                //print(selectedRegions)
+                print(selectedRegions)
             }
         }
     }
@@ -30,9 +26,14 @@ extension RegionFilterTableViewController: ToolMenuRadioButtonRegionCodeTableVie
 
 extension RegionFilterTableViewController: RegionCodeDelegate {
     func sendToToolMenu(regions: [RegionData]) {
+        //print("returned to tool menu")
         selectedRegions.append(contentsOf: regions)
-        print(selectedRegions)
+        //print(selectedRegions)
     }
+}
+
+protocol RegionCodeSendDelegate: AnyObject {
+    func sendToToolMenu(regions: [RegionData])
 }
 
 class RegionFilterTableViewController: UITableViewController {
@@ -44,10 +45,12 @@ class RegionFilterTableViewController: UITableViewController {
     var selectedRegionCode: String?
     var selectedRegionCodes = [String]()
     
-    weak var delegate: RegionCodeDelegate?
+    weak var delegate: RegionCodeSendDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.setHidesBackButton(true, animated: true)
         
         tableView.register(RegionCodeTableViewCell.nib(), forCellReuseIdentifier: RegionCodeTableViewCell.identifier)
         
@@ -62,7 +65,7 @@ class RegionFilterTableViewController: UITableViewController {
             }
         }
         
-        delegate = self
+        
 
 //         Uncomment the following line to preserve selection between presentations
 //         self.clearsSelectionOnViewWillAppear = false
@@ -71,14 +74,13 @@ class RegionFilterTableViewController: UITableViewController {
 //         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    override func didMove(toParent parent: UIViewController?) {
-        super.didMove(toParent: parent)
-
-        if parent == nil {
-            //print(selectedRegions)
-            delegate?.sendToToolMenu(regions: selectedRegions)
-        }
-    }
+//    override func didMove(toParent parent: UIViewController?) {
+//        super.didMove(toParent: parent)
+//
+//        if parent == nil {
+//            delegate?.sendToToolMenu(regions: selectedRegions)
+//        }
+//    }
     
     func updateUI(with regions: [RegionData]) {
         DispatchQueue.main.async {

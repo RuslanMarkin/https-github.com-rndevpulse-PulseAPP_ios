@@ -28,7 +28,7 @@ extension CityTableViewController: ToolMenuRadioButtonRegionCodeTableViewCellDel
                     selectedCitiesCount += 1
                 }
             }
-            print(selectedRegionCodes)
+            print(selectedRegions)
         }
         tableView.reloadData()
     }
@@ -58,6 +58,8 @@ class CityTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        
         tableView.register(RegionCodeTableViewCell.nib(), forCellReuseIdentifier: RegionCodeTableViewCell.identifier)
 
         // Uncomment the following line to preserve selection between presentations
@@ -66,14 +68,17 @@ class CityTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
-    override func didMove(toParent parent: UIViewController?) {
-        super.didMove(toParent: parent)
-
-        if parent == nil {
-            delegate?.sendToToolMenu(regions: selectedRegions)
-        }
+    @IBAction func doneButtonTapped(_ sender: Any) {
+        self.performSegue(withIdentifier: "UnwindToToolMenu", sender: nil)
     }
+    
+//    override func didMove(toParent parent: UIViewController?) {
+//        super.didMove(toParent: parent)
+//
+//        if parent == nil {
+//            self.performSegue(withIdentifier: "UnwindSegueToToolMenu", sender: nil)
+//        }
+//    }
 
     // MARK: - Table view data source
 

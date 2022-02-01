@@ -183,11 +183,11 @@
             <objects>
                 <viewController id="02j-SW-TN7" customClass="UserFeedViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cuc-E1-MjT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oJI-4C-Awv">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -683,7 +683,9 @@
                             <outlet property="delegate" destination="Ia6-B3-i0c" id="gcU-E5-a21"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="LWJ-1a-wxr"/>
+                    <navigationItem key="navigationItem" id="LWJ-1a-wxr">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Zpt-6o-FSt"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="4NP-O9-PIX" kind="show" identifier="AreaSegue" id="qRQ-AX-9Nq"/>
                     </connections>
@@ -715,12 +717,20 @@
                             <outlet property="delegate" destination="4NP-O9-PIX" id="I94-ng-PHk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="4ts-Yx-Qzl"/>
+                    <navigationItem key="navigationItem" id="4ts-Yx-Qzl">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="1dQ-Ye-Db3">
+                            <connections>
+                                <action selector="doneButtonTapped:" destination="4NP-O9-PIX" id="6Xv-2g-R79"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="PXE-3B-KTW" kind="show" identifier="CitySegue" id="Ma4-if-AwG"/>
+                        <segue destination="oIn-ij-Jsn" kind="unwind" identifier="UnwindFromAreaToToolMenu" unwindAction="unwindFromAreaToToolMenuWithSegue:" id="QuV-lW-rc2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ois-f1-q2K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="oIn-ij-Jsn" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1816" y="3617"/>
         </scene>
@@ -747,7 +757,13 @@
                             <outlet property="delegate" destination="PXE-3B-KTW" id="alQ-Jg-sg9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="gKN-G5-SVT"/>
+                    <navigationItem key="navigationItem" id="gKN-G5-SVT">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="m5P-Qw-Tbv">
+                            <connections>
+                                <action selector="doneButtonTapped:" destination="PXE-3B-KTW" id="1jc-2R-qpK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="yK7-in-JtI" kind="unwind" identifier="UnwindSegueToToolMenu" unwindAction="unwindToToolMenuWithSegue:" id="hKY-ko-tUP"/>
                     </connections>

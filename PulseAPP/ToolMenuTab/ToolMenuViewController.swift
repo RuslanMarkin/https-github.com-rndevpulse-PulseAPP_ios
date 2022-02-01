@@ -21,11 +21,12 @@ extension ToolMenuViewController: ToolMenuCategorySwitchTableViewCellDelegate {
     }
 }
 
-extension ToolMenuViewController: RegionCodeDelegate {
+extension ToolMenuViewController: RegionCodeSendDelegate {
     func sendToToolMenu(regions: [RegionData]) {
-        selectedRegions?.append(contentsOf: regions)
-        //self.selectedRegionCodes = selectedRegionCodes
-        //print(selectedRegions)
+        selectedRegions = nil
+        if (self.selectedRegions?.append(contentsOf: regions)) == nil {
+            selectedRegions = regions
+        }
     }
 }
 
@@ -62,7 +63,9 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
     
     var selectedRegions: [RegionData]? {
         didSet {
-            print(selectedRegions!)
+            if let regions = selectedRegions {
+                tableView.reloadData()
+            }
         }
     }
     
@@ -81,8 +84,6 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
         categories = Database.shared.queryCategory()
         Database.shared.createRegionCodeTable()
         Database.shared.insertRegionCodeData(id: 0, regionCode: "0001")
-        
-        delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -109,7 +110,20 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
             return cell
         case countInTable:
             let cell = tableView.dequeueReusableCell(withIdentifier: RegionCodeTableViewCell.identifier, for: indexPath)
-            cell.textLabel?.text = NSLocalizedString("Choose region", comment: "")
+            if let regions = selectedRegions, !regions.isEmpty {
+                var regionsString = String()
+                regions.forEach({ regionItem in
+                    if let name = regionItem.name {
+                        regionsString += "\(name), "
+                    }
+                })
+                if regionsString.count > 2 {
+                    regionsString.removeLast(2)
+                }
+                cell.textLabel?.text = regionsString
+            } else {
+                cell.textLabel?.text = NSLocalizedString("Choose region", comment: "")
+            }
             cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
             return cell
         default:
@@ -137,6 +151,26 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func unwindToToolMenu(segue: UIStoryboardSegue) {
         if let sourceVC = segue.source as? CityTableViewController {
             selectedRegionCodes = sourceVC.selectedRegionCodes
+            selectedRegions = nil
+            let regions = sourceVC.selectedRegions
+            if (self.selectedRegions?.append(contentsOf: regions)) == nil {
+                selectedRegions = regions
+            }
+            selectedRegions = sourceVC.selectedRegions
+            print(selectedRegionCodes)
+        }
+    }
+    
+    @IBAction func unwindFromAreaToToolMenu(segue: UIStoryboardSegue) {
+        if let sourceVC = segue.source as? AreaTableViewController {
+            selectedRegionCodes = sourceVC.selectedRegionCodes
+            selectedRegions = nil
+            let regions = sourceVC.selectedRegions
+            if (self.selectedRegions?.append(contentsOf: regions)) == nil {
+                selectedRegions = regions
+            }
+            selectedRegions = sourceVC.selectedRegions
+            print(selectedRegionCodes)
         }
     }
     /*
