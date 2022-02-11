@@ -107,11 +107,11 @@
             <objects>
                 <viewController id="ngq-L2-y0V" customClass="UserProfileViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QTf-bm-24O">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JSf-fx-E5i">
-                                <rect key="frame" x="0.0" y="88" width="414" height="32"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="32"/>
                                 <segments>
                                     <segment title="Events"/>
                                     <segment title="Publications"/>
@@ -122,19 +122,19 @@
                                 </connections>
                             </segmentedControl>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VkF-zI-2D9">
-                                <rect key="frame" x="0.0" y="119" width="414" height="694"/>
+                                <rect key="frame" x="0.0" y="87" width="414" height="726"/>
                                 <connections>
                                     <segue destination="3JY-yc-Fy1" kind="embed" id="7xQ-9I-w9W"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBk-r2-lYS">
-                                <rect key="frame" x="0.0" y="119" width="414" height="694"/>
+                                <rect key="frame" x="0.0" y="87" width="414" height="726"/>
                                 <connections>
                                     <segue destination="UNE-1g-ClT" kind="embed" id="fKL-8b-ydF"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XmD-hs-4kR">
-                                <rect key="frame" x="0.0" y="119" width="414" height="694"/>
+                                <rect key="frame" x="0.0" y="87" width="414" height="726"/>
                                 <connections>
                                     <segue destination="CVy-95-tZj" kind="embed" id="tJa-N0-X1k"/>
                                 </connections>
@@ -183,11 +183,11 @@
             <objects>
                 <viewController id="02j-SW-TN7" customClass="UserFeedViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cuc-E1-MjT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oJI-4C-Awv">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="757"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -214,11 +214,11 @@
             <objects>
                 <viewController id="WnI-ph-VFf" customClass="ProfileSettingsViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mwx-ci-IIW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="u0b-1a-lvc">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="757"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="7M3-bx-JOD">
@@ -258,11 +258,11 @@
             <objects>
                 <viewController id="rx1-By-t55" customClass="CreatePublicationViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bci-ex-87q" customClass="CreatePublicationView">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEB-kq-xTR">
-                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="44"/>
                             </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RcU-f7-577"/>
@@ -293,14 +293,14 @@
             <objects>
                 <viewController id="eqt-Av-Jt0" customClass="GeoDataViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DTr-ol-7AG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nse-Rh-FmB">
-                                <rect key="frame" x="87" y="384" width="240" height="128"/>
+                                <rect key="frame" x="87" y="352" width="240" height="138"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gA-Zi-IqP">
-                                        <rect key="frame" x="99" y="53.5" width="42" height="21"/>
+                                        <rect key="frame" x="99" y="58.5" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -617,7 +617,7 @@
                     <tabBarItem key="tabBarItem" title="Profile" id="ytg-zP-t0D"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HyQ-Ny-sm6">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -634,11 +634,11 @@
             <objects>
                 <viewController id="HJS-Fo-Oh9" customClass="ToolMenuViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kx3-av-bSx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8OD-7P-LvU">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="757"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -665,7 +665,7 @@
             <objects>
                 <tableViewController id="Ia6-B3-i0c" customClass="RegionFilterTableViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="cKG-bb-OiQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -705,7 +705,7 @@
             <objects>
                 <tableViewController id="4NP-O9-PIX" customClass="AreaTableViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="wtR-S0-3zu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -745,7 +745,7 @@
             <objects>
                 <tableViewController id="PXE-3B-KTW" customClass="CityTableViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="1nY-FK-CZF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -784,7 +784,7 @@
             <objects>
                 <viewController id="zfR-N3-8dv" customClass="SubscriptionsViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gRX-ex-H3R">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="ZCg-Vy-glA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -800,7 +800,7 @@
             <objects>
                 <viewController id="LXe-bg-FZs" customClass="CalendarViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GLE-YK-bCE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="o0f-rM-7rG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -816,11 +816,11 @@
             <objects>
                 <viewController id="oh8-WZ-EWf" customClass="MapViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gdd-5X-Sa5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AAD-qP-PZc">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="757"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sOX-4E-7Hi"/>
@@ -853,11 +853,11 @@
             <objects>
                 <viewController storyboardIdentifier="AddPublicationTypeController" id="5LI-i7-4pb" customClass="AddPublicationViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zAF-ON-QT9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="s2w-Vh-4H7">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="757"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PublicationTypeCell" id="Jpc-11-suC">
@@ -920,7 +920,7 @@
                     <tabBarItem key="tabBarItem" title="Map" id="m9k-8y-yEz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vqx-uP-ScF">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -937,11 +937,11 @@
             <objects>
                 <viewController id="CVy-95-tZj" customClass="EventsFeedViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mTa-pc-yGg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="694"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="726"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="100" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kuc-P3-4rh">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="694"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="726"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -967,11 +967,11 @@
             <objects>
                 <viewController id="UNE-1g-ClT" customClass="PublicationFeedViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="z3d-40-gIu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="694"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="726"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qD5-6e-Tz3">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="694"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="726"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -997,11 +997,11 @@
             <objects>
                 <viewController id="3JY-yc-Fy1" customClass="OrganizationFeedViewController" customModule="PulseAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FBP-oY-9bO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="694"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="726"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QYk-Ql-bJL">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="694"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="726"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -1029,7 +1029,7 @@
                     <tabBarItem key="tabBarItem" title="Tool Menu" id="6K0-yy-NQj"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6EL-lD-qmW">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1043,7 +1043,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="agX-EJ-Haa"/>
+        <segue reference="dzp-yt-vIs"/>
         <segue reference="PGS-Pd-Bka"/>
     </inferredMetricsTieBreakers>
     <resources>
