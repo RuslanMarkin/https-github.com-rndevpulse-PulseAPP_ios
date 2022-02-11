@@ -17,6 +17,7 @@ class EventsFeedViewController: UIViewController, UITableViewDataSource, UITable
     var lastId: String?
     var pageCoef: Int = 0
     var selectedCategories: [String]?
+    var selectedRegions: [String]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,8 @@ class EventsFeedViewController: UIViewController, UITableViewDataSource, UITable
                 }
         
         selectedCategories = Database.shared.queryCategoriesStatus()
-        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: selectedCategories ?? [], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
+        selectedRegions = Database.shared.queryRegionCodes()
+        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: selectedCategories ?? [], inRegions: selectedRegions ?? ["0001001C"], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
             DispatchQueue.main.async {
                 switch result {
                             case .success(let userPublications):
@@ -54,12 +56,17 @@ class EventsFeedViewController: UIViewController, UITableViewDataSource, UITable
     @objc private func refreshListData(_ sender: Any) {
         publications.removeAll()
         self.pageCoef = 0
+        print(selectedRegions)
         
         selectedCategories = Database.shared.queryCategoriesStatus()
-        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: selectedCategories ?? [], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
+        selectedRegions = Database.shared.queryRegionCodes()
+        print(selectedRegions)
+        
+        PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: selectedCategories ?? [], inRegions: selectedRegions ?? ["0001001C"], afterPublicationWithLastId: "", with: self.pageCoef, pagination: false) { result in
             DispatchQueue.main.async {
                 switch result {
                             case .success(let userPublications):
+                                print(userPublications!.count)
                                 self.updateUI(with: userPublications!)
                                 self.pageCoef += 1
                             case .failure(let error):
@@ -120,7 +127,7 @@ class EventsFeedViewController: UIViewController, UITableViewDataSource, UITable
 
             self.table.tableFooterView = createSpinner()
             
-            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: selectedCategories ?? [], afterPublicationWithLastId: ((self.lastId != nil) ? self.lastId! : ""), with: self.pageCoef, pagination: true) { result in
+            PublicationAPIController.shared.getPublications(ofType: "PUBLICATIONTYPE.Event", ofCategories: selectedCategories ?? [], inRegions: selectedRegions ?? ["0001001C"], afterPublicationWithLastId: ((self.lastId != nil) ? self.lastId! : ""), with: self.pageCoef, pagination: true) { result in
                 DispatchQueue.main.async {
                     switch result {
                                 case .success(let userPublications):

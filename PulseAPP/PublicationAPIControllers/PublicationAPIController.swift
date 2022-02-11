@@ -147,7 +147,7 @@ class PublicationAPIController {
     }
     
     //Fetch publications filtered by categories and type
-    func getPublications(ofType: String, ofCategories: [String], afterPublicationWithLastId: String, with coef: Int, pagination: Bool = false, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
+    func getPublications(ofType: String, ofCategories: [String], inRegions: [String], afterPublicationWithLastId: String, with coef: Int, pagination: Bool = false, completion: @escaping (Result<[UserPublication]?, ErrorData>) -> Void) {
         if pagination {
             self.isPaginating = true
         }
@@ -163,9 +163,9 @@ class PublicationAPIController {
         let session = URLSession.init(configuration: config)
         
         if afterPublicationWithLastId == "" {
-            data = ["typename": ofType, "category": ofCategories]
+            data = ["typename": ofType, "RegionCodes": inRegions, "category": ofCategories]
         } else {
-            data = ["lastid": afterPublicationWithLastId, "typename": ofType, "category": ofCategories]
+            data = ["lastid": afterPublicationWithLastId, "typename": ofType, "RegionCodes": inRegions, "category": ofCategories]
         }
         
 

@@ -58,6 +58,13 @@ class ToolMenuViewController: UIViewController, UITableViewDelegate, UITableView
     var selectedRegionCodes: [String]? {
         didSet {
             print(selectedRegionCodes)
+            if !(selectedRegionCodes!.isEmpty) {
+                Database.shared.cleanRegionFilterTable()
+                for (index, regionItem) in selectedRegionCodes!.enumerated() {
+                    var index32 = Int32(index)
+                    Database.shared.insertRegionCodeData(id: index32, regionCode: regionItem)
+                }
+            }
         }
     }
     

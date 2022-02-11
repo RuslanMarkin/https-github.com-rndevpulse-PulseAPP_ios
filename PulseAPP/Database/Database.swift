@@ -98,9 +98,9 @@ class Database {
             sqlite3_bind_text(insertStatement, 2, regionCode.utf8String, -1, nil)
             
             if sqlite3_step(insertStatement) == SQLITE_DONE {
-                print("\nSuccessfully inserted row in region_code")
+                print("\nSuccessfully inserted row in region_code_table")
             } else {
-                print("\nCould not insert row in region_code")
+                print("\nCould not insert row in region_code_table")
             }
         } else {
             print("\nInsert statement is not prepared")
@@ -264,13 +264,36 @@ class Database {
         return categories
     }
     
-    func getCountOfRowsInTable() -> Int {
-        let query = "select count(*) from tableName;"
+    func queryRegionCodes() -> [String]? {
+        var regions = [String]()
+        
+        let queryStatementString = "SELECT * FROM region_code_data;"
+        var queryStatement: OpaquePointer?
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            print("\n")
+            while (sqlite3_step(queryStatement) == SQLITE_ROW) {
+                guard let queryResultCol2 = sqlite3_column_text(queryStatement, 1) else {
+                    print("Query result is nil.")
+                    return nil
+                }
+                let name = String(cString: queryResultCol2)
+                regions.append(name)
+            }
+        } else {
+          let errorMessage = String(cString: sqlite3_errmsg(db))
+          print("\nQuery is not prepared \(errorMessage)")
+        }
+        sqlite3_finalize(queryStatement)
+        return regions
+    }
+    
+    func countOfRowsInRegionCodeTable() -> Int {
+        let query = "SELECT COUNT(*) FROM region_code_data;"
         var queryStatement: OpaquePointer?
         var cnt: Int32?
         
         if sqlite3_prepare(self.db, query, -1, &queryStatement, nil) == SQLITE_OK {
-              while(sqlite3_step(queryStatement) == SQLITE_ROW) {
+              while (sqlite3_step(queryStatement) == SQLITE_ROW) {
                    let count = sqlite3_column_int(queryStatement, 0)
                    print("\(count)")
                   cnt = count
@@ -376,14 +399,14 @@ class Database {
     
     //func to clean region_code_data table
     func cleanRegionFilterTable() {
-      let deleteStatementString = "DELETE FROM user_data WHERE id = 1;"
+      let deleteStatementString = "DELETE FROM region_code_data;"
       var deleteStatement: OpaquePointer?
       if sqlite3_prepare_v2(db, deleteStatementString, -1, &deleteStatement, nil) ==
           SQLITE_OK {
         if sqlite3_step(deleteStatement) == SQLITE_DONE {
-          print("\nSuccessfully deleted row.")
+          print("\nSuccessfully deleted region code table.")
         } else {
-          print("\nCould not delete row.")
+          print("\nCould not delete table.")
         }
       } else {
         print("\nDELETE statement could not be prepared")
