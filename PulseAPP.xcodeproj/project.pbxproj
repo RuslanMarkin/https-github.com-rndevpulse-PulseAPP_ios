@@ -13,6 +13,8 @@
 		3E3D2EB12775B7150099E4EC /* OrganizationFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D2EB02775B7150099E4EC /* OrganizationFeedViewController.swift */; };
 		3E3D2EB42775DCFB0099E4EC /* OrganizationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D2EB22775DCFB0099E4EC /* OrganizationTableViewCell.swift */; };
 		3E3D2EB52775DCFB0099E4EC /* OrganizationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3D2EB32775DCFB0099E4EC /* OrganizationTableViewCell.xib */; };
+		3E5120A727B6826400769339 /* MarkerPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5120A627B6826400769339 /* MarkerPoints.swift */; };
+		3E5120AA27B682C400769339 /* MarkerPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5120A927B682C400769339 /* MarkerPoint.swift */; };
 		3E85E8FB277317E300F1E781 /* UserAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85E8FA277317E300F1E781 /* UserAbility.swift */; };
 		3E85E8FD27731D5800F1E781 /* network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85E8FC27731D5800F1E781 /* network.swift */; };
 		3E98387B27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98387927954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift */; };
@@ -105,6 +107,8 @@
 		3E3D2EB02775B7150099E4EC /* OrganizationFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationFeedViewController.swift; sourceTree = "<group>"; };
 		3E3D2EB22775DCFB0099E4EC /* OrganizationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationTableViewCell.swift; sourceTree = "<group>"; };
 		3E3D2EB32775DCFB0099E4EC /* OrganizationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrganizationTableViewCell.xib; sourceTree = "<group>"; };
+		3E5120A627B6826400769339 /* MarkerPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerPoints.swift; sourceTree = "<group>"; };
+		3E5120A927B682C400769339 /* MarkerPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerPoint.swift; sourceTree = "<group>"; };
 		3E85E8FA277317E300F1E781 /* UserAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAbility.swift; sourceTree = "<group>"; };
 		3E85E8FC27731D5800F1E781 /* network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = network.swift; sourceTree = "<group>"; };
 		3E98387927954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolMenuCategorySwitchTableViewCell.swift; sourceTree = "<group>"; };
@@ -260,6 +264,15 @@
 				3E3D2EB22775DCFB0099E4EC /* OrganizationTableViewCell.swift */,
 			);
 			path = OrganizationTableView;
+			sourceTree = "<group>";
+		};
+		3E5120A527B6822900769339 /* MarkerData */ = {
+			isa = PBXGroup;
+			children = (
+				3E5120A627B6826400769339 /* MarkerPoints.swift */,
+				3E5120A927B682C400769339 /* MarkerPoint.swift */,
+			);
+			path = MarkerData;
 			sourceTree = "<group>";
 		};
 		3E98387727954F02009CC0C9 /* ToolMenuCategorySwitchCell */ = {
@@ -607,6 +620,7 @@
 			isa = PBXGroup;
 			children = (
 				4BCC3CD9276A29AC0058973B /* MarkerAPIController.swift */,
+				3E5120A527B6822900769339 /* MarkerData */,
 				4BCC3CDB276A2D430058973B /* MapPoint.swift */,
 				4B42949C276B2F4000F23C29 /* Metadata.swift */,
 				4B42949E276B30A800F23C29 /* Points.swift */,
@@ -751,11 +765,13 @@
 				4B36CDC3271EC3D10091D229 /* PublicationAPIController.swift in Sources */,
 				4B6F3269272835A1008A8838 /* User.swift in Sources */,
 				3E85E8FB277317E300F1E781 /* UserAbility.swift in Sources */,
+				3E5120AA27B682C400769339 /* MarkerPoint.swift in Sources */,
 				4B55CE962743EE78007152B3 /* ProfileSettingsViewController.swift in Sources */,
 				4BC3570B274E5A9F0075896F /* CategoryCollectionViewCell.swift in Sources */,
 				4B566EF12760B1B400452AD7 /* DescriptionTableViewCell.swift in Sources */,
 				4B3D81C62758F7E3009CA0F6 /* NameTableViewCell.swift in Sources */,
 				4B6F3266272835A1008A8838 /* UserPublication.swift in Sources */,
+				3E5120A727B6826400769339 /* MarkerPoints.swift in Sources */,
 				4B6F3268272835A1008A8838 /* PublicationType.swift in Sources */,
 				3E2AB11B277303360047215B /* UserFeedViewController.swift in Sources */,
 				4B9114122719B65F00841927 /* ImageAPIController.swift in Sources */,

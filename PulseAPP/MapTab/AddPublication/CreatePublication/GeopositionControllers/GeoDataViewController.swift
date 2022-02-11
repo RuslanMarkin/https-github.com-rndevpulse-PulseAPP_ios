@@ -8,8 +8,6 @@
 import UIKit
 import MapKit
 import CoreLocation
-//import AVFAudio
-//import simd
 
 protocol GeoDataViewControllerDelegate {
     func sendGeoposition(geo: String)
@@ -39,20 +37,6 @@ class EventsAnnotation: NSObject, MKAnnotation {
         self.typeId = typeId
     }
 }
-
-//class OrgOrEventPins {
-//    var id: String?
-//    var typeId: String?
-//    var name: String?
-//    var location: CLLocationCoordinate2D?
-//
-//    init(id: String?, typeId: String?, name: String, location: CLLocationCoordinate2D?) {
-//        self.id = id
-//        self.typeId = typeId
-//        self.name = name
-//        self.location = location
-//    }
-//}
 
 class GeoDataViewController: UIViewController {
     
@@ -105,7 +89,7 @@ class GeoDataViewController: UIViewController {
         
         configureMapView()
         configureLocationManager()
-        //centerMapOnUserLocation()
+       
         self.setMapview()
         
         view.addSubview(centerMapButton)
@@ -157,10 +141,6 @@ class GeoDataViewController: UIViewController {
             }
         }
     }
-    
-//    override func didMove(toParent parent: UIViewController?) {
-//        super.didMove(toParent: parent)
-//    }
     
     @objc func handleCenterOnUserLocation() {
         centerMapOnUserLocation()
@@ -482,7 +462,7 @@ extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerD
                         
                         let myPin = EventsAnnotation(title: "Publication attached ✔️", subtitle: "You are here 😃", coordinate: userCoordinates, pinTintColor: .green, typeId: nil)
                         self.selectedAnnotation = myPin
-                        //self.mapView.selectAnnotation(myPin, animated: true)
+                        
                         self.mapView.addAnnotation(myPin)
                         self.geoposition = "\(userCoordinates.latitude), \(userCoordinates.longitude)"
                         if let geo = self.geoposition {
