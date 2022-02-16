@@ -22,3 +22,5 @@ struct Points: Codable {
         points = try values.decodeIfPresent([MapPoint].self, forKey: .points)
     }
 }
+
+

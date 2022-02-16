@@ -74,6 +74,8 @@ class AreaTableViewController: UITableViewController {
     
     weak var delegate: RegionCodeDelegate?
 
+    @IBOutlet weak var searchArea: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

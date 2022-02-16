@@ -7,6 +7,7 @@
 
 import Foundation
 
+//This struct is used for map points display in main mapTab
 struct MarkerPoints: Codable {
     let metadata: Metadata?
     let points: [MarkerPoint]?

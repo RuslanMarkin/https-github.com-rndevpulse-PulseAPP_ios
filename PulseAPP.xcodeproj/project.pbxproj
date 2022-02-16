@@ -15,8 +15,11 @@
 		3E3D2EB52775DCFB0099E4EC /* OrganizationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3D2EB32775DCFB0099E4EC /* OrganizationTableViewCell.xib */; };
 		3E5120A727B6826400769339 /* MarkerPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5120A627B6826400769339 /* MarkerPoints.swift */; };
 		3E5120AA27B682C400769339 /* MarkerPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5120A927B682C400769339 /* MarkerPoint.swift */; };
+		3E523BDB27BCEBAF00B1D824 /* MarkerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E523BDA27BCEBAF00B1D824 /* MarkerAnnotation.swift */; };
 		3E85E8FB277317E300F1E781 /* UserAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85E8FA277317E300F1E781 /* UserAbility.swift */; };
 		3E85E8FD27731D5800F1E781 /* network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E85E8FC27731D5800F1E781 /* network.swift */; };
+		3E8BB09C27BB7F500009015D /* MapPointAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8BB09B27BB7F500009015D /* MapPointAnnotationView.swift */; };
+		3E8BB09E27BB83C30009015D /* ClusterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8BB09D27BB83C30009015D /* ClusterAnnotationView.swift */; };
 		3E98387B27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98387927954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift */; };
 		3E98387C27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E98387A27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib */; };
 		3E9CDB2A27A1222B004383C7 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CDB2927A1222B004383C7 /* CheckBox.swift */; };
@@ -109,8 +112,11 @@
 		3E3D2EB32775DCFB0099E4EC /* OrganizationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrganizationTableViewCell.xib; sourceTree = "<group>"; };
 		3E5120A627B6826400769339 /* MarkerPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerPoints.swift; sourceTree = "<group>"; };
 		3E5120A927B682C400769339 /* MarkerPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerPoint.swift; sourceTree = "<group>"; };
+		3E523BDA27BCEBAF00B1D824 /* MarkerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerAnnotation.swift; sourceTree = "<group>"; };
 		3E85E8FA277317E300F1E781 /* UserAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAbility.swift; sourceTree = "<group>"; };
 		3E85E8FC27731D5800F1E781 /* network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = network.swift; sourceTree = "<group>"; };
+		3E8BB09B27BB7F500009015D /* MapPointAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPointAnnotationView.swift; sourceTree = "<group>"; };
+		3E8BB09D27BB83C30009015D /* ClusterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterAnnotationView.swift; sourceTree = "<group>"; };
 		3E98387927954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolMenuCategorySwitchTableViewCell.swift; sourceTree = "<group>"; };
 		3E98387A27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolMenuCategorySwitchTableViewCell.xib; sourceTree = "<group>"; };
 		3E9CDB2927A1222B004383C7 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
@@ -275,6 +281,16 @@
 			path = MarkerData;
 			sourceTree = "<group>";
 		};
+		3E8BB09A27BB7EC40009015D /* MapPointsClustering */ = {
+			isa = PBXGroup;
+			children = (
+				3E8BB09B27BB7F500009015D /* MapPointAnnotationView.swift */,
+				3E8BB09D27BB83C30009015D /* ClusterAnnotationView.swift */,
+				3E523BDA27BCEBAF00B1D824 /* MarkerAnnotation.swift */,
+			);
+			path = MapPointsClustering;
+			sourceTree = "<group>";
+		};
 		3E98387727954F02009CC0C9 /* ToolMenuCategorySwitchCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +353,7 @@
 		4B1B00652747CF3600D03BF2 /* MapTab */ = {
 			isa = PBXGroup;
 			children = (
+				3E8BB09A27BB7EC40009015D /* MapPointsClustering */,
 				4B5510A6274B6FA300DE47BF /* AddPublication */,
 				4B9113F62717153B00841927 /* MapViewController.swift */,
 			);
@@ -462,7 +479,6 @@
 				4B7C8ABA275A1C170068AE19 /* DescriptionTableCell */,
 				4BC35707274E59FB0075896F /* CategoryCollectionTableCell */,
 				4B7C8AB5275A164F0068AE19 /* CoverageRadiusTableCell */,
-				4B3D81C72758F9B9009CA0F6 /* BeginEndEventTableCell */,
 			);
 			path = CreatePublication;
 			sourceTree = "<group>";
@@ -505,6 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				4B7C8AB6275A16920068AE19 /* CoverageRadiusTableViewCell.swift */,
+				4B3D81C72758F9B9009CA0F6 /* BeginEndEventTableCell */,
 				4B7C8AB7275A16920068AE19 /* CoverageRadiusTableViewCell.xib */,
 			);
 			path = CoverageRadiusTableCell;
@@ -749,6 +766,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E8BB09E27BB83C30009015D /* ClusterAnnotationView.swift in Sources */,
 				4B95D4B527609B59003473B3 /* LogOutTableViewCell.swift in Sources */,
 				4B36CDC8271EEB830091D229 /* PublicationTableViewCell.swift in Sources */,
 				4B1B00612744FB7600D03BF2 /* DateExtension.swift in Sources */,
@@ -799,6 +817,7 @@
 				4B9113FD27171A7500841927 /* SubscriptionsViewController.swift in Sources */,
 				4B9113F32716B24800841927 /* UserData.swift in Sources */,
 				4BF7453F275E355F009B22A8 /* EventServerUpload.swift in Sources */,
+				3E523BDB27BCEBAF00B1D824 /* MarkerAnnotation.swift in Sources */,
 				4BCC3CDC276A2D430058973B /* MapPoint.swift in Sources */,
 				4B6F32362727DE6F008A8838 /* CountryViewController.swift in Sources */,
 				4B9113F72717153B00841927 /* MapViewController.swift in Sources */,
@@ -817,6 +836,7 @@
 				4B4210E327157C4700D5E809 /* SceneDelegate.swift in Sources */,
 				4BCC3CDA276A29AC0058973B /* MarkerAPIController.swift in Sources */,
 				3E06663D27747D6F008062FD /* PublicationFeedViewController.swift in Sources */,
+				3E8BB09C27BB7F500009015D /* MapPointAnnotationView.swift in Sources */,
 				4B42949F276B30A800F23C29 /* Points.swift in Sources */,
 				4B55111E274BCE7000DE47BF /* ImageAndDescriptionTableViewCell.swift in Sources */,
 				4BC356E2274E31550075896F /* GeoDataViewController.swift in Sources */,

@@ -47,11 +47,17 @@ class RegionFilterTableViewController: UITableViewController {
     var selectedRegionCode: String?
     var selectedRegionCodes = [String]()
     var selectedRegionNames = [String]()
+    var searchReg = [RegionData] ()
     
     weak var delegate: RegionCodeSendDelegate?
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         

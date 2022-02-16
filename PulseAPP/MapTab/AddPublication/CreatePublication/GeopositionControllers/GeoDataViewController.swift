@@ -284,10 +284,11 @@ extension GeoDataViewController : MKMapViewDelegate {
     func setPinsOnMap(for points: [MapPoint]) {
         //visiblePins.removeAll()
         if let mapCenter = mapCenter {
+            //Ranges for points displaying. Only screen visible annotations will be added
             let rangeLat = ((mapCenter.latitude - self.latDelta!)...(mapCenter.latitude + self.latDelta!))
             let rangeLong = ((mapCenter.longitude - self.longDelta!)...(mapCenter.longitude + self.longDelta!))
             for point in points {
-                
+                    //Check if current point should be displayed on screen
                     if rangeLat.contains(point.geoposition!.first!) && rangeLong.contains(point.geoposition!.last!) {
                         
                         let coordinate = CLLocationCoordinate2D(latitude: point.geoposition?.first ?? 0.0, longitude: point.geoposition?.last ?? 0.0)

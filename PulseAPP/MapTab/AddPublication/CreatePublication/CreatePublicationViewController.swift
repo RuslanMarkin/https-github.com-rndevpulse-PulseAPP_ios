@@ -146,7 +146,7 @@ class CreatePublicationViewController: UIViewController, UITableViewDelegate, UI
         
         userId = AuthUserData.shared.userId
         //Uploading images to server by the moment we get createPublicationViewController
-        //self.uploadImages(with: imgUrls)
+        self.uploadImages(with: imgUrls)
         
 
         // Do any additional setup after loading the view.

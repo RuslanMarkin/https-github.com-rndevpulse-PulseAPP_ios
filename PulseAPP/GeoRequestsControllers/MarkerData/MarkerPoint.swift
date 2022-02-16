@@ -34,3 +34,7 @@ struct MarkerPoint: Codable {
         region = try values.decodeIfPresent(String.self, forKey: .region)
     }
 }
+
+//class MPoint: MKAnnotation {
+//    
+//}

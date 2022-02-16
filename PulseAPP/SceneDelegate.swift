@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         //Repeating activity for token refresh
-        Timer.scheduledTimer(timeInterval: (60.0*60.0), target: self, selector: #selector(self.refreshToken), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: (60.0), target: self, selector: #selector(self.refreshToken), userInfo: nil, repeats: true)
         
         guard let _ = (scene as? UIWindowScene) else { return }
     }
@@ -34,6 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
     }
 
+    
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
@@ -60,6 +61,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let userData):
+                    Database.shared.updateUserData(with: userData.accessToken)
                 //    Database.shared.insertUserData(userId: userData.userId, login: login, password: password, token: userData.accessToken)
                 // How to replace db row?
                     AuthUserData.shared = userData

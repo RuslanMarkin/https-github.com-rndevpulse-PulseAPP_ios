@@ -337,6 +337,23 @@ class Database {
           sqlite3_finalize(queryStatement)
     }
     
+    func updateUserData(with token: String) {
+        let nsToken: NSString = NSString(string: token)
+        let queryStatementString = "UPDATE user_data SET token = \(nsToken) WHERE id = 2;"
+        
+        var queryStatement: OpaquePointer?
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+          if sqlite3_step(queryStatement) == SQLITE_DONE {
+            print("\nSuccessfully updated row.")
+          } else {
+            print("\nCould not update row.")
+          }
+        } else {
+          print("\nUPDATE statement is not prepared")
+        }
+        sqlite3_finalize(queryStatement)
+    }
+    
     func queryUserId() -> String {
         let queryStatementString = "SELECT * FROM user_data;"
         var queryStatement: OpaquePointer?
