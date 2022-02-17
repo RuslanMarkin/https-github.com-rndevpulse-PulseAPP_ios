@@ -18,6 +18,7 @@ class MapViewController: UIViewController {
     var longDelta: CLLocationDegrees?
     var geoposition: String?
     let rostovGeoString = "47.225624, 39.717085"
+    let colors = [UIColor.blue, UIColor.magenta, UIColor.green, UIColor.yellow, UIColor.brown] //colors for annotations on map
     
     @IBOutlet var mapView: MKMapView!
     
@@ -115,6 +116,7 @@ extension MapViewController: CLLocationManagerDelegate {
 }
 
  extension MapViewController: MKMapViewDelegate {
+     
      func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
          if annotation is MKUserLocation {
              return nil
@@ -161,11 +163,30 @@ extension MapViewController: CLLocationManagerDelegate {
 
      
     func setMarkersOnMap(points: [MarkerPoint]) {
-        for marker in points {
-            let coordinate = CLLocationCoordinate2D(latitude: marker.latLon?.first ?? 0.0, longitude: marker.latLon?.last ?? 0.0)
-            let pin = MarkerAnnotation(pulse: marker.pulse ?? 0, coordinate: coordinate)
-            //EventsAnnotation(title: nil, subtitle: nil, coordinate: coordinate, pinTintColor: .red, typeId: String(marker.pulse ?? 0))
-            self.mapView.addAnnotation(pin)
+        //All code below is needed to display annotations on map with different colors (typeId for markerPoint = UIColor).
+        let dic = Dictionary(grouping: points, by: {$0.typeId}) //Grouping [MarkerPoint]. Result is dictionary [<typeId> : [MarkerPoint]]
+        var i = 0
+        
+        let typeIds = Array(dic.keys) //Creating only typeIds array
+        let sortedTypeIds = typeIds.sorted { $0! < $1! } //Sorting typeIds array in ascending way
+        
+        var colorsForMarkersOnMap: [String: UIColor] = [:] //Preparing dictionary for [typeId: UIColor]
+        sortedTypeIds.forEach { typeId in
+            if let typeId = typeId {
+                colorsForMarkersOnMap[typeId] = colors[i]
+                i += 1
+            }
+        }
+        
+        //Having [typeId: UIColor] dictionary we initialize MarkerAnnotation instance with proper color
+        dic.forEach { (key: String?, value: [MarkerPoint]) in
+            value.forEach { marker in
+                if let key = key {
+                    let coordinate = CLLocationCoordinate2D(latitude: marker.latLon?.first ?? 0.0, longitude: marker.latLon?.last ?? 0.0)
+                    let pin = MarkerAnnotation(color: colorsForMarkersOnMap[key] ?? UIColor.red, pulse: marker.pulse ?? 0, coordinate: coordinate)
+                    self.mapView.addAnnotation(pin)
+                }
+            }
         }
     }
      
@@ -218,5 +239,14 @@ extension MapViewController: CLLocationManagerDelegate {
              let rect = CGRect(x: 20 - size.width / 2, y: 20 - size.height / 2, width: size.width, height: size.height)
              text.draw(in: rect, withAttributes: attributes)
          }
+     }
+     
+     func sortWithKeys(_ dict: [String?: [MarkerPoint]]) -> [String?: [MarkerPoint]] {
+         let sorted = dict.sorted(by: { $0.key! < $1.key! })
+         var newDict: [String?: [MarkerPoint]] = [:]
+         for sortedDict in sorted {
+             newDict[sortedDict.key] = sortedDict.value
+         }
+         return newDict
      }
  }

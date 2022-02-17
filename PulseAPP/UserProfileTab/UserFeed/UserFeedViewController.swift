@@ -160,7 +160,7 @@ class UserFeedViewController: UIViewController, UITableViewDelegate, UITableView
                     view.userNameLabel.text = userPreviewData.name
                     view.countPublicationsLabel.text = "\(NSLocalizedString("Publications: ", comment: "")) \(userPreviewData.countPublications)"
                     view.countPublicationsLabel.adjustsFontSizeToFitWidth = true
-                    view.countSubscriptionsLabel.text = "\(NSLocalizedString("Subscriptions: ", comment: ""))  \(userPreviewData.countUsersSubscription)"
+                    view.countSubscriptionsLabel.text = "\(NSLocalizedString("Subscriptions: ", comment: ""))  \(userPreviewData.countSubscriptions)"
                     view.countSubscriptionsLabel.adjustsFontSizeToFitWidth = true
                 case .failure(let error):
                     print(error)

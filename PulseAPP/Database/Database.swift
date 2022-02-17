@@ -137,7 +137,7 @@ class Database {
         var insertStatement: OpaquePointer?
         //Checking if prepared statement is ok or not
         if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
-            let id: Int32 = 1
+            let id: Int32 = 0
             let userId = NSString(string: userId)
             let login = NSString(string: login)
             let password = NSString(string: password)
@@ -337,9 +337,10 @@ class Database {
           sqlite3_finalize(queryStatement)
     }
     
-    func updateUserData(with token: String) {
-        let nsToken: NSString = NSString(string: token)
-        let queryStatementString = "UPDATE user_data SET token = \(nsToken) WHERE id = 2;"
+    func updateUserData(with accessToken: String) {
+        let nsToken: NSString = NSString(string: accessToken)
+        let id: Int32 = 1
+        let queryStatementString = "UPDATE user_data SET token = '\(nsToken)' WHERE id = \(id);"
         
         var queryStatement: OpaquePointer?
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {

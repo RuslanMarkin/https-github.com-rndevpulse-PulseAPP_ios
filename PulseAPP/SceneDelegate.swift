@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         //Repeating activity for token refresh
-        Timer.scheduledTimer(timeInterval: (60.0), target: self, selector: #selector(self.refreshToken), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: (60.0*60.0), target: self, selector: #selector(self.refreshToken), userInfo: nil, repeats: true)
         
         guard let _ = (scene as? UIWindowScene) else { return }
     }
@@ -62,6 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 switch result {
                 case .success(let userData):
                     Database.shared.updateUserData(with: userData.accessToken)
+                    print(userData.accessToken)
                 //    Database.shared.insertUserData(userId: userData.userId, login: login, password: password, token: userData.accessToken)
                 // How to replace db row?
                     AuthUserData.shared = userData

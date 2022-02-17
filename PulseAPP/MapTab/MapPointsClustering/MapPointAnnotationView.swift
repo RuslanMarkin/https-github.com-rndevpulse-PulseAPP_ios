@@ -27,9 +27,9 @@ class MapPointAnnotationView: MKMarkerAnnotationView {
         
         if let pointAnnotation = annotation as? MarkerAnnotation {
             let pulse = pointAnnotation.pulse
-            markerTintColor = .red
+            markerTintColor = pointAnnotation.color
             //glyphImage = drawRatio(0, to: pulse, fractionColor: nil, wholeColor: .red)
-            glyphText = String(pulse)
+            glyphText = String(pulse.roundedWithAbbreviations)
         }
     }
     

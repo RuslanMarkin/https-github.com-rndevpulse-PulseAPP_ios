@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E06663A27746A16008062FD /* EventsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06663927746A16008062FD /* EventsFeedViewController.swift */; };
 		3E06663D27747D6F008062FD /* PublicationFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06663C27747D6F008062FD /* PublicationFeedViewController.swift */; };
+		3E20F64227BE251E007845B0 /* IntToK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E20F64127BE251E007845B0 /* IntToK.swift */; };
 		3E2AB11B277303360047215B /* UserFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AB11A277303360047215B /* UserFeedViewController.swift */; };
 		3E3D2EB12775B7150099E4EC /* OrganizationFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D2EB02775B7150099E4EC /* OrganizationFeedViewController.swift */; };
 		3E3D2EB42775DCFB0099E4EC /* OrganizationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D2EB22775DCFB0099E4EC /* OrganizationTableViewCell.swift */; };
@@ -106,6 +107,7 @@
 /* Begin PBXFileReference section */
 		3E06663927746A16008062FD /* EventsFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFeedViewController.swift; sourceTree = "<group>"; };
 		3E06663C27747D6F008062FD /* PublicationFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationFeedViewController.swift; sourceTree = "<group>"; };
+		3E20F64127BE251E007845B0 /* IntToK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntToK.swift; sourceTree = "<group>"; };
 		3E2AB11A277303360047215B /* UserFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedViewController.swift; sourceTree = "<group>"; };
 		3E3D2EB02775B7150099E4EC /* OrganizationFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationFeedViewController.swift; sourceTree = "<group>"; };
 		3E3D2EB22775DCFB0099E4EC /* OrganizationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationTableViewCell.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 				4B4210EE27157C4900D5E809 /* Info.plist */,
 				4B1B00602744FB7600D03BF2 /* DateExtension.swift */,
 				3E85E8FC27731D5800F1E781 /* network.swift */,
+				3E20F64127BE251E007845B0 /* IntToK.swift */,
 			);
 			path = PulseAPP;
 			sourceTree = "<group>";
@@ -770,6 +773,7 @@
 				4B95D4B527609B59003473B3 /* LogOutTableViewCell.swift in Sources */,
 				4B36CDC8271EEB830091D229 /* PublicationTableViewCell.swift in Sources */,
 				4B1B00612744FB7600D03BF2 /* DateExtension.swift in Sources */,
+				3E20F64227BE251E007845B0 /* IntToK.swift in Sources */,
 				3EA56932279ED5E300F81632 /* RegionData.swift in Sources */,
 				4B551121274CC3F400DE47BF /* ImageResizer.swift in Sources */,
 				3E98387B27954F8C009CC0C9 /* ToolMenuCategorySwitchTableViewCell.swift in Sources */,

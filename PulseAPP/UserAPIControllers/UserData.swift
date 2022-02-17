@@ -50,7 +50,7 @@ struct UserPreviewData: Codable {
     var name: String
     var data: String?
     var countPublications: Int
-    var countUsersSubscription: Int
+    var countSubscriptions  : Int
 }
 
 struct LoginPassword {

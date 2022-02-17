@@ -11,6 +11,7 @@ import MapKit
 class MarkerAnnotation: NSObject, MKAnnotation {
     
     var pulse: Int = 0
+    var color: UIColor = UIColor.red
     
     private var latitude: CLLocationDegrees = 0
     private var longitude: CLLocationDegrees = 0
@@ -28,8 +29,9 @@ class MarkerAnnotation: NSObject, MKAnnotation {
         }
     }
     
-    init(pulse: Int, coordinate: CLLocationCoordinate2D) {
+    init(color: UIColor, pulse: Int, coordinate: CLLocationCoordinate2D) {
         super.init()
+        self.color = color
         self.pulse = pulse
         self.coordinate = coordinate
     }
