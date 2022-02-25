@@ -100,7 +100,7 @@ class EventsFeedViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: PublicationTableViewCell.identifier, for: indexPath) as! PublicationTableViewCell
-        cell.configureTableCell(with: self.publications[indexPath.row]) //Fatal error at refreshing data by pulling feed down
+        cell.configureTableCell(with: self.publications[indexPath.row+1]) //Fatal error at refreshing data by pulling feed down
         return cell
     }
     

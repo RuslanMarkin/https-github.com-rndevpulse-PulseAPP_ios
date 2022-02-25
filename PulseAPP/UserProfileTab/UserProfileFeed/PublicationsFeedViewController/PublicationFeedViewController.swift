@@ -97,12 +97,12 @@ class PublicationFeedViewController: UIViewController, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: PublicationTableViewCell.identifier, for: indexPath) as! PublicationTableViewCell
-        cell.configureTableCell(with: self.publications[indexPath.row]) //Fatal error at refreshing data by pulling feed down
-        return cell
+        cell.configureTableCell(with: self.publications[indexPath.row+1]) //Fatal error at refreshing data by pulling feed down
+        return cell 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 370
+        return 450
     }
     
     func createSpinner() -> UIView {

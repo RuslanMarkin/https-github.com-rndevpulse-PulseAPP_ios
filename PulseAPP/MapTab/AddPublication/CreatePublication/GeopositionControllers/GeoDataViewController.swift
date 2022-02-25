@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreLocationUI
 
 protocol GeoDataViewControllerDelegate {
     func sendGeoposition(geo: String)
@@ -429,6 +430,8 @@ extension GeoDataViewController: HandleMapSearch {
 extension GeoDataViewController: CLLocationManagerDelegate, UIGestureRecognizerDelegate {
         
         //User Location
+         
+    
         func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             if let userLocation = locations.first {
                 manager.stopUpdatingLocation()

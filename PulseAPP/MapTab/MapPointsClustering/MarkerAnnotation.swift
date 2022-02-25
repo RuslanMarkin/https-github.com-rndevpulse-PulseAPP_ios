@@ -8,14 +8,18 @@
 import Foundation
 import MapKit
 
+
+
+
 class MarkerAnnotation: NSObject, MKAnnotation {
     
-    var pulse: Int = 0
-    var color: UIColor = UIColor.red
+   var pulse: Int = 0
+   var color: UIColor = UIColor.blue
+    var typeName: String?
     
     private var latitude: CLLocationDegrees = 0
     private var longitude: CLLocationDegrees = 0
-
+    
     // This property must be key-value observable, which the `@objc dynamic` attributes provide.
     @objc dynamic var coordinate: CLLocationCoordinate2D {
         get {
@@ -28,11 +32,14 @@ class MarkerAnnotation: NSObject, MKAnnotation {
             longitude = newValue.longitude
         }
     }
+
     
-    init(color: UIColor, pulse: Int, coordinate: CLLocationCoordinate2D) {
+    
+    init(color: UIColor, pulse: Int, typeName: String?, coordinate: CLLocationCoordinate2D) {
         super.init()
         self.color = color
         self.pulse = pulse
         self.coordinate = coordinate
+        self.typeName = typeName
     }
 }

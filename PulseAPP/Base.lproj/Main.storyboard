@@ -187,7 +187,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oJI-4C-Awv">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="757"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -442,8 +442,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="NgG-QL-SYY">
-                                <rect key="frame" x="32" y="228.5" width="350" height="385.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xR7-YJ-lxR">
+                                <rect key="frame" x="186.5" y="757.5" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="NgG-QL-SYY">
+                                <rect key="frame" x="32" y="231" width="350" height="385.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG5-Tx-e7O">
                                         <rect key="frame" x="102.5" y="0.0" width="145" height="33.5"/>
@@ -457,7 +463,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Due-iA-Vyb">
-                                        <rect key="frame" x="127" y="141.5" width="96" height="34"/>
+                                        <rect key="frame" x="107" y="141.5" width="136" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -479,7 +485,7 @@
                                         </subviews>
                                     </stackView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="e-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vmR-AE-oO8">
-                                        <rect key="frame" x="127" y="283.5" width="96" height="34"/>
+                                        <rect key="frame" x="107" y="283.5" width="136" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -496,16 +502,10 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="N7O-6O-nVO"/>
-                                    <constraint firstItem="Due-iA-Vyb" firstAttribute="width" secondItem="NJD-GQ-dA4" secondAttribute="width" id="eLC-95-3c9"/>
-                                    <constraint firstItem="vmR-AE-oO8" firstAttribute="width" secondItem="NJD-GQ-dA4" secondAttribute="width" id="qP4-gj-UZx"/>
+                                    <constraint firstItem="Due-iA-Vyb" firstAttribute="width" relation="greaterThanOrEqual" secondItem="NJD-GQ-dA4" secondAttribute="width" constant="40" id="eLC-95-3c9"/>
+                                    <constraint firstItem="vmR-AE-oO8" firstAttribute="width" secondItem="NJD-GQ-dA4" secondAttribute="width" constant="40" id="qP4-gj-UZx"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xR7-YJ-lxR">
-                                <rect key="frame" x="186.5" y="757.5" width="41.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mJl-Yv-Mad"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
@@ -614,7 +614,7 @@
         <scene sceneID="tIu-dv-I1d">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZUI-Pg-u6r" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="ytg-zP-t0D"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.fill" catalog="system" id="ytg-zP-t0D"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HyQ-Ny-sm6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -760,9 +760,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="lkV-l9-KUV">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="njU-9S-Xk2">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="88.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="njU-9S-Xk2" id="cbz-6X-sBm">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -801,7 +806,7 @@
                         <viewLayoutGuide key="safeArea" id="ZCg-Vy-glA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Subscriptions" id="5qe-ra-EAt"/>
+                    <tabBarItem key="tabBarItem" title="Subscriptions" image="cart.fill" catalog="system" id="5qe-ra-EAt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fw9-2p-oXr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -817,7 +822,7 @@
                         <viewLayoutGuide key="safeArea" id="o0f-rM-7rG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Calendar" id="SMR-J4-Xp5"/>
+                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar" catalog="system" id="SMR-J4-Xp5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8a2-Ql-5It" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -831,8 +836,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AAD-qP-PZc">
-                                <rect key="frame" x="0.0" y="56" width="414" height="757"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AAD-qP-PZc">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sOX-4E-7Hi"/>
@@ -929,7 +934,7 @@
         <scene sceneID="0Bu-R3-GNp">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="P4u-KW-QHj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="m9k-8y-yEz"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="mappin.circle.fill" catalog="system" id="m9k-8y-yEz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vqx-uP-ScF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -1038,7 +1043,7 @@
         <scene sceneID="Bzd-Aj-sqY">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DNc-0T-dTy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tool Menu" id="6K0-yy-NQj"/>
+                    <tabBarItem key="tabBarItem" title="Tool Menu" image="seal" catalog="system" id="6K0-yy-NQj"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6EL-lD-qmW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -1059,8 +1064,13 @@
         <segue reference="PGS-Pd-Bka"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
+        <image name="mappin.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus.square.on.square.fill" catalog="system" width="128" height="113"/>
+        <image name="seal" catalog="system" width="128" height="128"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

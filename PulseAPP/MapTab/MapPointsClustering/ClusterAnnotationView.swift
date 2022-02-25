@@ -32,12 +32,12 @@ class ClusterAnnotationView: MKAnnotationView {
                     pulse += anno.pulse
                 }
             }
-            image = drawRatio(0, to: pulse, fractionColor: nil, wholeColor: .red)
+            image = ClusterAnnotationView.drawRatio(0, to: pulse, fractionColor: nil)
             displayPriority = .defaultLow
         }
     }
     
-    private func drawRatio(_ fraction: Int, to whole: Int, fractionColor: UIColor?, wholeColor: UIColor?) -> UIImage {
+    static func drawRatio(_ fraction: Int, to whole: Int, fractionColor: UIColor?, wholeColor: UIColor? = .red) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 40))
         return renderer.image { _ in
             // Fill full circle with wholeColor
@@ -59,6 +59,7 @@ class ClusterAnnotationView: MKAnnotationView {
             UIBezierPath(ovalIn: CGRect(x: 8, y: 8, width: 24, height: 24)).fill()
 
             // Finally draw count text vertically and horizontally centered
+            
             let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.black,
                                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 8)]
             let text = whole.roundedWithAbbreviations

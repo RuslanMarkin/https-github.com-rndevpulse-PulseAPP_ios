@@ -84,6 +84,7 @@ class AddPublicationViewController: UIViewController, UITableViewDelegate, UITab
             }
             group.notify(queue: .main) {
                 if !self.selectedImages.isEmpty {
+                    //!self.selected.roundedWithAbbreviations(self)
                     self.performSegue(withIdentifier: "CreatePublicationSegue", sender: self)
                 }
             }

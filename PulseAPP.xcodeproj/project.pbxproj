@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E06663A27746A16008062FD /* EventsFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06663927746A16008062FD /* EventsFeedViewController.swift */; };
 		3E06663D27747D6F008062FD /* PublicationFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E06663C27747D6F008062FD /* PublicationFeedViewController.swift */; };
+		3E0B3D3027C3B7FA00905536 /* FilterGlobalPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B3D2F27C3B7FA00905536 /* FilterGlobalPoints.swift */; };
 		3E20F64227BE251E007845B0 /* IntToK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E20F64127BE251E007845B0 /* IntToK.swift */; };
 		3E2AB11B277303360047215B /* UserFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AB11A277303360047215B /* UserFeedViewController.swift */; };
 		3E3D2EB12775B7150099E4EC /* OrganizationFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3D2EB02775B7150099E4EC /* OrganizationFeedViewController.swift */; };
@@ -107,6 +108,7 @@
 /* Begin PBXFileReference section */
 		3E06663927746A16008062FD /* EventsFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFeedViewController.swift; sourceTree = "<group>"; };
 		3E06663C27747D6F008062FD /* PublicationFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicationFeedViewController.swift; sourceTree = "<group>"; };
+		3E0B3D2F27C3B7FA00905536 /* FilterGlobalPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterGlobalPoints.swift; sourceTree = "<group>"; };
 		3E20F64127BE251E007845B0 /* IntToK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntToK.swift; sourceTree = "<group>"; };
 		3E2AB11A277303360047215B /* UserFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedViewController.swift; sourceTree = "<group>"; };
 		3E3D2EB02775B7150099E4EC /* OrganizationFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationFeedViewController.swift; sourceTree = "<group>"; };
@@ -639,6 +641,7 @@
 		4BCC3CD8276A29750058973B /* GeoRequestsControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3E0B3D2F27C3B7FA00905536 /* FilterGlobalPoints.swift */,
 				4BCC3CD9276A29AC0058973B /* MarkerAPIController.swift */,
 				3E5120A527B6822900769339 /* MarkerData */,
 				4BCC3CDB276A2D430058973B /* MapPoint.swift */,
@@ -789,6 +792,7 @@
 				3E85E8FB277317E300F1E781 /* UserAbility.swift in Sources */,
 				3E5120AA27B682C400769339 /* MarkerPoint.swift in Sources */,
 				4B55CE962743EE78007152B3 /* ProfileSettingsViewController.swift in Sources */,
+				3E0B3D3027C3B7FA00905536 /* FilterGlobalPoints.swift in Sources */,
 				4BC3570B274E5A9F0075896F /* CategoryCollectionViewCell.swift in Sources */,
 				4B566EF12760B1B400452AD7 /* DescriptionTableViewCell.swift in Sources */,
 				4B3D81C62758F7E3009CA0F6 /* NameTableViewCell.swift in Sources */,
@@ -1006,7 +1010,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9ZFC28246W;
+				DEVELOPMENT_TEAM = G8FWN5T2UN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PulseAPP/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1034,7 +1038,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9ZFC28246W;
+				DEVELOPMENT_TEAM = G8FWN5T2UN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PulseAPP/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
