@@ -51,7 +51,7 @@ class MarkerAPIController {
     }
     
     //Func to fetch objects on map to cluster them
-    func getMarkers(with centerCoordinates: String, precision: Int, completion: @escaping (Result<MarkerPoints, ErrorData>) -> Void) {
+    func getMarkers(Lat: Double, Lon: Double, precision: Int, completion: @escaping (Result<MarkerPoints, ErrorData>) -> Void) {
         let url = baseURL.appendingPathComponent("publications/map/points")
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
         components.queryItems = [URLQueryItem(name: "pre", value: String(precision))]
@@ -64,7 +64,9 @@ class MarkerAPIController {
         let config = URLSessionConfiguration.default
         let session = URLSession.init(configuration: config)
         
-        let data: [String: String] = ["geoposition": centerCoordinates]
+        let data = FilterGlobalPoints()
+        data.Lat = Lat
+        data.Lon = Lon
         
         let jsonEncoder = JSONEncoder()
         let jsonData = try? jsonEncoder.encode(data)
@@ -84,4 +86,5 @@ class MarkerAPIController {
         }
         task.resume()
     }
+        
 }
